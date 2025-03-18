@@ -38,7 +38,7 @@ const App: React.FC = () => {
           </h1>
 
           <p className="max-w-2xl mb-6 font-bold text-gray-500 lg:mb-8 text-3xl dark:text-gray-400">
-          From deep-dive penetration testing to proactive threat monitoring, I provide tailored solutions to secure your network and protect your business.
+          From innovative scripting to hands-on ethical hacking, I blend my CTF expertise with advanced malware engineering to fortify digital defenses.
 
           </p>
           <a
@@ -112,10 +112,10 @@ const App: React.FC = () => {
 
               <div className="max-w-screen-md mb-8 lg:mb-12 mx-auto">
                 <h2 className="mb-4 text-4xl md:text-5xl tracking-tight font-extrabold text-gray-900 dark:text-white">
-                Breaking Systems, Building Security
+                  Uncovering Vulnerabilities, Fortifying Futures
                 </h2>
                 <p className="text-gray-500 text-2xl dark:text-gray-400">
-                Specialized in uncovering critical security vulnerabilities through advanced penetration testing, helping organizations fortify their digital infrastructure before real threats emerge.
+                  Driven by a passion for ethical hacking, I leverage innovative scripting and hands-on experience in CTF challenges and malware engineering to expose hidden vulnerabilities and reinforce digital defenses.
                 </p>
               </div>
 
@@ -213,7 +213,7 @@ const App: React.FC = () => {
 
           <section className="bg-gray-100 dark:bg-black lg:py-18 lg:px-6 border-t-4 border-b-4 border-solid border-green-700 bg-white dark:bg-black relative z-20">
             <div className="py-8 lg:py-16 mx-auto max-w-screen-xl px-4 ">
-                <h2 className="mb-8 lg:mb-16 text-3xl font-extrabold tracking-tight leading-tight text-center text-gray-900 dark:text-white md:text-4xl">Clients</h2>
+                <h2 className="mb-8 lg:mb-16 text-3xl font-extrabold tracking-tight leading-tight text-center text-gray-900 dark:text-white md:text-4xl">Work Experience</h2>
                 <div className="grid grid-cols-2 gap-8 text-gray-500 sm:gap-12 md:grid-cols-3 lg:grid-cols-6 dark:text-gray-400">
                     <a href="#" className="flex justify-center items-center">
                         <svg className="h-9 hover:text-gray-900 dark:hover:text-white" viewBox="0 0 125 35" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
@@ -279,16 +279,15 @@ const App: React.FC = () => {
           <div className="gap-16 items-center py-8 px-4 mx-auto max-w-screen-xl lg:grid lg:grid-cols-2 lg:py-8 lg:px-6">
             <div className="font-light text-gray-500 sm:text-lg dark:text-gray-400">
               <h2 className="mb-4 text-5xl tracking-tight font-extrabold text-gray-900 dark:text-white">
-                About Me, HAK3R
+                About Me, Daryl Gatt
               </h2>
               <p className="mb-4 text-3xl">
-              I've dedicated my career to finding the vulnerabilities that others miss. My journey began with CTF competitions and evolved into a full-time commitment to making digital spaces more secure.
+                I script and immerse myself in ethical hacking, driven by a passion for CTF challenges and malware engineering.
               </p>
               <p className="text-xl">
-             My approach combines creative problem-solving with rigorous methodology, ensuring no stone is left unturned in the pursuit of robust security.
+                My focus is on uncovering vulnerabilities and crafting innovative defenses to secure digital environments.
               </p>
-              <a href="#" className="inline-flex mt-8 items-center justify-center px-5 py-4 text-base font-medium text:3xl text-center text-gray-900 border-4 border-green-300  hover:bg-green-100 focus:ring-4 focus:ring-gray-100 dark:text-white dark:border-green-700 dark:hover:bg-green-700 dark:focus:ring-gray-800"
-          >
+              <a href="#" className="inline-flex mt-8 items-center justify-center px-5 py-4 text-base font-medium text:3xl text-center text-gray-900 border-4 border-green-300  hover:bg-green-100 focus:ring-4 focus:ring-gray-100 dark:text-white dark:border-green-700 dark:hover:bg-green-700 dark:focus:ring-gray-800">
             Download C.V.
           </a>
             </div>
@@ -364,10 +363,10 @@ const App: React.FC = () => {
         <section className="bg-white dark:bg-black transition-all duration-300 hover:scale-105">
           <div className="py-8 lg:py-16 px-4 mx-auto max-w-screen-md">
             <h2 className="mb-4 text-4xl tracking-tight font-extrabold text-center text-gray-900 dark:text-white">
-            Book a consultation today – your security is my priority
+              Let's Connect: Explore Work & Collaboration
             </h2>
             <p className="mb-8 lg:mb-16 font-light text-center text-gray-500 dark:text-gray-400 text-xl lg:text-2xl">
-            Protect your digital assets and maintain customer trust with proactive security testing.
+              Interested in discussing projects, internships, or collaborative opportunities in cybersecurity and ethical hacking? Reach out and let's build a secure future together.
             </p>
             <form action="#" className="space-y-8">
             <div>
@@ -390,7 +389,7 @@ const App: React.FC = () => {
                   type="email"
                   id="email"
                   className="shadow-sm bg-gray-50 border-4 border-green-300 text-gray-900 text-sm  focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-black dark:border-green-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500 dark:shadow-sm-light"
-                  placeholder="name@company.com"
+                  placeholder="name@example.com"
                   required
                 />
               </div>
@@ -402,7 +401,7 @@ const App: React.FC = () => {
                   type="text"
                   id="subject"
                   className="block p-3 w-full text-sm text-gray-900 bg-gray-50  border-4 border-green-300 shadow-sm focus:ring-primary-500 focus:border-primary-500 dark:bg-black dark:border-green-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500 dark:shadow-sm-light"
-                  placeholder="Let us know how we can help you"
+                  placeholder="How can I help you?"
                   required
                 />
               </div>
