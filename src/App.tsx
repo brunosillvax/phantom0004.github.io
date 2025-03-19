@@ -39,32 +39,8 @@ const App: React.FC = () => {
 
           <p className="max-w-2xl mb-6 font-bold text-gray-500 lg:mb-8 text-3xl dark:text-gray-400">
           From innovative scripting to hands-on ethical hacking, I blend my CTF expertise with advanced malware engineering to fortify digital defenses.
-
           </p>
-          <a
-            href="#about"
-            className="inline-flex items-center justify-center px-5 py-3 mr-3 text-base font-medium text:3xl text-center text-white  bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:ring-primary-300 dark:focus:ring-primary-900"
-          >
-            More About Me
-            <svg
-              className="w-5 h-5 ml-2 -mr-1"
-              fill="currentColor"
-              viewBox="0 0 20 20"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                fillRule="evenodd"
-                d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z"
-                clipRule="evenodd"
-              />
-            </svg>
-          </a>
-          <a
-            href="#contact"
-            className="inline-flex items-center justify-center px-5 py-4 text-base font-medium text:3xl text-center text-gray-900 border-4 border-green-300  hover:bg-green-100 focus:ring-4 focus:ring-gray-100 dark:text-white dark:border-green-700 dark:hover:bg-green-700 dark:focus:ring-gray-800"
-          >
-            Contact Me!
-          </a>
+          
         </div>
         <div 
           id="hacker-logo" 
@@ -72,7 +48,7 @@ const App: React.FC = () => {
           style={{ opacity: 0 }}  // This ensures it's initially invisible but still rendered
         >
           <img
-            src="./assets/images/hacker.png"
+            src="./assets/images/portfolio-image.png"
             alt="hacker"
           />
         </div>
@@ -80,31 +56,30 @@ const App: React.FC = () => {
     </section>
 
     {/* #### ACCOLADES SECTION #### */}
-        <section className="bg-white dark:bg-black ">
-          <div className="max-w-screen-xl px-4 py-8 mx-auto text-center lg:py-28 lg:px-6 border-4 border-solid border-green-700 bg-white dark:bg-black relative z-20">
-          <dl className="grid max-w-screen-md gap-8 mx-auto text-gray-900 sm:grid-cols-3 dark:text-white">
-              <div className="flex flex-col items-center justify-center">
-                  <dt className="mb-2 text-5xl md:text-7xl font-extrabold">
-                      <span data-counter-target="20">0</span>+
-                  </dt>
-                  <dd className="font-light text-2xl text-gray-500 dark:text-gray-400">Years of Experience</dd>
-              </div>
-              <div className="flex flex-col items-center justify-center">
-                  <dt className="mb-2 text-5xl md:text-7xl font-extrabold">
-                      <span data-counter-target="300">0</span>+
-                  </dt>
-                  <dd className="font-light text-2xl text-gray-500 dark:text-gray-400">Engagements Completed</dd>
-              </div>
-              <div className="flex flex-col items-center justify-center">
-                  <dt className="mb-2 text-5xl md:text-7xl font-extrabold">
-                      <span data-counter-target="10000">0</span>
-                  </dt>
-                  <dd className="font-light text-2xl text-gray-500 dark:text-gray-400">Cups of Dark Roast Coffee</dd>
-              </div>
-          </dl>
-                    </div>
-                    
-        </section>
+    <section className="bg-white dark:bg-black ">
+      <div className="max-w-screen-xl px-4 py-8 mx-auto text-center lg:py-28 lg:px-6 border-4 border-solid border-green-700 bg-white dark:bg-black relative z-20">
+        <dl className="grid max-w-screen-md gap-8 mx-auto text-gray-900 sm:grid-cols-3 dark:text-white">
+          <div className="flex flex-col items-center justify-center">
+            <dt className="mb-2 text-5xl md:text-7xl font-extrabold">
+              <span data-counter-target="89">0</span>+
+            </dt>
+            <dd className="font-light text-2xl text-gray-500 dark:text-gray-400">TryHackMe Rooms Completed</dd>
+          </div>
+          <div className="flex flex-col items-center justify-center">
+            <dt className="mb-2 text-5xl md:text-7xl font-extrabold">
+              <span data-counter-target="72">0</span>
+            </dt>
+            <dd className="font-light text-2xl text-gray-500 dark:text-gray-400">Stars Earned on GitHub</dd>
+          </div>
+          <div className="flex flex-col items-center justify-center">
+            <dt className="mb-2 text-5xl md:text-7xl font-extrabold">
+              <span data-counter-target="900">0</span>+
+            </dt>
+            <dd className="font-light text-2xl text-gray-500 dark:text-gray-400">Hours Spent Debugging</dd>
+          </div>
+        </dl>
+      </div>
+    </section>
 
         {/* #### SERVICES SECTION #### */}
           <section id="services" className="pt-8 pb-12 bg-white dark:bg-black flex justify-center items-center">
