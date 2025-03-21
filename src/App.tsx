@@ -31,7 +31,7 @@ const App: React.FC = () => {
             id="dynamicHeadline"
             className="max-w-2xl mb-4 text-4xl font-extrabold tracking-tight leading-none md:text-5xl xl:text-6xl dark:text-white"
           >
-            Secure Your Future with{" "}
+            Fueling Innovation in Cybersecurity Through {" "}
             <span id="dynamicWords" className="text-green-500 font-bold">
               Ethical Hacking Done Right
             </span>
@@ -183,7 +183,6 @@ const App: React.FC = () => {
               </div>
             </div>
           </section>
-          
           {/* #### LOGOS SECTION #### */}
 
           <section className="bg-gray-100 dark:bg-black lg:py-18 lg:px-6 border-t-4 border-b-4 border-solid border-green-700 bg-white dark:bg-black relative z-20">
@@ -279,42 +278,50 @@ const App: React.FC = () => {
             />
           </div>
           </div>
-          <div className="max-w-screen-xl px-4 pb-8 mx-auto text-center lg:pb-16 lg:px-6">
-            <figure className="max-w-screen-md mx-auto">
-              <svg
-                className="h-12 mx-auto mb-3 text-gray-400 dark:text-gray-600"
-                viewBox="0 0 24 27"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M14.017 18L14.017 10.609C14.017 4.905 17.748 1.039 23 0L23.995 2.151C21.563 3.068 20 5.789 20 8H24V18H14.017ZM0 18V10.609C0 4.905 3.748 1.038 9 0L9.996 2.151C7.563 3.068 6 5.789 6 8H9.983L9.983 18L0 18Z"
-                  fill="currentColor"
-                />
-              </svg>
-              <blockquote className="transform transition-all duration-300 hover:scale-125">
-              <p className="text-2xl font-medium py-8 text-gray-900 dark:text-white">
-                "Working with HAK3R transformed our security posture completely. Their methodical approach to penetration testing uncovered critical vulnerabilities that our internal team had missed for months. What sets them apart isn't just their technical expertise, but their ability to communicate complex security concepts in a way that resonates with us."
-              </p>
-            </blockquote>
-              <figcaption className="flex items-center justify-center mt-6 space-x-3">
+
+          <section className="max-w-screen-xl px-4 pb-8 mx-auto text-center lg:pb-16 lg:px-6">
+            {/* Section Heading */}
+            <h2 className="mb-6 text-4xl font-extrabold text-gray-900 dark:text-white">
+              Featured Project: Morpheus IOC Scanner
+            </h2>
+
+            {/* Project Logo */}
+            <div className="flex justify-center mb-6">
+              <img
+                src="/assets/images/morpheus_logo.png"
+                alt="Morpheus IOC Scanner Logo"
+                className="h-[550px] w-auto rounded transition-transform duration-300 hover:scale-110"
+              />
+            </div>
+
+            {/* Project Description */}
+            <p className="max-w-screen-md mx-auto text-xl font-medium py-4 text-gray-900 dark:text-white">
+              Morpheus IOC Scanner is the most ambitious project I’ve built. What started as a thesis 
+              quickly evolved into a powerful open-source malware detection tool, shaped by feedback 
+              from real cybersecurity professionals. With over 1K views and 49 stars, it showcases my 
+              commitment to building practical security solutions.
+            </p>
+
+            {/* Attribution (Profile) */}
+            <div className="flex items-center justify-center mt-6 space-x-3">
               <img
                 className="w-6 h-6 rounded-full transition-opacity duration-300 hover:opacity-70"
-                src="./assets/images/michael-gouch.png"
-                alt="profile picture"
+                src="./assets/images/your-profile.jpg"
+                alt="Daryl Gatt profile"
               />
-                <div className="flex items-center divide-x-2 divide-gray-500 dark:divide-gray-700">
-                  <div className="pr-3 font-medium text-gray-900 dark:text-white">
-                    John Doe
-                  </div>
-                  <div className="pl-3 text-sm font-light text-gray-500 dark:text-gray-400">
-                    CEO at Google
-                  </div>
+              <div className="flex items-center divide-x-2 divide-gray-500 dark:divide-gray-700">
+                <div className="pr-3 font-medium text-gray-900 dark:text-white">
+                  Daryl Gatt
                 </div>
-              </figcaption>
-            </figure>
-          </div>
+                <div className="pl-3 text-sm font-light text-gray-500 dark:text-gray-400">
+                  Creator of Morpheus
+                </div>
+              </div>
+            </div>
+          </section>
         </section>
+        
+        {/* #### CONTACT SECTION #### */}
         <section id="contact" className="bg-white dark:bg-black">
           <div className="gap-8 items-center py-8 px-4 mx-auto max-w-screen-xl xl:gap-16 md:grid md:grid-cols-2 sm:py-16 lg:px-6">
             <img

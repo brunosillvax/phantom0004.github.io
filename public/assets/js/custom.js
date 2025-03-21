@@ -12,12 +12,17 @@ document.addEventListener("DOMContentLoaded", () => {
             }
 
             const phrases = [
-                "Ethical Hacking Done Right",
-                "Cybersecurity Solutions That Matter",
-                "Defending Your Digital Frontier",
-                "Innovative Security Strategies",
-                "Protecting Your Digital Assets"
-            ];
+                "Hands-On Ethical Hacking",
+                "80+ Real-World TryHackMe Labs",
+                "Code-Driven Defense",
+                "Capture The Flag Challenger",
+                "From Curiosity to Cyber Mastery",
+                "Offense-Focused Security Mindset",
+                "Reverse Engineering in Progress",
+                "Learning by Breaking Things",
+                "Crafting Malware for Research",
+                "Powered by Python, Fueled by Purpose"
+            ]; 
 
             let phraseIndex = 0;
             let charIndex = 0;
