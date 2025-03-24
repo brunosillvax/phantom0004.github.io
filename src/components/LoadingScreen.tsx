@@ -23,11 +23,12 @@ export function LoadingScreen() {
 
   return (
     <motion.div
-      initial={{ opacity: 1 }}
-      animate={{ opacity: 0 }}
-      transition={{ duration: 0.5, delay: 2.5 }}
+      initial={{ opacity: 1, scale: 1 }}
+      animate={{ opacity: 0, scale: 0.95 }}
+      transition={{ duration: 0.6, delay: 2.5, ease: 'easeInOut' }}
       className="fixed inset-0 z-50 bg-black flex items-center justify-center"
     >
+
       <div className="space-y-4 font-mono text-green-500">
         <motion.div
           initial={{ opacity: 0 }}

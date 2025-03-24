@@ -39,11 +39,13 @@ export function ProjectsSection() {
   return (
     <section className="py-20 bg-black/30">
       <motion.div
-        initial={{ opacity: 0 }}
-        whileInView={{ opacity: 1 }}
-        transition={{ duration: 0.5 }}
+        initial={{ opacity: 0, y: 40 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, amount: 0.3 }}
+        transition={{ duration: 0.8, ease: 'easeOut' }}
         className="container mx-auto px-4"
       >
+
         <h2 className="text-4xl md:text-5xl font-light mb-12 flex items-center gap-4">
           <Code2 className="w-8 h-8 text-green-500" />
           <span>ls ~/projects</span>

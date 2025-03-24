@@ -5,11 +5,13 @@ export function AboutSection() {
   return (
     <section className="py-20">
       <motion.div
-        initial={{ opacity: 0 }}
-        whileInView={{ opacity: 1 }}
-        transition={{ duration: 0.5 }}
+        initial={{ opacity: 0, y: 60 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.8, ease: 'easeOut' }}
+        viewport={{ once: true, amount: 0.3 }}
         className="container mx-auto px-4"
       >
+
         <h2 className="text-4xl md:text-5xl font-light mb-12 flex items-center gap-4">
           <Terminal className="w-8 h-8 text-green-500" />
           <span>whoami</span>
