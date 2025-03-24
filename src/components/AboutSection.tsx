@@ -22,39 +22,45 @@ export function AboutSection() {
             transition={{ duration: 0.5, delay: 0.2 }}
             className="space-y-6"
           >
-            <p className="text-gray-400 leading-relaxed">
-              I'm a passionate cybersecurity professional and ethical hacker with a focus on 
-              secure software development and penetration testing. My journey in tech started 
-              with programming and evolved into a deep fascination with security.
-            </p>
-            <p className="text-gray-400 leading-relaxed">
-              Currently pursuing advanced certifications in cybersecurity while actively 
-              participating in CTF competitions and contributing to open-source security tools.
-            </p>
+          <p className="text-gray-400 leading-relaxed">
+            I'm a <span className="text-green-400">cybersecurity enthusiast</span> and <span className="text-green-400">ethical hacker</span> with a strong passion for 
+            secure software development and offensive research. My journey began in programming but quickly 
+            spiraled into a deep obsession with breaking, defending, and <span className="text-green-400">understanding systems from the inside out</span>.
+          </p>
+
+          <p className="text-gray-400 leading-relaxed mt-4">
+            I'm currently leveling up through <span className="text-green-400">advanced certifications</span>, diving into real-world 
+            labs, and staying sharp by competing in <span className="text-green-400">Capture The Flag (CTF)</span> challenges. I also contribute to 
+            open-source tools focused on red teaming, automation, and threat detection.
+          </p>
           </motion.div>
           
           <motion.div
             initial={{ opacity: 0, x: 20 }}
             whileInView={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.5, delay: 0.4 }}
-            className="font-mono text-sm space-y-2 bg-black/30 p-6 rounded-lg border border-green-500/20"
+            className="font-mono text-sm bg-black/30 p-6 rounded-xl border border-green-500/20 shadow-lg w-full max-w-2xl mx-auto text-center space-y-4"
           >
-            <pre className="text-green-500">
-              {`
- _____ _            _    _ _   
-|_   _| |          | |  | | |  
-  | | | |__   ___  | |  | | |_ 
-  | | | '_ \\ / _ \\ | |/\\| | __|
-  | | | | | |  __/ \\  /\\  / |_ 
-  \\_/ |_| |_|\\___|  \\/  \\/ \\__|
-              `}
-            </pre>
-            <div className="text-gray-500">
-              <p>Skills: Penetration Testing, Secure Development, Network Security</p>
-              <p>Tools: Kali Linux, Burp Suite, Metasploit, Wireshark</p>
-              <p>Languages: Python, JavaScript, Bash, C++</p>
+              <pre className="text-green-500 text-center">
+                {`
+  ⠀⠀⠀⠀⠀⢀⣴⣿⣿⣿⣦⠀
+  ⠀⠀⠀⠀⣰⣿⡟⢻⣿⡟⢻⣧
+  ⠀⠀⠀⣰⣿⣿⣇⣸⣿⣇⣸⣿
+  ⠀⠀⣴⣿⣿⣿⣿⠟⢻⣿⣿⣿
+  ⣠⣾⣿⣿⣿⣿⣿⣤⣼⣿⣿⠇
+  ⢿⡿⢿⣿⣿⣿⣿⣿⣿⣿⡿⠀
+  ⠀⠀⠈⠿⠿⠋⠙⢿⣿⡿⠁⠀
+                `}
+              </pre>
+
+            <div className="text-gray-300 space-y-1">
+              <p><span className="text-green-400">Alias:</span> Phantom</p>
+              <p><span className="text-green-400">Skills:</span> Penetration Testing, Secure Development, Network Security</p>
+              <p><span className="text-green-400">Tools:</span> Kali Linux, Burp Suite, Metasploit, Wireshark</p>
+              <p><span className="text-green-400">Languages:</span> Python, JavaScript, Bash, C++</p>
             </div>
           </motion.div>
+
         </div>
       </motion.div>
     </section>

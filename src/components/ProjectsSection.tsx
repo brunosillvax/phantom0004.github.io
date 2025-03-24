@@ -3,27 +3,37 @@ import { Code2, Github, ExternalLink } from 'lucide-react';
 
 const projects = [
   {
-    title: 'SecureAuth',
-    description: 'Zero-trust authentication system with biometric verification',
-    tech: ['Python', 'React', 'PostgreSQL'],
-    github: 'https://github.com',
-    demo: 'https://demo.com'
+    title: 'KRYPT0S Ransomware PoC',
+    description: 'A sophisticated Python-based ransomware proof of concept designed for educational purposes, demonstrating file encryption techniques on Windows machines.',
+    tech: ['Python', 'Cryptography', 'Windows'],
+    github: 'https://github.com/phantom0004/KRYPT0S-Ransomware_POC',
   },
   {
-    title: 'NetGuard',
-    description: 'Network monitoring tool with ML-based threat detection',
-    tech: ['Python', 'TensorFlow', 'ElasticSearch'],
-    github: 'https://github.com',
-    demo: 'https://demo.com'
+    title: 'Morpheus IOC Scanner',
+    description: 'An advanced Indicator of Compromise (IOC) detection tool powered by YARA rules and integrated with VirusTotal for precise threat identification.',
+    tech: ['Python', 'YARA', 'Cybersecurity'],
+    github: 'https://github.com/phantom0004/morpheus_IOC_scanner',
   },
   {
-    title: 'CryptoVault',
-    description: 'Secure file storage with military-grade encryption',
-    tech: ['TypeScript', 'Node.js', 'React'],
-    github: 'https://github.com',
-    demo: 'https://demo.com'
+    title: 'ELK Stack Tools',
+    description: 'A comprehensive collection of tools, scripts, and documentation for managing and utilizing the ELK (Elasticsearch, Logstash, Kibana) stack effectively.',
+    tech: ['ELK Stack', 'Bash', 'Documentation'],
+    github: 'https://github.com/phantom0004/elk-stack-tools',
+  },
+  {
+    title: 'FuzzFindr Web Fuzzing Tool',
+    description: 'A robust web fuzzing and scraper tool inspired by "ffuf," designed to enhance web security testing through customizable wordlists.',
+    tech: ['Python', 'Web Security', 'Fuzzing'],
+    github: 'https://github.com/phantom0004/FuzzFindr-Web-Fuzzing-Tool',
+  },
+  {
+    title: 'Sneakerology Website',
+    description: 'A school assignment project showcasing various sneakers, allowing users to browse and explore different sneaker models.',
+    tech: ['PHP', 'HTML', 'CSS', 'JavaScript'],
+    github: 'https://github.com/phantom0004/Sneakerology',
   }
 ];
+
 
 export function ProjectsSection() {
   return (
@@ -43,11 +53,24 @@ export function ProjectsSection() {
           {projects.map((project, index) => (
             <motion.div
               key={project.title}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: index * 0.1 }}
-              className="bg-black/50 border border-green-500/20 rounded-lg p-6 hover:border-green-500/40 transition-all duration-300"
+              onMouseMove={(e) => {
+                const card = e.currentTarget;
+                const rect = card.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                const centerX = rect.width / 2;
+                const centerY = rect.height / 2;
+                const rotateX = -(y - centerY) / 15;
+                const rotateY = (x - centerX) / 15;
+                card.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+              }}
+              onMouseLeave={(e) => {
+                const card = e.currentTarget;
+                card.style.transform = `rotateX(0deg) rotateY(0deg)`;
+              }}
+              className="bg-black/50 border border-green-500/20 rounded-lg p-6 shadow-lg transform-gpu transition-transform duration-300 hover:shadow-[0_0_25px_rgba(0,255,0,0.25)] hover:border-green-400"
             >
+
               <h3 className="text-xl font-semibold mb-3 text-green-500">{project.title}</h3>
               <p className="text-gray-400 text-sm mb-4">{project.description}</p>
               
