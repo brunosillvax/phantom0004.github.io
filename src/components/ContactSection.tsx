@@ -109,11 +109,31 @@ export function ContactSection() {
               <pre className="bg-black/30 p-4 rounded-lg text-gray-400 relative group-hover:bg-black/40 transition-colors duration-300">
                 <code className="block whitespace-pre font-mono text-xs leading-relaxed overflow-hidden">
                   {`-----BEGIN PGP PUBLIC KEY BLOCK-----
-Version: OpenPGP.js v4.10.4
-Comment: https://openpgpjs.org
+Version: Keybase OpenPGP v1.0.0
+Comment: https://keybase.io/crypto
 
-xsFNBGBI7U4BEAC8ZPj...
-[Public key content truncated]
+xm8EZ+O/yRMFK4EEACIDAwSZzHVo55XImzYyAJx7i4kHNXGwouQHpbSuWID9m5Qo
+1Wu794lsdVOjPkw97TQR6myjJybHkvI/FifXDWVLtR+y9P9xEZbBcTLENu6HC10A
+mWpfqgWpelN8HOAbzG5wY0DNTERhcnlsIEdhdHQgKFBvcnRmb2xpbyBDb21tdW5p
+Y2F0aW9uIFBHUCBLZXkpIDxwaGFudG9tLnRlY2hzZWNAZGFyeWxnYXR0LmRldj7C
+jwQTEwoAFwUCZ+O/yQIbLwMLCQcDFQoIAh4BAheAAAoJEBTOIqkqa6XjJlgBfjwX
+C7Y818OJABf0F8JmgNX3A7FpbFkiZGNsvwG0pyrqdw0Bbo8h2l2Sj8FfbDA9GQGA
+06HIDizhL2IUzl0f3cWNo9Mw5Rj4IThXP1DR6PGnsiQ8E1pUh2fG25SnoGCpVyO+
+zlIEZ+O/yRMIKoZIzj0DAQcCAwTsZHnjZAg/M+o6NfSb9yPaKBAxtUbbC71EOYzj
+dgyQsI+ZCW+90NJSXUX67CyysOIRoGUHi9FUyirOitqODiVGwsAnBBgTCgAPBQJn
+47/JBQkPCZwAAhsuAGoJEBTOIqkqa6XjXyAEGRMKAAYFAmfjv8kACgkQepvM3biF
+SaUHHwEAvbp9OUK6OQNPHUlH/U1vJHQ1/h/NhxICATvyh7JuN5IA/0WoBZBtkGbS
+sLFibCyKjKNDUk4I5Va0KLi6C9hTre3RX4wBfi7CopW9JJi8yxmLL0yTWtY4efFm
+prSsm0em2t5V6/b4MlNZyXe8XtABgSKATp4TSAGAxaXOtzEuXKZFFmwvYZhBUP+A
+1b5UOSYQU6+MeePqbUrPWKggWPtkJLmsVTvbQmMHzlIEZ+O/yRMIKoZIzj0DAQcC
+AwSc30NSiqGtYVRje8VU4ex+LMvGFnKML4IPvooO7rlP+jcznUvlAvdtQwiBxfgq
+a2Pp+zLkCzKQA1t1hW7lkwZPwsAnBBgTCgAPBQJn47/JBQkPCZwAAhsuAGoJEBTO
+Iqkqa6XjXyAEGRMKAAYFAmfjv8kACgkQk4r72Kfd1MNsQgEArUnUs+4Tl31Ly+gV
+1Id87MMacMS9UXta93ijqnuoGH8A/0QX+0PwhEB1W0XzFk3r2AuQBRx0b2vPfvNs
+fO7rBGF/AB8BfismO8sPZZ4I/Zv4C3K6WWRoQ1QsShnUS08OC3E6kp+TIMttdMts
+kzCJbiqnMXI6KQF/SXvYxag17mwrLdGDkWb1UnEt5jADip3dnytMjIOsQrw4S+jH
+8pNTqFt+QwoaIfTy
+=ihCx
 -----END PGP PUBLIC KEY BLOCK-----`}
                 </code>
                 <div className="pgp-scan-animation">
