@@ -1,18 +1,98 @@
 import { motion } from 'framer-motion';
-import { Send, Key } from 'lucide-react';
-import { useForm } from 'react-hook-form';
-
-type ContactFormData = {
-  name: string;
-  email: string;
-  message: string;
-};
+import { Send, Key, Copy, Check } from 'lucide-react';
+import { useState, useRef, useEffect } from 'react';
+import confetti from 'canvas-confetti';
 
 export function ContactSection() {
-  const { register, handleSubmit, formState: { errors } } = useForm<ContactFormData>();
+  const [copied, setCopied] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [cooldown, setCooldown] = useState(false);
+  const formRef = useRef<HTMLFormElement>(null);
+  const cooldownTimeRef = useRef<number>(0);
 
-  const onSubmit = (data: ContactFormData) => {
-    console.log(data);
+  useEffect(() => {
+    return () => {
+      if (cooldownTimeRef.current) {
+        clearTimeout(cooldownTimeRef.current);
+      }
+    };
+  }, []);
+
+  const handleCopyPGP = async () => {
+    const pgpKey = document.querySelector('.pgp-container code')?.textContent;
+    if (pgpKey) {
+      await navigator.clipboard.writeText(pgpKey);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    }
+  };
+
+  const triggerConfetti = () => {
+    const end = Date.now() + 1000;
+
+    const colors = ['#22c55e', '#10b981', '#059669'];
+
+    (function frame() {
+      confetti({
+        particleCount: 3,
+        angle: 60,
+        spread: 55,
+        origin: { x: 0 },
+        colors: colors
+      });
+      confetti({
+        particleCount: 3,
+        angle: 120,
+        spread: 55,
+        origin: { x: 1 },
+        colors: colors
+      });
+
+      if (Date.now() < end) {
+        requestAnimationFrame(frame);
+      }
+    }());
+  };
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    if (cooldown) {
+      return;
+    }
+
+    setIsSubmitting(true);
+    setCooldown(true);
+
+    // Start 10 second cooldown
+    cooldownTimeRef.current = window.setTimeout(() => {
+      setCooldown(false);
+    }, 10000);
+
+    // Simulate loading for 2 seconds before submitting
+    await new Promise(resolve => setTimeout(resolve, 2000));
+
+    if (formRef.current) {
+      const formData = new FormData(formRef.current);
+      try {
+        const response = await fetch('https://formspree.io/f/mqaplvwo', {
+          method: 'POST',
+          body: formData,
+          headers: {
+            'Accept': 'application/json'
+          }
+        });
+
+        if (response.ok) {
+          triggerConfetti();
+          formRef.current.reset();
+        }
+      } catch (error) {
+        console.error('Error submitting form:', error);
+      }
+    }
+
+    setIsSubmitting(false);
   };
 
   return (
@@ -35,7 +115,11 @@ export function ContactSection() {
             whileInView={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.5, delay: 0.2 }}
           >
-            <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
+            <form
+              ref={formRef}
+              onSubmit={handleSubmit}
+              className="space-y-6"
+            >
               <div className="form-group">
                 <label htmlFor="name" className="block text-sm font-medium text-gray-400 mb-2">
                   Name
@@ -43,14 +127,13 @@ export function ContactSection() {
                 <input
                   type="text"
                   id="name"
+                  name="name"
                   autoComplete="name"
-                  {...register('name', { required: true })}
-                  className="form-input w-full bg-black/30 border border-green-500/20 rounded-lg px-4 py-2 text-white focus:outline-none focus:border-green-500/50"
+                  required
+                  disabled={isSubmitting || cooldown}
+                  className="form-input w-full bg-black/30 border border-green-500/20 rounded-lg px-4 py-2 text-white focus:outline-none focus:border-green-500/50 disabled:opacity-50"
                   placeholder="John Doe"
                 />
-                {errors.name && (
-                  <span className="text-red-500 text-sm mt-1 block">Name is required</span>
-                )}
               </div>
 
               <div className="form-group">
@@ -60,14 +143,13 @@ export function ContactSection() {
                 <input
                   type="email"
                   id="email"
+                  name="email"
                   autoComplete="email"
-                  {...register('email', { required: true, pattern: /^\S+@\S+$/i })}
-                  className="form-input w-full bg-black/30 border border-green-500/20 rounded-lg px-4 py-2 text-white focus:outline-none focus:border-green-500/50"
+                  required
+                  disabled={isSubmitting || cooldown}
+                  className="form-input w-full bg-black/30 border border-green-500/20 rounded-lg px-4 py-2 text-white focus:outline-none focus:border-green-500/50 disabled:opacity-50"
                   placeholder="john@example.com"
                 />
-                {errors.email && (
-                  <span className="text-red-500 text-sm mt-1 block">Valid email is required</span>
-                )}
               </div>
 
               <div className="form-group">
@@ -76,20 +158,26 @@ export function ContactSection() {
                 </label>
                 <textarea
                   id="message"
-                  {...register('message', { required: true })}
-                  className="form-textarea w-full bg-black/30 border border-green-500/20 rounded-lg px-4 py-2 text-white focus:outline-none focus:border-green-500/50 h-32 resize-none"
+                  name="message"
+                  required
+                  disabled={isSubmitting || cooldown}
+                  className="form-textarea w-full bg-black/30 border border-green-500/20 rounded-lg px-4 py-2 text-white focus:outline-none focus:border-green-500/50 h-32 resize-none disabled:opacity-50"
                   placeholder="Your message here..."
                 />
-                {errors.message && (
-                  <span className="text-red-500 text-sm mt-1 block">Message is required</span>
-                )}
               </div>
 
               <button
                 type="submit"
-                className="cyber-button w-full justify-center"
+                disabled={isSubmitting || cooldown}
+                className="cyber-button w-full justify-center disabled:opacity-50 disabled:cursor-not-allowed"
               >
-                [$ send_message]
+                {isSubmitting ? (
+                  '[$ sending...]'
+                ) : cooldown ? (
+                  '[$ please_wait...]'
+                ) : (
+                  '[$ send_message]'
+                )}
               </button>
             </form>
           </motion.div>
@@ -100,15 +188,34 @@ export function ContactSection() {
             transition={{ duration: 0.5, delay: 0.4 }}
             className="font-mono text-sm space-y-4"
           >
-            <div className="flex items-center gap-2 text-green-500">
-              <Key className="w-4 h-4" />
-              <span>PGP Public Key</span>
+            <div className="flex items-center justify-between mb-6">
+              <div className="flex items-center gap-2 text-green-500">
+                <Key className="w-4 h-4" />
+                <span>PGP Public Key</span>
+              </div>
+              <button 
+                onClick={handleCopyPGP}
+                className={`cyber-button !px-4 !py-2 flex items-center gap-2 text-sm ${copied ? 'text-green-400' : ''}`}
+              >
+                {copied ? (
+                  <>
+                    <Check className="w-4 h-4" />
+                    <span>Copied!</span>
+                  </>
+                ) : (
+                  <>
+                    <Copy className="w-4 h-4" />
+                    <span>Copy Key</span>
+                  </>
+                )}
+              </button>
             </div>
-            <div className="pgp-container rounded-lg">
-              <div className="absolute inset-0 bg-gradient-to-r from-green-500/20 via-green-500/5 to-green-500/20 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-              <pre className="bg-black/30 p-4 rounded-lg text-gray-400 relative group-hover:bg-black/40 transition-colors duration-300">
-                <code className="block whitespace-pre font-mono text-xs leading-relaxed overflow-hidden">
-                  {`-----BEGIN PGP PUBLIC KEY BLOCK-----
+            
+            <div className="pgp-container relative rounded-lg bg-black/30 border border-green-500/20">
+              <div className="max-h-[300px] overflow-y-auto overflow-x-auto custom-scrollbar cursor-pointer">
+                <pre className="p-4 text-gray-400 relative group-hover:bg-black/40 transition-colors duration-300">
+                  <code className="block whitespace-pre font-mono text-xs leading-relaxed">
+                    {`-----BEGIN PGP PUBLIC KEY BLOCK-----
 Version: Keybase OpenPGP v1.0.0
 Comment: https://keybase.io/crypto
 
@@ -135,13 +242,14 @@ kzCJbiqnMXI6KQF/SXvYxag17mwrLdGDkWb1UnEt5jADip3dnytMjIOsQrw4S+jH
 8pNTqFt+QwoaIfTy
 =ihCx
 -----END PGP PUBLIC KEY BLOCK-----`}
-                </code>
-                <div className="pgp-scan-animation">
-                  <div className="absolute inset-0 bg-gradient-to-r from-transparent via-green-500/5 to-transparent animate-scan"></div>
-                </div>
-              </pre>
+                  </code>
+                </pre>
+              </div>
+              <div className="pgp-scan-animation">
+                <div className="absolute inset-0 bg-gradient-to-r from-transparent via-green-500/5 to-transparent animate-scan"></div>
+              </div>
             </div>
-            <p className="text-gray-400">
+            <p className="text-gray-400 mt-4">
               For secure communication, please encrypt your message using the above PGP key.
             </p>
           </motion.div>

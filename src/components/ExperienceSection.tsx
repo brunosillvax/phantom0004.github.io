@@ -1,6 +1,6 @@
-import React from 'react';
-import { motion } from 'framer-motion';
-import { Briefcase, Calendar, Building2, ExternalLink } from 'lucide-react';
+import React, { useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { Briefcase, Calendar, Building2, ChevronLeft, ChevronRight } from 'lucide-react';
 
 const experiences = [
   {
@@ -42,6 +42,41 @@ const experiences = [
 ];
 
 export function ExperienceSection() {
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const [direction, setDirection] = useState(0);
+
+  const slideVariants = {
+    enter: (direction: number) => ({
+      x: direction > 0 ? 1000 : -1000,
+      opacity: 0
+    }),
+    center: {
+      zIndex: 1,
+      x: 0,
+      opacity: 1
+    },
+    exit: (direction: number) => ({
+      zIndex: 0,
+      x: direction < 0 ? 1000 : -1000,
+      opacity: 0
+    })
+  };
+
+  const swipeConfidenceThreshold = 10000;
+  const swipePower = (offset: number, velocity: number) => {
+    return Math.abs(offset) * velocity;
+  };
+
+  const paginate = (newDirection: number) => {
+    setDirection(newDirection);
+    setCurrentIndex((prevIndex) => {
+      let nextIndex = prevIndex + newDirection;
+      if (nextIndex < 0) nextIndex = experiences.length - 1;
+      if (nextIndex >= experiences.length) nextIndex = 0;
+      return nextIndex;
+    });
+  };
+
   return (
     <section className="py-20 bg-black/20">
       <motion.div
@@ -56,75 +91,123 @@ export function ExperienceSection() {
           <span>cat ~/experience.log</span>
         </h2>
 
-        <div className="relative">
-          {/* Timeline line */}
-          <div className="absolute left-0 md:left-1/2 h-full w-px bg-green-500/20 transform -translate-x-1/2" />
+        <div className="relative max-w-4xl mx-auto">
+          <div className="relative h-[500px] sm:h-[400px] overflow-hidden rounded-xl">
+            <AnimatePresence initial={false} custom={direction}>
+              <motion.div
+                key={currentIndex}
+                custom={direction}
+                variants={slideVariants}
+                initial="enter"
+                animate="center"
+                exit="exit"
+                transition={{
+                  x: { type: "spring", stiffness: 300, damping: 30 },
+                  opacity: { duration: 0.2 }
+                }}
+                drag="x"
+                dragConstraints={{ left: 0, right: 0 }}
+                dragElastic={1}
+                onDragEnd={(e, { offset, velocity }) => {
+                  const swipe = swipePower(offset.x, velocity.x);
 
-          {experiences.map((exp, index) => (
-            <motion.div
-              key={index}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-100px" }}
-              transition={{ duration: 0.5, delay: index * 0.2 }}
-              className={`relative grid grid-cols-1 md:grid-cols-2 gap-8 mb-16 ${
-                index % 2 === 0 ? 'md:flex-row' : 'md:flex-row-reverse'
-              }`}
+                  if (swipe < -swipeConfidenceThreshold) {
+                    paginate(1);
+                  } else if (swipe > swipeConfidenceThreshold) {
+                    paginate(-1);
+                  }
+                }}
+                className="absolute w-full h-full"
+              >
+                <div className="h-full bg-black/40 rounded-xl p-6 border border-green-500/20 backdrop-blur-sm">
+                  <div className="h-full flex flex-col">
+                    <div className="flex items-center justify-between mb-4">
+                      <div className="flex items-center gap-2 text-green-400 text-sm">
+                        <Calendar className="w-4 h-4" />
+                        <span>{experiences[currentIndex].period}</span>
+                      </div>
+                      <div className="flex items-center gap-2 text-gray-400">
+                        <Building2 className="w-4 h-4" />
+                        <span>{experiences[currentIndex].company}</span>
+                      </div>
+                    </div>
+
+                    <h3 className="text-xl font-semibold mb-4 text-white">
+                      {experiences[currentIndex].title}
+                    </h3>
+
+                    <p className="text-gray-400 mb-6">
+                      {experiences[currentIndex].description}
+                    </p>
+
+                    <div className="space-y-2 mb-6">
+                      {experiences[currentIndex].achievements.map((achievement, i) => (
+                        <motion.div
+                          key={i}
+                          initial={{ opacity: 0, x: -10 }}
+                          animate={{ opacity: 1, x: 0 }}
+                          transition={{ delay: 0.1 * i }}
+                          className="flex items-center gap-2 text-sm text-gray-300"
+                        >
+                          <span className="text-green-500">→</span>
+                          {achievement}
+                        </motion.div>
+                      ))}
+                    </div>
+
+                    <div className="mt-auto">
+                      <div className="flex flex-wrap gap-2">
+                        {experiences[currentIndex].technologies.map((tech, i) => (
+                          <span
+                            key={i}
+                            className="text-xs px-2 py-1 rounded-full bg-green-500/10 text-green-400"
+                          >
+                            {tech}
+                          </span>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </motion.div>
+            </AnimatePresence>
+          </div>
+
+          {/* Navigation Controls */}
+          <div className="flex items-center justify-between mt-6">
+            <motion.button
+              whileHover={{ scale: 1.1 }}
+              whileTap={{ scale: 0.9 }}
+              onClick={() => paginate(-1)}
+              className="p-2 rounded-full bg-green-500/10 border border-green-500/20 text-green-400 hover:bg-green-500/20 transition-colors"
             >
-              {/* Timeline node */}
-              <div className="absolute left-0 md:left-1/2 w-6 h-6 transform -translate-x-1/2 -translate-y-1/2 flex items-center justify-center">
-                <div className="w-3 h-3 bg-green-500 rounded-full" />
-                <div className="absolute w-6 h-6 bg-green-500/20 rounded-full animate-ping" />
-              </div>
+              <ChevronLeft className="w-6 h-6" />
+            </motion.button>
 
-              {/* Content */}
-              <div className={`bg-black/40 rounded-xl p-6 border border-green-500/20 backdrop-blur-sm transition-all duration-300 hover:border-green-500/40 ${
-                index % 2 === 0 ? 'md:text-right md:mr-8' : 'md:ml-8'
-              }`}>
-                <div className="flex items-center gap-2 mb-2 text-green-400 text-sm">
-                  <Calendar className="w-4 h-4" />
-                  <span>{exp.period}</span>
-                </div>
-                
-                <h3 className="text-xl font-semibold mb-1 text-white">{exp.title}</h3>
-                <div className="flex items-center gap-2 mb-4 text-gray-400">
-                  <Building2 className="w-4 h-4" />
-                  <span>{exp.company}</span>
-                </div>
+            <div className="flex items-center gap-2">
+              {experiences.map((_, index) => (
+                <button
+                  key={index}
+                  onClick={() => {
+                    setDirection(index > currentIndex ? 1 : -1);
+                    setCurrentIndex(index);
+                  }}
+                  className={`w-2 h-2 rounded-full transition-colors ${
+                    index === currentIndex ? 'bg-green-500' : 'bg-green-500/20'
+                  }`}
+                />
+              ))}
+            </div>
 
-                <p className="text-gray-400 mb-4">{exp.description}</p>
-
-                <div className="space-y-2">
-                  {exp.achievements.map((achievement, i) => (
-                    <motion.div
-                      key={i}
-                      initial={{ opacity: 0, x: -10 }}
-                      whileInView={{ opacity: 1, x: 0 }}
-                      transition={{ delay: 0.1 * i }}
-                      className="flex items-center gap-2 text-sm text-gray-300"
-                    >
-                      <span className="text-green-500">→</span>
-                      {achievement}
-                    </motion.div>
-                  ))}
-                </div>
-
-                <div className="flex flex-wrap gap-2 mt-4">
-                  {exp.technologies.map((tech, i) => (
-                    <span
-                      key={i}
-                      className="text-xs px-2 py-1 rounded-full bg-green-500/10 text-green-400"
-                    >
-                      {tech}
-                    </span>
-                  ))}
-                </div>
-              </div>
-
-              {/* Empty div for layout */}
-              <div />
-            </motion.div>
-          ))}
+            <motion.button
+              whileHover={{ scale: 1.1 }}
+              whileTap={{ scale: 0.9 }}
+              onClick={() => paginate(1)}
+              className="p-2 rounded-full bg-green-500/10 border border-green-500/20 text-green-400 hover:bg-green-500/20 transition-colors"
+            >
+              <ChevronRight className="w-6 h-6" />
+            </motion.button>
+          </div>
         </div>
       </motion.div>
     </section>

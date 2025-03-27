@@ -13,35 +13,9 @@ export function CustomCursor() {
   const smoothY = useSpring(cursorY, springConfig);
 
   useEffect(() => {
-    let rafId: number;
-    let prevX = -100;
-    let prevY = -100;
-    let typingTimeout: NodeJS.Timeout;
-
     const moveCursor = (e: MouseEvent) => {
-      if (rafId) {
-        cancelAnimationFrame(rafId);
-      }
-
-      const updatePosition = () => {
-        const targetX = e.clientX;
-        const targetY = e.clientY;
-        
-        const dx = targetX - prevX;
-        const dy = targetY - prevY;
-        
-        prevX += dx * 0.25;
-        prevY += dy * 0.25;
-        
-        cursorX.set(prevX);
-        cursorY.set(prevY);
-
-        if (Math.abs(dx) > 0.01 || Math.abs(dy) > 0.01) {
-          rafId = requestAnimationFrame(updatePosition);
-        }
-      };
-
-      rafId = requestAnimationFrame(updatePosition);
+      cursorX.set(e.clientX);
+      cursorY.set(e.clientY);
     };
 
     const updateCursorType = (e: MouseEvent) => {
@@ -59,56 +33,29 @@ export function CustomCursor() {
       const target = e.target as HTMLElement;
       if (target.matches('input, textarea')) {
         setIsTyping(true);
-        if (typingTimeout) clearTimeout(typingTimeout);
-        typingTimeout = setTimeout(() => setIsTyping(false), 1000);
+        setTimeout(() => setIsTyping(false), 1000);
       }
     };
 
-    const handleFocusIn = (e: FocusEvent) => {
-      const target = e.target as HTMLElement;
-      if (target.matches('input, textarea')) {
-        target.style.caretColor = '#22c55e';
-      }
-    };
-
-    const handleFocusOut = () => {
-      setIsTyping(false);
-      if (typingTimeout) clearTimeout(typingTimeout);
-    };
-
-    const handleSelectStart = (e: Event) => {
-      const target = e.target as HTMLElement;
-      if (!target.matches('input, textarea')) {
-        e.preventDefault();
-      }
-    };
-
-    window.addEventListener('mousemove', moveCursor, { passive: true });
-    window.addEventListener('mouseover', updateCursorType, { passive: true });
+    window.addEventListener('mousemove', moveCursor);
+    window.addEventListener('mouseover', updateCursorType);
     document.addEventListener('keydown', handleKeyDown);
-    document.addEventListener('focusin', handleFocusIn);
-    document.addEventListener('focusout', handleFocusOut);
-    document.addEventListener('selectstart', handleSelectStart);
 
     return () => {
       window.removeEventListener('mousemove', moveCursor);
       window.removeEventListener('mouseover', updateCursorType);
       document.removeEventListener('keydown', handleKeyDown);
-      document.removeEventListener('focusin', handleFocusIn);
-      document.removeEventListener('focusout', handleFocusOut);
-      document.removeEventListener('selectstart', handleSelectStart);
-      if (rafId) cancelAnimationFrame(rafId);
-      if (typingTimeout) clearTimeout(typingTimeout);
     };
-  }, []);
+  }, [cursorX, cursorY]);
 
   return (
     <motion.div
-      className="cursor-dot"
+      className="fixed pointer-events-none z-[9999] flex items-center justify-center"
       style={{
         left: smoothX,
         top: smoothY,
-        pointerEvents: 'none',
+        translateX: '-50%',
+        translateY: '-50%',
       }}
     >
       {cursorType === 'default' && (

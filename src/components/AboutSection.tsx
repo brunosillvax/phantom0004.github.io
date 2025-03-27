@@ -3,7 +3,7 @@ import { Terminal } from 'lucide-react';
 
 export function AboutSection() {
   return (
-    <section className="py-20">
+    <section id="about" className="py-20">
       <motion.div
         initial={{ opacity: 0, y: 60 }}
         whileInView={{ opacity: 1, y: 0 }}
@@ -40,10 +40,31 @@ export function AboutSection() {
             initial={{ opacity: 0, x: 20 }}
             whileInView={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.5, delay: 0.4 }}
-            className="font-mono text-sm bg-black/30 p-6 rounded-xl border border-green-500/20 shadow-lg"
+            className="font-mono text-sm bg-black/30 p-6 rounded-xl border border-green-500/20 shadow-lg relative group"
           >
-            <div className="ghost-ascii">
-              <pre className="text-green-500 text-center">
+            <motion.div 
+              className="ghost-ascii relative w-fit mx-auto"
+              animate={{
+                y: [0, -10, 0],
+                x: [0, 5, 0, -5, 0],
+              }}
+              transition={{
+                duration: 4,
+                repeat: Infinity,
+                ease: "easeInOut"
+              }}
+            >
+              <motion.div 
+                className="ghost-bubble opacity-0 group-hover:opacity-100 transition-opacity duration-300 absolute -top-8 left-1/2 transform -translate-x-1/2 bg-green-500/10 px-3 py-1 rounded-full text-green-400 border border-green-500/20"
+                initial={{ y: 10 }}
+                animate={{ y: [10, 0, 10] }}
+                transition={{ duration: 2, repeat: Infinity }}
+              >
+                Boo!
+              </motion.div>
+              <motion.pre 
+                className="text-green-500 text-center transition-colors duration-300 relative ghost-glow"
+              >
 {`
 ⠀⠀⠀⠀⠀⢀⣴⣿⣿⣿⣦⠀
 ⠀⠀⠀⠀⣰⣿⡟⢻⣿⡟⢻⣧
@@ -53,10 +74,11 @@ export function AboutSection() {
 ⢿⡿⢿⣿⣿⣿⣿⣿⣿⣿⡿⠀
 ⠀⠀⠈⠿⠿⠋⠙⢿⣿⡿⠁⠀
 `}
-              </pre>
-            </div>
+              </motion.pre>
+              <div className="absolute inset-0 -z-10 opacity-20 blur-xl bg-green-500/20 rounded-full filter" />
+            </motion.div>
 
-            <div className="text-gray-300 space-y-1 mt-6">
+            <div className="text-gray-300 space-y-1 mt-6 relative z-10">
               <p><span className="text-green-400">Alias:</span> Phantom</p>
               <p><span className="text-green-400">Skills:</span> Penetration Testing, Secure Development, Network Security</p>
               <p><span className="text-green-400">Tools:</span> Kali Linux, Burp Suite, Metasploit, Wireshark</p>
