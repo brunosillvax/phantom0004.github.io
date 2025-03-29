@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { BrowserRouter, Routes, Route, Navigate, useNavigate, Link as RouterLink } from 'react-router-dom';
 import { motion, useAnimation, useScroll, AnimatePresence } from 'framer-motion';
-import { Terminal, Code2, Home, User, Briefcase, Mail, Menu, X, Link, Github, ExternalLink, Heart, ChevronDown } from 'lucide-react';
+import { Terminal, Code2, Home, User, Briefcase, Send, Menu, X, Link, Github, ExternalLink, Heart, ChevronDown } from 'lucide-react';
 import { Player } from '@lottiefiles/react-lottie-player';
 import Typewriter from 'typewriter-effect';
 import { LoadingScreen } from './components/LoadingScreen';
@@ -15,6 +15,7 @@ import { NotFound } from './components/NotFound';
 import { Terminal as TerminalComponent } from './components/Terminal';
 import { BackToTopButton } from './components/BackToTopButton';
 import { ParticleBackground } from './components/ParticleBackground';
+import { HackerEffects } from './components/HackerEffects';
 
 const navItems = [
   { name: 'home', icon: Home, href: '#home' },
@@ -22,7 +23,7 @@ const navItems = [
   { name: 'experience', icon: Briefcase, href: '#experience' },
   { name: 'projects', icon: Code2, href: '#projects' },
   { name: 'profiles', icon: Link, href: '#portfolios' },
-  { name: 'contact', icon: Mail, href: '#contact' },
+  { name: 'contact', icon: Send, href: '#contact' },
 ];
 
 function Navigation() {
@@ -167,12 +168,10 @@ function Hero() {
             transition={{ delay: 0.5, duration: 0.5 }}
             className="max-w-2xl px-6 md:px-12 text-center md:text-left space-y-8 relative"
           >
-            {/* Glowing flare behind text */}
             <div className="absolute inset-0 blur-2xl opacity-20">
               <div className="w-80 h-80 bg-green-500/20 rounded-full mx-auto animate-pulse"></div>
             </div>
 
-            {/* Main headline */}
             <h1 className="text-4xl md:text-6xl font-light flex flex-col items-center md:items-start gap-4 z-10 relative">
               <span className="block">Hello,</span>
               <div className="flex items-center gap-2 whitespace-nowrap">
@@ -218,7 +217,6 @@ function Hero() {
               </div>
             </h1>
 
-            {/* Typewriter title */}
             <div className="text-xl md:text-2xl text-gray-400 h-12 z-10 relative font-mono flex items-center justify-center md:justify-start">
               <span className="text-green-500 mr-2 hidden md:inline">&gt;</span>
               <Typewriter
@@ -238,7 +236,6 @@ function Hero() {
               />
             </div>
 
-            {/* Subtext */}
             <p className="text-gray-400 max-w-3xl mx-auto md:mx-0 leading-relaxed font-light z-10 relative">
               Welcome to my digital workspace — built with purpose and precision. I specialize in{' '}
               <span className="text-green-400 font-medium">ethical hacking</span>,{' '}
@@ -246,7 +243,6 @@ function Hero() {
               translating exploits into opportunities.
             </p>
 
-            {/* Terminal Button */}
             <div className="flex flex-col sm:flex-row items-center gap-4 z-10 relative">
               <motion.button
                 onClick={() => window.location.href = '/terminal'}
@@ -255,10 +251,9 @@ function Hero() {
                 whileTap={{ scale: 0.98 }}
               >
                 <Terminal className="w-5 h-5" />
-                <span>View as Terminal</span>
+                <span>View Portfolio as Terminal</span>
               </motion.button>
 
-              {/* Learn more button */}
               <motion.a
                 href="#about"
                 className="inline-flex items-center gap-2 text-green-500 hover:text-green-400 transition-colors group"
@@ -271,7 +266,6 @@ function Hero() {
             </div>
           </motion.div>
 
-          {/* Profile Image */}
           <motion.div
             initial={{ opacity: 0, x: 50 }}
             animate={{ opacity: 1, x: 0 }}
@@ -287,7 +281,7 @@ function Hero() {
               transition={{ duration: 0.3 }}
             >
               <img
-                src="/assets/portfolio_image.png"
+                src="public/assets/portfolio_image.png"
                 alt="Daryl Gatt"
                 className="w-[400px] h-[400px] object-cover"
               />
@@ -345,7 +339,7 @@ function Footer() {
               </a>
               <a href="mailto:phantom.techsec@gmail.com" 
                  className="footer-link hover:text-green-400 transition-colors flex items-center gap-2 group">
-                <Mail className="w-4 h-4 group-hover:rotate-12 transition-transform duration-300" />
+                <Send className="w-4 h-4 group-hover:rotate-12 transition-transform duration-300" />
                 <span>Email</span>
               </a>
               <a href="https://linkedin.com/in/phantom" target="_blank" rel="noopener noreferrer" 
@@ -401,6 +395,7 @@ function AppContent() {
 function App() {
   return (
     <BrowserRouter>
+      <HackerEffects />
       <Routes>
         <Route path="/" element={<AppContent />} />
         <Route path="/terminal" element={<TerminalComponent />} />

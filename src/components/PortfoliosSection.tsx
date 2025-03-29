@@ -8,9 +8,9 @@ const portfolios = [
     link: 'https://tryhackme.com/p/phantom',
   },
   {
-    title: 'HackTheBox Profile',
-    description: 'Check out my HackTheBox progress and completed challenges.',
-    link: 'https://app.hackthebox.com/profile/phantom',
+    title: 'Linktree Portfolio',
+    description: 'Access all my social media profiles and links in one place.',
+    link: 'https://linktr.ee/phantom',
   },
   {
     title: 'GitHub Portfolio',
@@ -18,9 +18,9 @@ const portfolios = [
     link: 'https://github.com/phantom0004',
   },
   {
-    title: 'LinkedIn Profile',
-    description: 'Connect with me professionally and view my career journey.',
-    link: 'https://linkedin.com/in/phantom',
+    title: 'Fiverr Profile',
+    description: 'Check out my freelance services and client reviews.',
+    link: 'https://fiverr.com/phantom',
   }
 ];
 

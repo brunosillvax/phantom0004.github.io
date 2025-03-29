@@ -9,6 +9,8 @@ export function ContactSection() {
   const [cooldown, setCooldown] = useState(false);
   const formRef = useRef<HTMLFormElement>(null);
   const cooldownTimeRef = useRef<number>(0);
+  const focusRef = useRef<HTMLDivElement>(null);
+  const pgpContainerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     return () => {
@@ -21,9 +23,18 @@ export function ContactSection() {
   const handleCopyPGP = async () => {
     const pgpKey = document.querySelector('.pgp-container code')?.textContent;
     if (pgpKey) {
-      await navigator.clipboard.writeText(pgpKey);
-      setCopied(true);
-      setTimeout(() => setCopied(false), 2000);
+      try {
+        await navigator.clipboard.writeText(pgpKey);
+        setCopied(true);
+        setTimeout(() => setCopied(false), 2000);
+        
+        // Scroll the PGP container into view if needed
+        if (pgpContainerRef.current) {
+          pgpContainerRef.current.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        }
+      } catch (err) {
+        console.error("Failed to copy text: ", err);
+      }
     }
   };
 
@@ -188,6 +199,13 @@ export function ContactSection() {
             transition={{ duration: 0.5, delay: 0.4 }}
             className="font-mono text-sm space-y-4"
           >
+            {/* Hidden element for focus */}
+            <div 
+              ref={focusRef} 
+              tabIndex={0} 
+              style={{ position: 'absolute', top: '-9999px', left: '-9999px' }} 
+            />
+            
             <div className="flex items-center justify-between mb-6">
               <div className="flex items-center gap-2 text-green-500">
                 <Key className="w-4 h-4" />
@@ -211,7 +229,7 @@ export function ContactSection() {
               </button>
             </div>
             
-            <div className="pgp-container relative rounded-lg bg-black/30 border border-green-500/20">
+            <div ref={pgpContainerRef} className="pgp-container relative rounded-lg bg-black/30 border border-green-500/20">
               <div className="max-h-[300px] overflow-y-auto overflow-x-auto custom-scrollbar cursor-pointer">
                 <pre className="p-4 text-gray-400 relative group-hover:bg-black/40 transition-colors duration-300">
                   <code className="block whitespace-pre font-mono text-xs leading-relaxed">

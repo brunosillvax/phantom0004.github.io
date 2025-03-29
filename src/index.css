@@ -17,19 +17,28 @@
     -moz-user-select: none;
     -ms-user-select: none;
     user-select: none;
-    cursor: none;
   }
 
-  * {
+  /* Only apply cursor: none to non-terminal pages */
+  body:not(.terminal-page) * {
     cursor: none !important;
   }
 
-  a, button, [role="button"] {
-    cursor: none !important;
+  /* Show default cursor in terminal */
+  .terminal-page * {
+    cursor: default !important;
+  }
+
+  .terminal-page input {
+    cursor: text !important;
+  }
+
+  .terminal-page a, 
+  .terminal-page button {
+    cursor: pointer !important;
   }
 
   input, textarea {
-    cursor: text !important;
     -webkit-user-select: text;
     -moz-user-select: text;
     -ms-user-select: text;
@@ -67,15 +76,24 @@
 }
 
 @layer components {
-  .terminal-cursor {
-    @apply inline-block w-2 h-4 bg-green-500 align-middle ml-1;
-    animation: blink 1s step-end infinite;
+  .matrix-text {
+    text-shadow: 0 0 5px rgba(34, 197, 94, 0.5);
+    animation: matrixGlow 1.5s ease-in-out infinite alternate;
+  }
+
+  @keyframes matrixGlow {
+    from {
+      text-shadow: 0 0 5px rgba(34, 197, 94, 0.5);
+    }
+    to {
+      text-shadow: 0 0 8px rgba(34, 197, 94, 0.8);
+    }
   }
 
   .rainbow-text {
-    @apply bg-clip-text text-transparent;
+    @apply bg-clip-text text-transparent inline-block;
     background-image: linear-gradient(
-      90deg,
+      45deg,
       #ff0000 0%,
       #ff7f00 14.28%,
       #ffff00 28.56%,
@@ -86,7 +104,7 @@
       #ff0000 100%
     );
     background-size: 200% auto;
-    animation: rainbow 5s linear infinite;
+    animation: rainbow 2s linear infinite;
   }
 
   @keyframes rainbow {
@@ -95,13 +113,41 @@
     }
   }
 
+  .terminal-cursor-blink {
+    @apply inline-block w-2 h-4 bg-green-500 align-middle ml-1;
+    animation: blink 1s step-end infinite;
+  }
+
   @keyframes blink {
     0%, 100% { opacity: 1; }
     50% { opacity: 0; }
   }
 
-  .typewriter-cursor {
-    @apply text-green-500;
+  @keyframes glitch {
+    0% {
+      transform: translate(0);
+      text-shadow: 2px 2px 0px rgba(34, 197, 94, 0.2), -2px -2px 0px rgba(34, 197, 94, 0.2);
+    }
+    20% {
+      transform: translate(-2px, 2px);
+      text-shadow: -2px -2px 0px rgba(34, 197, 94, 0.2), 2px 2px 0px rgba(34, 197, 94, 0.2);
+    }
+    40% {
+      transform: translate(2px, -2px);
+      text-shadow: 2px -2px 0px rgba(34, 197, 94, 0.2), -2px 2px 0px rgba(34, 197, 94, 0.2);
+    }
+    60% {
+      transform: translate(-2px, 2px);
+      text-shadow: -2px 2px 0px rgba(34, 197, 94, 0.2), 2px -2px 0px rgba(34, 197, 94, 0.2);
+    }
+    80% {
+      transform: translate(2px, -2px);
+      text-shadow: 2px 2px 0px rgba(34, 197, 94, 0.2), -2px -2px 0px rgba(34, 197, 94, 0.2);
+    }
+    100% {
+      transform: translate(0);
+      text-shadow: 2px 2px 0px rgba(34, 197, 94, 0.2), -2px -2px 0px rgba(34, 197, 94, 0.2);
+    }
   }
 
   .matrix-bg {
@@ -148,25 +194,103 @@
     @apply rotate-12;
   }
 
-  .terminal-button {
-    @apply fixed bottom-8 left-8 z-50 p-3 rounded-full 
-           bg-green-500/10 border border-green-500/20 
-           text-green-500 hover:bg-green-500/20 
-           transition-all duration-300 group;
+  .scan-lines {
+    @apply absolute inset-0 pointer-events-none;
+    background: repeating-linear-gradient(
+      0deg,
+      rgba(0, 0, 0, 0.15) 0px,
+      rgba(0, 0, 0, 0.15) 1px,
+      transparent 1px,
+      transparent 2px
+    );
   }
 
-  .terminal-button.footer-visible {
-    @apply absolute transform -translate-y-full;
+  @keyframes scan {
+    from {
+      transform: translateX(-100%);
+    }
+    to {
+      transform: translateX(100%);
+    }
   }
 
-  .back-to-top {
-    @apply fixed bottom-8 right-8 z-50 p-3 rounded-full 
-           bg-green-500/10 border border-green-500/20 
-           text-green-500 hover:bg-green-500/20 
-           transition-all duration-300;
+  .animate-scan {
+    animation: scan 2s linear infinite;
   }
 
-  .back-to-top.footer-visible {
-    @apply absolute transform -translate-y-full;
+  /* New Hacker Effects */
+  .binary-rain {
+    height: 100vh;
+    overflow: hidden;
+  }
+
+  .binary-column {
+    position: absolute;
+    top: -20px;
+    color: #22c55e;
+    font-family: monospace;
+    font-size: 14px;
+    animation: rain 2s linear infinite;
+  }
+
+  @keyframes rain {
+    0% { transform: translateY(-20px); }
+    100% { transform: translateY(100vh); }
+  }
+
+  .glitch-text {
+    color: #22c55e;
+    position: relative;
+    text-shadow: 0.05em 0 0 #00fffc, -0.03em -0.04em 0 #fc00ff,
+                 0.025em 0.04em 0 #fffc00;
+    animation: glitch 725ms infinite;
+  }
+
+  .glitch-text::before,
+  .glitch-text::after {
+    content: attr(data-text);
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+  }
+
+  .glitch-text::before {
+    left: 2px;
+    text-shadow: -2px 0 #ff00fc;
+    clip: rect(44px, 450px, 56px, 0);
+    animation: glitch-anim 5s infinite linear alternate-reverse;
+  }
+
+  .glitch-text::after {
+    left: -2px;
+    text-shadow: -2px 0 #00fff9, 2px 2px #ff00fc;
+    animation: glitch-anim2 1s infinite linear alternate-reverse;
+  }
+
+  @keyframes glitch {
+    0% { text-shadow: 0.05em 0 0 #00fffc, -0.03em -0.04em 0 #fc00ff,
+                     0.025em 0.04em 0 #fffc00; }
+    15% { text-shadow: 0.05em 0 0 #00fffc, -0.03em -0.04em 0 #fc00ff,
+                     0.025em 0.04em 0 #fffc00; }
+    16% { text-shadow: -0.05em -0.025em 0 #00fffc, 0.025em 0.035em 0 #fc00ff,
+                     -0.05em -0.05em 0 #fffc00; }
+    49% { text-shadow: -0.05em -0.025em 0 #00fffc, 0.025em 0.035em 0 #fc00ff,
+                     -0.05em -0.05em 0 #fffc00; }
+    50% { text-shadow: 0.05em 0.035em 0 #00fffc, 0.03em 0 0 #fc00ff,
+                     0 -0.04em 0 #fffc00; }
+    99% { text-shadow: 0.05em 0.035em 0 #00fffc, 0.03em 0 0 #fc00ff,
+                     0 -0.04em 0 #fffc00; }
+    100% { text-shadow: -0.05em 0 0 #00fffc, -0.025em -0.04em 0 #fc00ff,
+                     -0.04em -0.025em 0 #fffc00; }
+  }
+
+  .circuit-lines {
+    background-image: 
+      linear-gradient(90deg, rgba(34, 197, 94, 0.1) 1px, transparent 1px),
+      linear-gradient(rgba(34, 197, 94, 0.1) 1px, transparent 1px);
+    background-size: 50px 50px;
+    mask-image: radial-gradient(circle at 50% 50%, black 0%, transparent 70%);
   }
 }
