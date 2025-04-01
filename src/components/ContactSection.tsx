@@ -107,7 +107,7 @@ export function ContactSection() {
   };
 
   return (
-    <section className="py-20">
+    <section id="contact" className="py-20">
       <motion.div
         initial={{ opacity: 0, y: 50 }}
         whileInView={{ opacity: 1, y: 0 }}
@@ -252,12 +252,7 @@ sLFibCyKjKNDUk4I5Va0KLi6C9hTre3RX4wBfi7CopW9JJi8yxmLL0yTWtY4efFm
 prSsm0em2t5V6/b4MlNZyXe8XtABgSKATp4TSAGAxaXOtzEuXKZFFmwvYZhBUP+A
 1b5UOSYQU6+MeePqbUrPWKggWPtkJLmsVTvbQmMHzlIEZ+O/yRMIKoZIzj0DAQcC
 AwSc30NSiqGtYVRje8VU4ex+LMvGFnKML4IPvooO7rlP+jcznUvlAvdtQwiBxfgq
-a2Pp+zLkCzKQA1t1hW7lkwZPwsAnBBgTCgAPBQJn47/JBQkPCZwAAhsuAGoJEBTO
-Iqkqa6XjXyAEGRMKAAYFAmfjv8kACgkQk4r72Kfd1MNsQgEArUnUs+4Tl31Ly+gV
-1Id87MMacMS9UXta93ijqnuoGH8A/0QX+0PwhEB1W0XzFk3r2AuQBRx0b2vPfvNs
-fO7rBGF/AB8BfismO8sPZZ4I/Zv4C3K6WWRoQ1QsShnUS08OC3E6kp+TIMttdMts
-kzCJbiqnMXI6KQF/SXvYxag17mwrLdGDkWb1UnEt5jADip3dnytMjIOsQrw4S+jH
-8pNTqFt+QwoaIfTy
+a2Pp+zLkCzKQA1t1hW7lkwZPwsAnB
 =ihCx
 -----END PGP PUBLIC KEY BLOCK-----`}
                   </code>

@@ -3,41 +3,76 @@
   <head>
     <meta charset="UTF-8" />
     
-    <!-- SEO Meta Tags -->
-    <meta name="description" content="Explore Daryl Gatt's cybersecurity portfolio showcasing red teaming projects, exploit development, malware analysis, and offensive security research." />
-    <meta name="keywords" content="Cybersecurity, Red Teaming, Daryl Gatt, Malware Analysis, Exploit Development, Offensive Security, Ethical Hacking" />
+    <!-- Primary Meta Tags -->
+    <title>Daryl Gatt | Cybersecurity Expert & Ethical Hacker</title>
+    <meta name="description" content="Explore Daryl Gatt's cybersecurity portfolio showcasing expertise in red teaming, exploit development, malware analysis, and offensive security research. Discover innovative security solutions and cutting-edge cybersecurity projects." />
+    <meta name="keywords" content="Cybersecurity, Red Teaming, Daryl Gatt, Malware Analysis, Exploit Development, Offensive Security, Ethical Hacking, Security Research, Penetration Testing" />
+    <meta name="author" content="Daryl Gatt" />
     <meta name="robots" content="index, follow" />
     <link rel="canonical" href="https://darylgatt.dev/" />
 
     <!-- Open Graph / Facebook -->
-    <meta property="og:title" content="Daryl Gatt | Cybersecurity Portfolio" />
-    <meta property="og:description" content="Explore Daryl Gatt's cybersecurity portfolio showcasing red teaming projects, exploit development, malware analysis, and offensive security research." />
-    <meta property="og:image" content="https://darylgatt.dev/assets/website_logo.jpg" />
-    <meta property="og:url" content="https://darylgatt.dev/" />
     <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://darylgatt.dev/" />
+    <meta property="og:title" content="Daryl Gatt | Cybersecurity Expert & Ethical Hacker" />
+    <meta property="og:description" content="Explore Daryl Gatt's cybersecurity portfolio showcasing expertise in red teaming, exploit development, malware analysis, and offensive security research." />
+    <meta property="og:image" content="https://darylgatt.dev/assets/website_logo.jpg" />
 
-    <!-- Twitter Card -->
+    <!-- Twitter -->
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="Daryl Gatt | Cybersecurity Portfolio" />
-    <meta name="twitter:description" content="Explore Daryl Gatt's cybersecurity portfolio showcasing red teaming projects, exploit development, malware analysis, and offensive security research." />
+    <meta name="twitter:url" content="https://darylgatt.dev/" />
+    <meta name="twitter:title" content="Daryl Gatt | Cybersecurity Expert & Ethical Hacker" />
+    <meta name="twitter:description" content="Explore Daryl Gatt's cybersecurity portfolio showcasing expertise in red teaming, exploit development, malware analysis, and offensive security research." />
     <meta name="twitter:image" content="https://darylgatt.dev/assets/website_logo.jpg" />
 
     <!-- Structured Data -->
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
-      "@type": "WebSite",
-      "name": "Daryl Gatt | Cybersecurity",
-      "url": "https://darylgatt.dev/"
+      "@type": "Person",
+      "name": "Daryl Gatt",
+      "url": "https://darylgatt.dev",
+      "image": "https://darylgatt.dev/assets/website_logo.jpg",
+      "sameAs": [
+        "https://github.com/phantom0004",
+        "https://mt.linkedin.com/in/daryl-gatt-web3"
+      ],
+      "jobTitle": "Cybersecurity Professional",
+      "worksFor": {
+        "@type": "Organization",
+        "name": "Independent Security Researcher"
+      },
+      "description": "Cybersecurity expert specializing in red teaming, exploit development, and offensive security research."
     }
     </script>
     
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Daryl Gatt | Cybersecurity</title>
+    <meta name="theme-color" content="#000000" />
+    
     <!-- Favicon -->
     <link rel="icon" type="image/jpeg" href="/assets/website_logo.jpg" />
+    
+    <!-- Skip Navigation -->
+    <style>
+      .skip-nav {
+        position: absolute;
+        top: -9999px;
+        left: 50%;
+        transform: translateX(-50%);
+        background: #22c55e;
+        color: black;
+        padding: 1rem;
+        z-index: 9999;
+        border-radius: 0 0 0.5rem 0.5rem;
+        text-decoration: none;
+      }
+      .skip-nav:focus {
+        top: 0;
+      }
+    </style>
   </head>
   <body>
+    <a href="#main-content" class="skip-nav">Skip to main content</a>
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
   </body>

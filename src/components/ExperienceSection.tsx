@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Briefcase, Calendar, Building2, ChevronLeft, ChevronRight } from 'lucide-react';
 
@@ -78,7 +78,7 @@ export function ExperienceSection() {
   };
 
   return (
-    <section className="py-20 bg-black/20">
+    <section id="experience" className="py-20 bg-black/20">
       <motion.div
         initial={{ opacity: 0, y: 40 }}
         whileInView={{ opacity: 1, y: 0 }}

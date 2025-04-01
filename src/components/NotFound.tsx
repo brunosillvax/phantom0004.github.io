@@ -1,108 +1,129 @@
 import { motion } from 'framer-motion';
-import { Terminal } from 'lucide-react';
+import { Terminal, ArrowLeft } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import Typewriter from 'typewriter-effect';
 
 export function NotFound() {
   const navigate = useNavigate();
 
-  return (
-    <div className="min-h-screen bg-black flex items-center justify-center p-4">
-      <div className="matrix-bg opacity-20" />
+  const handleCustomCursor = (e: React.MouseEvent) => {
+    const cursor = document.querySelector('.custom-cursor') as HTMLElement;
+    if (cursor) {
+      const rect = (e.target as HTMLElement).getBoundingClientRect();
+      cursor.style.transform = `translate(${rect.left + rect.width / 2}px, ${rect.top + rect.height / 2}px) scale(1.5)`;
+      cursor.style.opacity = '0.5';
       
+      setTimeout(() => {
+        cursor.style.transform = '';
+        cursor.style.opacity = '1';
+      }, 300);
+    }
+  };
+
+  return (
+    <div 
+      className="min-h-[100svh] min-h-[100vh] w-screen bg-black overflow-hidden relative flex items-center justify-center p-clamp"
+      style={{ '--p-clamp': 'clamp(1rem, 3vw, 2rem)' } as React.CSSProperties}
+    >
+      {/* Background Pattern */}
+      <div className="absolute inset-0 bg-grid-pattern opacity-20" />
+      <div className="absolute inset-0 bg-gradient-radial from-transparent to-black" />
+
+      {/* Main Content Container */}
       <motion.div 
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
+        initial={{ opacity: 0, scale: 0.95 }}
+        animate={{ opacity: 1, scale: 1 }}
         transition={{ duration: 0.5 }}
-        className="w-full max-w-2xl bg-black/50 border border-green-500/20 rounded-lg p-6 backdrop-blur-sm relative overflow-hidden group"
+        className="w-full max-w-[clamp(300px,90vw,800px)] mx-auto relative z-10"
       >
-        <motion.div
-          className="absolute inset-0 bg-gradient-to-r from-green-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-        />
+        <div className="terminal-container bg-black/80 backdrop-blur-sm border border-green-500/20 rounded-lg overflow-hidden shadow-2xl">
+          {/* Terminal Header */}
+          <div className="terminal-header flex items-center justify-between p-3 border-b border-green-500/20 bg-black/50">
+            <div className="flex items-center gap-2">
+              <div className="w-3 h-3 rounded-full bg-red-500/50" />
+              <div className="w-3 h-3 rounded-full bg-yellow-500/50" />
+              <div className="w-3 h-3 rounded-full bg-green-500/50" />
+            </div>
+            <span className="text-xs text-gray-500">system_error.log</span>
+          </div>
 
-        <motion.div
-          initial={{ opacity: 0, y: -10 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.2 }}
-          className="flex items-center gap-2 mb-6 text-green-500"
-        >
-          <Terminal className="w-5 h-5" />
-          <span className="font-mono text-sm">system_error.log</span>
-        </motion.div>
-
-        <motion.div
-          initial={{ opacity: 0, scale: 0.95 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ delay: 0.3 }}
-          className="relative"
-        >
-          <div className="absolute inset-0 bg-green-500/5 blur-[2px] rounded-lg" />
-          <pre className="font-mono text-green-500 mb-8 text-xs sm:text-sm overflow-x-auto custom-scrollbar relative">
+          {/* Terminal Content */}
+          <div className="p-clamp space-y-6">
+            {/* ASCII Art */}
+            <pre className="text-green-500 whitespace-pre-wrap text-left font-mono text-[clamp(0.75rem,2vw,1rem)] leading-tight">
 {`
-$$\\   $$\\  $$$$$$\\  $$\\   $$\\ 
-$$ |  $$ |$$$ __$$\\ $$ |  $$ |
-$$ |  $$ |$$$$\\ $$ |$$ |  $$ |
-$$$$$$$$ |$$\\$$\\$$ |$$$$$$$$ |
-\\_____$$ |$$ \\$$$$ |\\_____$$ |
-      $$ |$$ |\\$$$ |      $$ |
-      $$ |\\$$$$$$  /      $$ |
-      \\__| \\______/       \\__|
+    .---.    .----.      .---.   
+   / .  |   /  ..  \\    / .  |   
+  / /|  |  .  /  \\  .  / /|  |   
+ / / |  |_ |  |  '  | / / |  |_  
+/  '-'    |'  \\  /  '/  '-'    | 
+\`----|  |-' \\  \`'  / \`----|  |-' 
+     \`--'    \`---''       \`--' 
 `}
-          </pre>
-        </motion.div>
+            </pre>
 
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 0.4 }}
-          className="text-lg sm:text-xl text-green-400 h-20 mb-8"
-        >
-          <Typewriter
-            options={{
-              strings: [
-                'Error 404: Page not found_',
-                'Directory scan failed_',
-                'System could not locate requested resource_'
-              ],
-              autoStart: true,
-              loop: true,
-              deleteSpeed: 30,
-              delay: 80,
-              wrapperClassName: 'typewriter-wrapper',
-              cursorClassName: 'typewriter-cursor'
-            }}
-          />
-        </motion.div>
+            {/* Error Message */}
+            <div className="h-16">
+              <Typewriter
+                options={{
+                  strings: [
+                    'Error 404: Endpoint not found.',
+                    '404: Resource unreachable.',
+                    'Page not found: Access denied.',
+                    '404: Invalid URL request.',
+                    'Resource not found. Routing error.',
+                    '404: Unauthorized access attempt.',
+                    '404: Network anomaly detected.',
+                    'Page not found. Invalid request.',
+                    '404: Access denied. Intrusion attempt logged.',
+                    '404: Resource offline. Review access.',
+                    'Error 404: Unknown endpoint.',
+                    '404: Suspicious request flagged.',
+                    '404: Path not found. Security breach detected.',
+                    '404: Target not found. Threat assessment required.'
+                  ],
+                  autoStart: true,
+                  loop: true,
+                  delay: 50,
+                  deleteSpeed: 30,
+                  cursor: '█'
+                }}
+              />
+            </div>
 
-        <motion.div
-          initial={{ opacity: 0, y: 10 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.5 }}
-          className="space-y-2 text-gray-400 text-sm mb-8 font-mono"
-        >
-          <div className="flex items-center gap-2">
-            <span className="text-green-500">~</span>
-            <span>Location: {window.location.pathname}</span>
-          </div>
-          <div className="flex items-center gap-2">
-            <span className="text-green-500">~</span>
-            <span>Timestamp: {new Date().toISOString()}</span>
-          </div>
-          <div className="flex items-center gap-2">
-            <span className="text-green-500">~</span>
-            <span>Status: 404 Not Found</span>
-          </div>
-        </motion.div>
+            {/* Error Details */}
+            <div className="space-y-2 text-sm text-gray-400 font-mono">
+              <p>
+                <span className="text-green-500">{'>'}</span> Location: {window.location.pathname}
+              </p>
+              <p>
+                <span className="text-green-500">{'>'}</span> Timestamp: {new Date().toISOString()}
+              </p>
+              <p>
+                <span className="text-green-500">{'>'}</span> Status: 404 Not Found
+              </p>
+            </div>
 
-        <motion.button
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.6 }}
-          onClick={() => navigate('/')}
-          className="bg-green-500/10 hover:bg-green-500/20 text-green-400 px-6 py-2 rounded-lg transition-colors duration-300 flex items-center gap-2"
-        >
-          Return Home
-        </motion.button>
+            {/* Return Home Button */}
+            <motion.button
+              onClick={(e) => {
+                e.preventDefault();
+                handleCustomCursor(e);
+                navigate('/');
+              }}
+              className="group flex items-center gap-2 px-4 py-2 bg-green-500/10 text-green-400 rounded-lg 
+                         border border-green-500/20 hover:bg-green-500/20 focus:outline-none 
+                         focus:ring-2 focus:ring-green-500/50 focus:ring-offset-2 focus:ring-offset-black
+                         transition-all duration-300 cursor-pointer"
+              whileHover={{ scale: 1.02 }}
+              whileTap={{ scale: 0.98 }}
+              aria-label="Return to home page"
+            >
+              <ArrowLeft className="w-4 h-4 transition-transform group-hover:-translate-x-1" />
+              <span>Return Home</span>
+            </motion.button>
+          </div>
+        </div>
       </motion.div>
     </div>
   );

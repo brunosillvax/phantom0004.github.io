@@ -126,7 +126,7 @@ function ProjectCard({ project }: { project: typeof projects[0] }) {
 
 export function ProjectsSection() {
   return (
-    <section className="py-20 bg-black/30">
+    <section id="projects" className="py-20 bg-black/30">
       <motion.div
         initial={{ opacity: 0, y: 40 }}
         whileInView={{ opacity: 1, y: 0 }}

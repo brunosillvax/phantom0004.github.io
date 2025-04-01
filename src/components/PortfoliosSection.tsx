@@ -5,28 +5,28 @@ const portfolios = [
   {
     title: 'TryHackMe Profile',
     description: 'View my cybersecurity journey and achievements on TryHackMe.',
-    link: 'https://tryhackme.com/p/phantom',
+    link: 'https://tryhackme.com/r/p/ShellShock04',
   },
   {
     title: 'Linktree Portfolio',
     description: 'Access all my social media profiles and links in one place.',
-    link: 'https://linktr.ee/phantom',
+    link: 'https://linktr.ee/darylgatt_cybersecurity',
   },
   {
-    title: 'GitHub Portfolio',
+    title: 'GitHub Profile',
     description: 'Explore my open-source contributions and personal projects.',
     link: 'https://github.com/phantom0004',
   },
   {
     title: 'Fiverr Profile',
-    description: 'Check out my freelance services and client reviews.',
-    link: 'https://fiverr.com/phantom',
+    description: 'Take a look at my freelance services and explore client reviews to see what others are saying.',
+    link: 'https://fiverr.com/dg_0004?public_mode=true',
   }
 ];
 
 export function PortfoliosSection() {
   return (
-    <section className="py-20 bg-black/20">
+    <section id="portfolios" className="py-20 bg-black/20">
       <motion.div
         initial={{ opacity: 0, y: 40 }}
         whileInView={{ opacity: 1, y: 0 }}

@@ -21,7 +21,6 @@ const titleBanner = `
 
 const socialLinks = [
   { name: 'GitHub', url: 'https://github.com/phantom0004', icon: Github },
-  { name: 'Portfolio', url: '/', icon: ExternalLink },
 ];
 
 const TypeWriter: React.FC<{ 
@@ -41,7 +40,7 @@ const TypeWriter: React.FC<{
       if (currentIndex < text.length) {
         setDisplayText(text.slice(0, currentIndex + 1));
         currentIndex++;
-        const minDelay = speed === 'fast' ? 1 : 5; // Extremely fast for generic commands
+        const minDelay = speed === 'fast' ? 1 : 5;
         const maxDelay = speed === 'fast' ? 2 : 10;
         const delay = Math.random() * (maxDelay - minDelay) + minDelay;
         timerRef.current = setTimeout(type, delay);
@@ -70,7 +69,6 @@ const TypeWriter: React.FC<{
   );
 };
 
-// Line-by-line output handler
 const LineByLine: React.FC<{ 
   lines: string[];
   onComplete?: () => void;
@@ -103,11 +101,11 @@ const LineByLine: React.FC<{
   return (
     <div className="space-y-1">
       {completedLines.map((line, index) => (
-        <div key={index} className="font-mono">{line}</div>
+        <div key={index} className="font-mono text-xs sm:text-sm md:text-base break-words">{line}</div>
       ))}
       {currentLineIndex < lines.length && (
         isLastLineComplete && currentLineIndex === lines.length - 1 ? (
-          <div className="font-mono">{lines[currentLineIndex]}</div>
+          <div className="font-mono text-xs sm:text-sm md:text-base break-words">{lines[currentLineIndex]}</div>
         ) : (
           <TypeWriter 
             text={lines[currentLineIndex]} 
@@ -129,12 +127,12 @@ export function Terminal() {
     { 
       type: 'ascii', 
       content: (
-        <div className="flex flex-col items-center justify-center space-y-8">
+        <div className="flex flex-col items-center justify-center space-y-4 sm:space-y-8">
           <motion.pre
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
-            className="text-green-400 text-base md:text-lg whitespace-pre font-bold glitch-text"
+            className="text-green-400 text-[8px] xs:text-xs sm:text-sm md:text-base lg:text-lg whitespace-pre font-bold glitch-text hidden sm:block"
             style={{ 
               textShadow: '2px 2px 0px rgba(34, 197, 94, 0.2), -2px -2px 0px rgba(34, 197, 94, 0.2)',
               animation: 'glitch 3s infinite'
@@ -142,6 +140,14 @@ export function Terminal() {
           >
             {titleBanner}
           </motion.pre>
+          <motion.h1
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+            className="text-green-400 text-xl sm:text-2xl md:text-3xl font-bold sm:hidden text-center"
+          >
+            Terminal v1.0
+          </motion.h1>
         </div>
       )
     }
@@ -152,14 +158,23 @@ export function Terminal() {
   const terminalContentRef = useRef<HTMLDivElement>(null);
   const hasInitializedRef = useRef(false);
   const [isTyping, setIsTyping] = useState(false);
+  const [isMobileKeyboardOpen, setIsMobileKeyboardOpen] = useState(false);
   
   const [playKeyPress] = useSound('/sounds/keypress.mp3', { volume: 0.5 });
 
   useEffect(() => {
-    // If we've already initialized, do nothing
-    if (hasInitializedRef.current) return;
+    const handleResize = () => {
+      const vh = window.innerHeight * 0.01;
+      document.documentElement.style.setProperty('--vh', `${vh}px`);
+    };
 
-    // Mark as initialized immediately to prevent re-runs
+    handleResize();
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
+  useEffect(() => {
+    if (hasInitializedRef.current) return;
     hasInitializedRef.current = true;
     
     const steps = [
@@ -180,7 +195,7 @@ export function Terminal() {
         speed="normal"
       />
     }]);
-  }, []); // Empty dependency array ensures the effect runs only once
+  }, []);
 
   const getAboutData = () => {
     const aboutContent = [
@@ -346,10 +361,18 @@ export function Terminal() {
                   initial={{ opacity: 0, y: -20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.5 }}
-                  className="text-green-400 text-base md:text-lg whitespace-pre font-bold"
+                  className="text-green-400 text-[8px] xs:text-xs sm:text-sm md:text-base lg:text-lg whitespace-pre font-bold hidden sm:block"
                 >
                   {titleBanner}
                 </motion.pre>
+                <motion.h1
+                  initial={{ opacity: 0, y: -20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.5 }}
+                  className="text-green-400 text-xl sm:text-2xl md:text-3xl font-bold sm:hidden text-center"
+                >
+                  Terminal v1.0
+                </motion.h1>
               </div>
             )
           },
@@ -447,33 +470,36 @@ export function Terminal() {
   };
 
   return (
-    <div className="min-h-screen bg-black flex items-center justify-center p-4 relative overflow-hidden cursor-default">
+    <div className="min-h-screen min-h-[calc(var(--vh,1vh)*100)] bg-black flex items-center justify-center p-2 sm:p-4 relative overflow-hidden cursor-default">
       <MatrixBackground />
       
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         exit={{ opacity: 0, y: 20 }}
-        className="w-full max-w-4xl bg-black/80 rounded-lg border border-green-500/20 backdrop-blur-sm relative z-10"
+        className="w-full max-w-4xl bg-black/80 rounded-lg border border-green-500/20 backdrop-blur-sm relative z-10 flex flex-col"
       >
         {/* Terminal Header */}
         <div className="flex items-center justify-between p-2 bg-black/50 border-b border-green-500/20">
           <div className="flex items-center gap-2">
-            <div className="w-3 h-3 rounded-full bg-red-500/50" />
-            <div className="w-3 h-3 rounded-full bg-yellow-500/50" />
-            <div className="w-3 h-3 rounded-full bg-green-500/50" />
+            <div className="w-2 h-2 sm:w-3 sm:h-3 rounded-full bg-red-500/50" />
+            <div className="w-2 h-2 sm:w-3 sm:h-3 rounded-full bg-yellow-500/50" />
+            <div className="w-2 h-2 sm:w-3 sm:h-3 rounded-full bg-green-500/50" />
           </div>
-          <div className="flex items-center gap-4">
-            <span className="text-xs text-gray-500">v1.0.0</span>
-            <span className="text-xs text-gray-500">phantom@portfolio:~</span>
+          <div className="flex items-center gap-2 sm:gap-4">
+            <span className="text-[10px] sm:text-xs text-gray-500">v1.0.0</span>
+            <span className="text-[10px] sm:text-xs text-gray-500">phantom@portfolio:~</span>
           </div>
         </div>
 
         {/* Terminal Content */}
         <div
           ref={terminalContentRef}
-          className="h-[calc(100vh-12rem)] max-h-[700px] p-6 font-mono text-sm overflow-y-auto custom-scrollbar"
+          className="flex-1 h-[60vh] sm:h-[70vh] md:h-[calc(100vh-12rem)] md:max-h-[700px] p-3 sm:p-6 font-mono text-xs sm:text-sm overflow-y-auto custom-scrollbar"
           onClick={() => inputRef.current?.focus()}
+          style={{
+            height: isMobileKeyboardOpen ? '40vh' : undefined
+          }}
         >
           <AnimatePresence>
             {output.map((line, i) => (
@@ -492,7 +518,7 @@ export function Terminal() {
                     : line.type === 'success'
                     ? 'text-green-400'
                     : 'text-gray-300'
-                } whitespace-pre-wrap mb-4 matrix-text`}
+                } whitespace-pre-wrap mb-4 matrix-text break-words`}
               >
                 {line.content}
               </motion.div>
@@ -501,7 +527,7 @@ export function Terminal() {
 
           {!isTyping && (
             <form onSubmit={handleSubmit} className="flex items-center gap-2">
-              <span className="text-green-400">phantom@portfolio:~$</span>
+              <span className="text-green-400 text-xs sm:text-sm whitespace-nowrap">phantom@portfolio:~$</span>
               <input
                 ref={inputRef}
                 type="text"
@@ -510,9 +536,15 @@ export function Terminal() {
                   setInput(e.target.value);
                   playKeyPress();
                 }}
+                onFocus={() => setIsMobileKeyboardOpen(true)}
+                onBlur={() => setIsMobileKeyboardOpen(false)}
                 onKeyDown={handleKeyDown}
-                className="flex-1 bg-transparent outline-none text-white caret-green-500"
+                className="flex-1 bg-transparent outline-none text-white caret-green-500 text-xs sm:text-sm w-full"
                 autoFocus
+                autoCapitalize="none"
+                autoComplete="off"
+                autoCorrect="off"
+                spellCheck="false"
               />
             </form>
           )}
@@ -521,7 +553,7 @@ export function Terminal() {
         {/* Terminal Footer */}
         <div className="p-2 border-t border-green-500/20 bg-black/50">
           <div className="flex items-center justify-between">
-            <div className="flex items-center gap-4">
+            <div className="flex items-center gap-2 sm:gap-4">
               {socialLinks.map((link, index) => {
                 const Icon = link.icon;
                 return (
@@ -532,18 +564,18 @@ export function Terminal() {
                     rel="noopener noreferrer"
                     className="text-gray-500 hover:text-green-400 transition-colors"
                   >
-                    <Icon className="w-4 h-4" />
+                    <Icon className="w-3 h-3 sm:w-4 sm:h-4" />
                   </a>
                 );
               })}
             </div>
-            <span className="text-xs text-gray-500">
+            <span className="text-[10px] sm:text-xs text-gray-500">
               Type <span className="rainbow-text font-bold">'help'</span> for commands
             </span>
           </div>
         </div>
 
-        <div className="scan-lines" />
+        <div className="scan-lines hidden sm:block" />
       </motion.div>
     </div>
   );
