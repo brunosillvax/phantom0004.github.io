@@ -1,24 +1,79 @@
 import { motion } from 'framer-motion';
 import { Send, Key, Copy, Check } from 'lucide-react';
-import { useState, useRef, useEffect } from 'react';
+import { useState, useRef } from 'react';
 import confetti from 'canvas-confetti';
+import DOMPurify from 'dompurify';
 
 export function ContactSection() {
   const [copied, setCopied] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [cooldown, setCooldown] = useState(false);
+  const [submitError, setSubmitError] = useState<string | null>(null);
+  const [submitSuccess, setSubmitSuccess] = useState(false);
   const formRef = useRef<HTMLFormElement>(null);
-  const cooldownTimeRef = useRef<number>(0);
-  const focusRef = useRef<HTMLDivElement>(null);
   const pgpContainerRef = useRef<HTMLDivElement>(null);
+  
+  // CAPTCHA state
+  const [captchaAnswer, setCaptchaAnswer] = useState('');
+  const [captcha, setCaptcha] = useState(() => generateCaptcha());
 
-  useEffect(() => {
-    return () => {
-      if (cooldownTimeRef.current) {
-        clearTimeout(cooldownTimeRef.current);
+  // Generate a simple math CAPTCHA
+  function generateCaptcha() {
+    const operations = ['+', '-', '*'];
+    const operation = operations[Math.floor(Math.random() * operations.length)];
+    let num1: number, num2: number;
+
+    // Secure random number generation
+    const getSecureRandom = (min: number, max: number) => {
+      const range = max - min + 1;
+      const bytesNeeded = Math.ceil(Math.log2(range) / 8);
+      const maxNum = Math.pow(256, bytesNeeded);
+      const ar = new Uint8Array(bytesNeeded);
+
+      while (true) {
+        crypto.getRandomValues(ar);
+        let val = 0;
+        for (let i = 0; i < bytesNeeded; i++) {
+          val = (val << 8) + ar[i];
+        }
+        if (val < maxNum - (maxNum % range)) {
+          return min + (val % range);
+        }
       }
     };
-  }, []);
+
+    switch (operation) {
+      case '+':
+        num1 = getSecureRandom(1, 20);
+        num2 = getSecureRandom(1, 20);
+        break;
+      case '-':
+        num1 = getSecureRandom(1, 20);
+        num2 = getSecureRandom(1, num1);
+        break;
+      case '*':
+        num1 = getSecureRandom(1, 10);
+        num2 = getSecureRandom(1, 5);
+        break;
+      default:
+        num1 = getSecureRandom(1, 20);
+        num2 = getSecureRandom(1, 20);
+    }
+
+    // Safely calculate answer without eval()
+    const calculateAnswer = (n1: number, n2: number, op: string): number => {
+      switch (op) {
+        case '+': return n1 + n2;
+        case '-': return n1 - n2;
+        case '*': return n1 * n2;
+        default: return 0;
+      }
+    };
+
+    return {
+      question: `${num1} ${operation} ${num2}`,
+      answer: calculateAnswer(num1, num2, operation).toString()
+    };
+  }
 
   const handleCopyPGP = async () => {
     const pgpKey = document.querySelector('.pgp-container code')?.textContent;
@@ -28,7 +83,6 @@ export function ContactSection() {
         setCopied(true);
         setTimeout(() => setCopied(false), 2000);
         
-        // Scroll the PGP container into view if needed
         if (pgpContainerRef.current) {
           pgpContainerRef.current.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
         }
@@ -40,10 +94,9 @@ export function ContactSection() {
 
   const triggerConfetti = () => {
     const end = Date.now() + 1000;
-
     const colors = ['#22c55e', '#10b981', '#059669'];
 
-    (function frame() {
+    const frame = () => {
       confetti({
         particleCount: 3,
         angle: 60,
@@ -62,48 +115,103 @@ export function ContactSection() {
       if (Date.now() < end) {
         requestAnimationFrame(frame);
       }
-    }());
+    };
+
+    frame();
+  };
+
+  const sanitizeInput = (input: string): string => {
+    return DOMPurify.sanitize(input.trim(), {
+      ALLOWED_TAGS: [], // No HTML allowed
+      ALLOWED_ATTR: [] // No attributes allowed
+    });
+  };
+
+  const validateEmail = (email: string): boolean => {
+    const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+    return emailRegex.test(email) && email.length <= 254; // RFC 5321
   };
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    setSubmitError(null);
+    setSubmitSuccess(false);
 
-    if (cooldown) {
+    if (!formRef.current) {
+      return;
+    }
+
+    // Validate CAPTCHA
+    if (captchaAnswer !== captcha.answer) {
+      setSubmitError('Incorrect CAPTCHA answer. Please try again.');
+      setCaptchaAnswer('');
+      setCaptcha(generateCaptcha());
+      return;
+    }
+
+    // Get and sanitize form data
+    const formData = new FormData(formRef.current);
+    const name = sanitizeInput(formData.get('name') as string);
+    const email = sanitizeInput(formData.get('email') as string);
+    const message = sanitizeInput(formData.get('message') as string);
+
+    // Enhanced validation
+    if (!name || !email || !message) {
+      setSubmitError('Please fill in all fields before submitting.');
+      return;
+    }
+
+    if (name.length > 100) {
+      setSubmitError('Name is too long (maximum 100 characters).');
+      return;
+    }
+
+    if (!validateEmail(email)) {
+      setSubmitError('Please enter a valid email address.');
+      return;
+    }
+
+    if (message.length > 5000) {
+      setSubmitError('Message is too long (maximum 5000 characters).');
       return;
     }
 
     setIsSubmitting(true);
-    setCooldown(true);
 
-    // Start 10 second cooldown
-    cooldownTimeRef.current = window.setTimeout(() => {
-      setCooldown(false);
-    }, 10000);
+    try {
+      const jsonData = {
+        name,
+        email,
+        message,
+      };
 
-    // Simulate loading for 2 seconds before submitting
-    await new Promise(resolve => setTimeout(resolve, 2000));
+      const response = await fetch('https://formspree.io/f/mqaplvwo', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json',
+          'X-Requested-With': 'XMLHttpRequest'
+        },
+        body: JSON.stringify(jsonData),
+        credentials: 'omit' // Don't send cookies
+      });
 
-    if (formRef.current) {
-      const formData = new FormData(formRef.current);
-      try {
-        const response = await fetch('https://formspree.io/f/mqaplvwo', {
-          method: 'POST',
-          body: formData,
-          headers: {
-            'Accept': 'application/json'
-          }
-        });
-
-        if (response.ok) {
-          triggerConfetti();
-          formRef.current.reset();
-        }
-      } catch (error) {
-        console.error('Error submitting form:', error);
+      if (response.ok) {
+        setSubmitSuccess(true);
+        triggerConfetti();
+        formRef.current.reset();
+        setCaptchaAnswer('');
+        setCaptcha(generateCaptcha());
+      } else {
+        const errorData = await response.json();
+        setSubmitError(errorData.error || 'Something went wrong. Please try again later.');
       }
+    } catch (error) {
+      console.error('Error submitting form:', error);
+      setSubmitError('Something went wrong. Please try again later.');
+    } finally {
+      setIsSubmitting(false);
     }
-
-    setIsSubmitting(false);
   };
 
   return (
@@ -141,9 +249,10 @@ export function ContactSection() {
                   name="name"
                   autoComplete="name"
                   required
-                  disabled={isSubmitting || cooldown}
+                  disabled={isSubmitting}
                   className="form-input w-full bg-black/30 border border-green-500/20 rounded-lg px-4 py-2 text-white focus:outline-none focus:border-green-500/50 disabled:opacity-50"
                   placeholder="John Doe"
+                  maxLength={100}
                 />
               </div>
 
@@ -157,9 +266,10 @@ export function ContactSection() {
                   name="email"
                   autoComplete="email"
                   required
-                  disabled={isSubmitting || cooldown}
+                  disabled={isSubmitting}
                   className="form-input w-full bg-black/30 border border-green-500/20 rounded-lg px-4 py-2 text-white focus:outline-none focus:border-green-500/50 disabled:opacity-50"
                   placeholder="john@example.com"
+                  maxLength={254}
                 />
               </div>
 
@@ -171,21 +281,52 @@ export function ContactSection() {
                   id="message"
                   name="message"
                   required
-                  disabled={isSubmitting || cooldown}
+                  disabled={isSubmitting}
                   className="form-textarea w-full bg-black/30 border border-green-500/20 rounded-lg px-4 py-2 text-white focus:outline-none focus:border-green-500/50 h-32 resize-none disabled:opacity-50"
                   placeholder="Your message here..."
+                  maxLength={5000}
                 />
               </div>
 
+              {/* CAPTCHA Section */}
+              <div className="form-group">
+                <label className="block text-sm font-medium text-gray-400 mb-2">
+                  Verify you're human
+                </label>
+                <div className="flex items-center gap-4">
+                  <div className="bg-black/30 border border-green-500/20 rounded-lg px-4 py-2 text-green-400">
+                    {captcha.question} = ?
+                  </div>
+                  <input
+                    type="text"
+                    value={captchaAnswer}
+                    onChange={(e) => setCaptchaAnswer(e.target.value)}
+                    placeholder="Answer"
+                    className="form-input w-24 bg-black/30 border border-green-500/20 rounded-lg px-4 py-2 text-white focus:outline-none focus:border-green-500/50"
+                    required
+                    maxLength={5}
+                    pattern="-?[0-9]*"
+                  />
+                </div>
+              </div>
+
+              {submitSuccess && (
+                <div className="text-green-500 text-sm">
+                  Message sent successfully! Thank you for reaching out.
+                </div>
+              )}
+
+              {submitError && (
+                <div className="text-red-500 text-sm">{submitError}</div>
+              )}
+
               <button
                 type="submit"
-                disabled={isSubmitting || cooldown}
+                disabled={isSubmitting}
                 className="cyber-button w-full justify-center disabled:opacity-50 disabled:cursor-not-allowed"
               >
                 {isSubmitting ? (
                   '[$ sending...]'
-                ) : cooldown ? (
-                  '[$ please_wait...]'
                 ) : (
                   '[$ send_message]'
                 )}
@@ -199,13 +340,6 @@ export function ContactSection() {
             transition={{ duration: 0.5, delay: 0.4 }}
             className="font-mono text-sm space-y-4"
           >
-            {/* Hidden element for focus */}
-            <div 
-              ref={focusRef} 
-              tabIndex={0} 
-              style={{ position: 'absolute', top: '-9999px', left: '-9999px' }} 
-            />
-            
             <div className="flex items-center justify-between mb-6">
               <div className="flex items-center gap-2 text-green-500">
                 <Key className="w-4 h-4" />
