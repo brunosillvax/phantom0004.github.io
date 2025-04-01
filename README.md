@@ -33,24 +33,24 @@ Ensure you have the following installed:
 ### Installation
 
 1. Clone the Repository:
-   ```bash
+```bash
 git clone https://github.com/phantom0004/phantom0004.github.io
-	```
+```
 
 3. Navigate into the Project Directory:
- ```bash
+```bash
 cd phantom0004.github.io
- ```
+```
 
 3. Install Dependencies:
- ```bash
+```bash
 npm install
- ```
+```
  
 4. Run the Application:
- ```bash
+```bash
 npm start
- ```
+```
  
 This command will start the development server. Open your browser and navigate to http://localhost:3000 to view the website.
 
@@ -58,9 +58,9 @@ This command will start the development server. Open your browser and navigate t
 ## Build & Deployment
 
 For production deployment, run:
- ```bash
+```bash
 npm run build
- ```
+```
 
 This command creates an optimized production build in the build folder, which can then be deployed to GitHub Pages or any other hosting service.
 
