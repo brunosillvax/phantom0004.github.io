@@ -91,7 +91,7 @@ export function ExperienceSection() {
           <span>cat ~/experience.log</span>
         </h2>
 
-        <div className="relative max-w-4xl mx-auto">
+        <div className="w-full">
           <div className="relative h-[500px] sm:h-[400px] overflow-hidden rounded-xl">
             <AnimatePresence initial={false} custom={direction}>
               <motion.div
@@ -119,7 +119,7 @@ export function ExperienceSection() {
                 }}
                 className="absolute w-full h-full"
               >
-                <div className="h-full bg-black/40 rounded-xl p-6 border border-green-500/20 backdrop-blur-sm">
+                <div className="h-full bg-black/40 rounded-xl p-6 sm:p-8 border border-green-500/20 backdrop-blur-sm">
                   <div className="h-full flex flex-col">
                     <div className="flex items-center justify-between mb-4">
                       <div className="flex items-center gap-2 text-green-400 text-sm">
@@ -174,7 +174,7 @@ export function ExperienceSection() {
           </div>
 
           {/* Navigation Controls */}
-          <div className="flex items-center justify-between mt-6">
+          <div className="flex items-center justify-between mt-6 px-4">
             <motion.button
               whileHover={{ scale: 1.1 }}
               whileTap={{ scale: 0.9 }}

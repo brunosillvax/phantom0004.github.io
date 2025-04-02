@@ -363,9 +363,12 @@ export function ContactSection() {
               </button>
             </div>
             
-            <div ref={pgpContainerRef} className="pgp-container relative rounded-lg bg-black/30 border border-green-500/20">
-              <div className="max-h-[300px] overflow-y-auto overflow-x-auto custom-scrollbar cursor-pointer">
-                <pre className="p-4 text-gray-400 relative group-hover:bg-black/40 transition-colors duration-300">
+            <div 
+              ref={pgpContainerRef} 
+              className="pgp-container relative rounded-lg bg-black/30 border border-green-500/20 overflow-hidden isolate"
+            >
+              <div className="max-h-[300px] overflow-y-auto overflow-x-auto custom-scrollbar">
+                <pre className="p-4 text-gray-400 relative">
                   <code className="block whitespace-pre font-mono text-xs leading-relaxed">
                     {`-----BEGIN PGP PUBLIC KEY BLOCK-----
 Version: Keybase OpenPGP v1.0.0
@@ -392,8 +395,8 @@ a2Pp+zLkCzKQA1t1hW7lkwZPwsAnB
                   </code>
                 </pre>
               </div>
-              <div className="pgp-scan-animation">
-                <div className="absolute inset-0 bg-gradient-to-r from-transparent via-green-500/5 to-transparent animate-scan"></div>
+              <div className="absolute inset-0 pointer-events-none">
+                <div className="w-full h-full bg-gradient-to-r from-green-500/5 to-transparent animate-scan" />
               </div>
             </div>
             <p className="text-gray-400 mt-4">

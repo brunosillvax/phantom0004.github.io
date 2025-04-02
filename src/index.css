@@ -116,7 +116,18 @@
 
   /* Responsive PGP Key Display */
   .pgp-container {
-    @apply relative rounded-lg bg-black/30 border border-green-500/20;
+    @apply relative rounded-lg bg-black/30 border border-green-500/20 overflow-hidden;
+  }
+
+  .pgp-container .animate-scan {
+    animation: scan 2s linear infinite;
+    mask-image: linear-gradient(
+      to right,
+      transparent,
+      black 20%,
+      black 80%,
+      transparent
+    );
   }
 
   @media (max-width: 767px) {

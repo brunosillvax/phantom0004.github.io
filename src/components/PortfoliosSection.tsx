@@ -39,23 +39,26 @@ export function PortfoliosSection() {
           <span>cat ~/profiles</span>
         </h2>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          {portfolios.map((portfolio) => (
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+          {portfolios.map((portfolio, index) => (
             <motion.a
               key={portfolio.title}
               href={portfolio.link}
               target="_blank"
               rel="noopener noreferrer"
-              className="block group"
+              className="block group h-full"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: index * 0.1 }}
               whileHover={{ scale: 1.02 }}
-              transition={{ duration: 0.2 }}
             >
-              <div className="relative bg-black/50 border border-green-500/20 p-6 rounded-xl overflow-hidden">
+              <div className="h-full relative bg-black/50 border border-green-500/20 p-6 rounded-xl overflow-hidden flex flex-col">
                 <div className="absolute inset-0 bg-gradient-to-r from-green-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                <h3 className="text-xl font-semibold mb-2 text-green-500 group-hover:text-green-400 transition-colors">
+                <h3 className="text-xl font-semibold mb-2 text-green-500 group-hover:text-green-400 transition-colors relative z-10">
                   {portfolio.title}
                 </h3>
-                <p className="text-gray-400 text-sm group-hover:text-gray-300 transition-colors">
+                <p className="text-gray-400 text-sm group-hover:text-gray-300 transition-colors flex-grow relative z-10">
                   {portfolio.description}
                 </p>
                 <div className="absolute bottom-3 right-3 text-green-500/50 group-hover:text-green-500 transition-colors">
