@@ -76,8 +76,10 @@ export const Hero = memo(function Hero() {
                 options={{
                   strings: [
                     'Cybersecurity Student',
-                    'Software Developer',
-                    'CTF Player',
+                    'Offensive Security Enthusiast',
+                    'Red Team Explorer',
+                    'CTF Competitor',
+                    'Python & C Developer',
                     'Security Researcher',
                   ],
                   autoStart: true,
@@ -92,8 +94,8 @@ export const Hero = memo(function Hero() {
             <p className="text-gray-400 max-w-3xl mx-auto md:mx-0 leading-relaxed font-light z-10 relative">
               Welcome to my digital workspace — built with purpose and precision. I specialize in{' '}
               <span className="text-green-400 font-medium">ethical hacking</span>,{' '}
-              <span className="text-green-400 font-medium">secure software development</span>, and
-              translating exploits into opportunities.
+              <span className="text-green-400 font-medium">developing exploit-driven applications</span>, and
+              turning vulnerabilities into valuable insights.
             </p>
 
             <div className="flex flex-col sm:flex-row items-center gap-4 z-10 relative">

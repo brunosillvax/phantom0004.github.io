@@ -1,15 +1,10 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef, useEffect, lazy, Suspense } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import useSound from 'use-sound';
 import { useNavigate } from 'react-router-dom';
-import { MatrixBackground } from './MatrixBackground';
 import { Terminal as TerminalIcon, Github, ExternalLink } from 'lucide-react';
 
-interface Command {
-  name: string;
-  description: string;
-  action: () => void;
-}
+const MatrixBackground = lazy(() => import('./MatrixBackground').then(module => ({ default: module.MatrixBackground })));
+const useSound = lazy(() => import('use-sound').then(module => ({ default: module.default })));
 
 const titleBanner = `
  ____              _        _____     _   _   
@@ -23,26 +18,32 @@ const socialLinks = [
   { name: 'GitHub', url: 'https://github.com/phantom0004', icon: Github },
 ];
 
-const TypeWriter: React.FC<{ 
+const TypeWriter = React.memo(function TypeWriter({ 
+  text, 
+  onComplete, 
+  showCursor = true, 
+  speed = 'normal' 
+}: { 
   text: string; 
   onComplete?: () => void;
   showCursor?: boolean;
   speed?: 'fast' | 'normal';
-}> = ({ text, onComplete, showCursor = true, speed = 'normal' }) => {
+}) {
   const [displayText, setDisplayText] = useState('');
   const [isComplete, setIsComplete] = useState(false);
   const timerRef = useRef<NodeJS.Timeout>();
 
   useEffect(() => {
     let currentIndex = 0;
+    let mounted = true;
 
     const type = () => {
+      if (!mounted) return;
+      
       if (currentIndex < text.length) {
         setDisplayText(text.slice(0, currentIndex + 1));
         currentIndex++;
-        const minDelay = speed === 'fast' ? 1 : 5;
-        const maxDelay = speed === 'fast' ? 2 : 10;
-        const delay = Math.random() * (maxDelay - minDelay) + minDelay;
+        const delay = speed === 'fast' ? 1 : Math.random() * 5 + 5;
         timerRef.current = setTimeout(type, delay);
       } else {
         setIsComplete(true);
@@ -53,6 +54,7 @@ const TypeWriter: React.FC<{
     type();
 
     return () => {
+      mounted = false;
       if (timerRef.current) {
         clearTimeout(timerRef.current);
       }
@@ -67,17 +69,21 @@ const TypeWriter: React.FC<{
       )}
     </span>
   );
-};
+});
 
-const LineByLine: React.FC<{ 
+const LineByLine = React.memo(function LineByLine({ 
+  lines,
+  onComplete,
+  speed = 'normal'
+}: { 
   lines: string[];
   onComplete?: () => void;
   speed?: 'fast' | 'normal';
-}> = ({ lines, onComplete, speed = 'normal' }) => {
+}) {
   const [currentLineIndex, setCurrentLineIndex] = useState(0);
   const [completedLines, setCompletedLines] = useState<string[]>([]);
-  const mountedRef = useRef(false);
   const [isLastLineComplete, setIsLastLineComplete] = useState(false);
+  const mountedRef = useRef(true);
 
   useEffect(() => {
     mountedRef.current = true;
@@ -117,84 +123,75 @@ const LineByLine: React.FC<{
       )}
     </div>
   );
-};
+});
 
 export function Terminal() {
+  const [isLoading, setIsLoading] = useState(true);
   const [input, setInput] = useState('');
   const [history, setHistory] = useState<string[]>([]);
   const [historyIndex, setHistoryIndex] = useState(-1);
-  const [output, setOutput] = useState<{ type: 'input' | 'output' | 'ascii' | 'error' | 'success'; content: string | React.ReactNode }[]>([
-    { 
-      type: 'ascii', 
-      content: (
-        <div className="flex flex-col items-center justify-center space-y-4 sm:space-y-8">
-          <motion.pre
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
-            className="text-green-400 text-[8px] xs:text-xs sm:text-sm md:text-base lg:text-lg whitespace-pre font-bold glitch-text hidden sm:block"
-            style={{ 
-              textShadow: '2px 2px 0px rgba(34, 197, 94, 0.2), -2px -2px 0px rgba(34, 197, 94, 0.2)',
-              animation: 'glitch 3s infinite'
-            }}
-          >
-            {titleBanner}
-          </motion.pre>
-          <motion.h1
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
-            className="text-green-400 text-xl sm:text-2xl md:text-3xl font-bold sm:hidden text-center"
-          >
-            Terminal v1.0
-          </motion.h1>
-        </div>
-      )
-    }
-  ]);
+  const [output, setOutput] = useState<{ type: 'input' | 'output' | 'ascii' | 'error' | 'success'; content: string | React.ReactNode }[]>([]);
+  const [isTyping, setIsTyping] = useState(false);
+  const [isMobileKeyboardOpen, setIsMobileKeyboardOpen] = useState(false);
   
   const inputRef = useRef<HTMLInputElement>(null);
   const navigate = useNavigate();
   const terminalContentRef = useRef<HTMLDivElement>(null);
   const hasInitializedRef = useRef(false);
-  const [isTyping, setIsTyping] = useState(false);
-  const [isMobileKeyboardOpen, setIsMobileKeyboardOpen] = useState(false);
-  
-  const [playKeyPress] = useSound('/sounds/keypress.mp3', { volume: 0.5 });
 
   useEffect(() => {
-    const handleResize = () => {
-      const vh = window.innerHeight * 0.01;
-      document.documentElement.style.setProperty('--vh', `${vh}px`);
-    };
+    const timer = setTimeout(() => {
+      setIsLoading(false);
+      setOutput([
+        { 
+          type: 'ascii', 
+          content: (
+            <div className="flex flex-col items-center justify-center space-y-4 sm:space-y-8">
+              <motion.pre
+                initial={{ opacity: 0, y: -20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5 }}
+                className="text-green-400 text-[8px] xs:text-xs sm:text-sm md:text-base lg:text-lg whitespace-pre font-bold glitch-text hidden sm:block"
+              >
+                {titleBanner}
+              </motion.pre>
+              <motion.h1
+                initial={{ opacity: 0, y: -20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5 }}
+                className="text-green-400 text-xl sm:text-2xl md:text-3xl font-bold sm:hidden text-center"
+              >
+                Terminal v1.0
+              </motion.h1>
+            </div>
+          )
+        }
+      ]);
 
-    handleResize();
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
-  }, []);
+      if (!hasInitializedRef.current) {
+        hasInitializedRef.current = true;
+        const steps = [
+          'msf exploit(linux/ssh/libssh_auth_bypass) > exploit',
+          '[*] Started reverse TCP handler on 10.10.14.1:4444',
+          '[*] Attempting to bypass authentication...',
+          '[*] Exploit successful, sending payload...',
+          '[*] Meterpreter session 1 opened (10.10.14.1:4444 -> 10.10.14.22:58342)',
+          'meterpreter > shell'
+        ];
 
-  useEffect(() => {
-    if (hasInitializedRef.current) return;
-    hasInitializedRef.current = true;
-    
-    const steps = [
-      'msf exploit(linux/ssh/libssh_auth_bypass) > exploit',
-      '[*] Started reverse TCP handler on 10.10.14.1:4444',
-      '[*] Attempting to bypass authentication...',
-      '[*] Exploit successful, sending payload...',
-      '[*] Meterpreter session 1 opened (10.10.14.1:4444 -> 10.10.14.22:58342)',
-      'meterpreter > shell'
-    ];
+        setIsTyping(true);
+        setOutput(prev => [...prev, { 
+          type: 'output',
+          content: <LineByLine 
+            lines={steps} 
+            onComplete={() => setIsTyping(false)}
+            speed="fast"
+          />
+        }]);
+      }
+    }, 500);
 
-    setIsTyping(true);
-    setOutput(prev => [...prev, { 
-      type: 'output',
-      content: <LineByLine 
-        lines={steps} 
-        onComplete={() => setIsTyping(false)}
-        speed="normal"
-      />
-    }]);
+    return () => clearTimeout(timer);
   }, []);
 
   const getAboutData = () => {
@@ -202,12 +199,16 @@ export function Terminal() {
       '╭─ About Me ──────────────────────────────╮',
       '│                                         ',
       '│  Name: Daryl Gatt                       ',
-      '│  Role: Cybersecurity Professional       ',
+      '│  Role: Cybersecurity Student & Developer',
       '│                                         ',
-      '│  A passionate cybersecurity enthusiast  ',
-      '│  with expertise in penetration testing, ',
-      '│  secure development, and offensive      ',
-      '│  security research.                     ',
+      '│  Focused on offensive security labs and ',
+      '│  building tools that break, exploit, and',
+      '│  better understand system vulnerabilities.',
+      '│                                         ',
+      '│  Backend developer in the cybersecurity ',
+      '│  realm, blending code with exploitation. ',
+      '│  Passionate about malware analysis, CTFs,',
+      '│  and red team research.                 ',
       '│                                         ',
       '╰─────────────────────────────────────────╯'
     ];
@@ -216,21 +217,32 @@ export function Terminal() {
 
   const getProjectsData = () => {
     const projects = [
-      '╭─ Projects ──────────────────────────────╮',
-      '│                                         ',
-      '│  1. KRYPT0S Ransomware PoC              ',
-      '│     Educational ransomware impl.        ',
-      '│                                         ',
-      '│  2. Morpheus IOC Scanner                ',
-      '│     Advanced threat detection           ',
-      '│                                         ',
-      '│  3. FuzzFindr Web Fuzzing Tool          ',
-      '│     Web security testing framework      ',
-      '│                                         ',
-      '│  4. ELK Stack Tools                     ',
-      '│     ELK stack management suite          ',
-      '│                                         ',
-      '╰─────────────────────────────────────────╯'
+      '╭─ Featured Projects ─────────────────────╮',
+      '│                                        ',
+      '│  1. Morpheus IOC Scanner               ',
+      '│     YARA-powered IOC detection tool    ',
+      '│                                        ',
+      '│  2. Deimos Ransomware PoC              ',
+      '│     Double-extortion ransomware demo   ',
+      '│                                        ',
+      '│  3. KRYPT0S Ransomware (Archived)      ',
+      '│     Python-based ransomware wiper      ',
+      '│                                        ',
+      '│  4. PenTest Vault                      ',
+      '│     Ethical hacking snippets & tools   ',
+      '│                                        ',
+      '│  5. ELK Stack Tools (Archived)         ',
+      '│     Scripts for ELK stack management   ',
+      '│                                        ',
+      '│  6. FuzzFindr Web Fuzzer (Archived)    ',
+      '│     Lightweight web fuzzing utility    ',
+      '│                                        ',
+      '│  7. Holocron Archives                  ',
+      '│     Discontinued tools worth revisiting',
+      '│                                        ',
+      '│  → More available on GitHub or         ',
+      '│    in the full portfolio               ',
+      '╰────────────────────────────────────────╯'
     ];
     return projects.join('\n');
   };
@@ -238,12 +250,13 @@ export function Terminal() {
   const getSkillsData = () => {
     const skillsContent = [
       '╭─ Technical Skills ────────────────────────╮',
-      '│                                          ',
-      '│  Security:  Penetration Testing, OSINT   ',
-      '│  Languages: Python, JavaScript, C++      ',
-      '│  Tools:     Burp Suite, Metasploit       ',
-      '│  Platforms: Linux, Windows, Cloud        ',
-      '│                                          ',
+      '│                                           ',
+      '│  Security:  Offensive Dev, Ethical Hacking',
+      '│  Languages: Bash, Python, C               ',
+      '│  Tools:     Metasploit, custom exploits,  ',
+      '│             scenario-specific utilities   ',
+      '│  Platforms: Kali Linux, Windows, Ubuntu   ',
+      '│                                           ',
       '╰───────────────────────────────────────────╯'
     ];
     return skillsContent.join('\n');
@@ -252,19 +265,20 @@ export function Terminal() {
   const getContactData = () => {
     const contactContent = [
       '╭─ Contact Information ──────────────────────╮',
-      '│                                           ',
-      '│  Email:  phantom.techsec@gmail.com        ',
-      '│  GitHub: github.com/phantom0004           ',
-      '│                                           ',
-      '│  For secure communication, use PGP key    ',
-      '│  available on the main portfolio.         ',
-      '│                                           ',
+      '│                                            ',
+      '│  Email:  phantom.techsec@gmail.com         ',
+      '│  GitHub: github.com/phantom0004            ',
+      '│  LinkedIn: linkedin.com/in/daryl-gatt-web3 ',
+      '│                                            ',
+      '│  For secure communication, use PGP key     ',
+      '│  available on the main portfolio.          ',
+      '│                                            ',
       '╰────────────────────────────────────────────╯'
     ];
     return contactContent.join('\n');
   };
 
-  const commands: Command[] = [
+  const commands = [
     {
       name: 'help',
       description: 'Display available commands',
@@ -469,9 +483,21 @@ export function Terminal() {
     }
   };
 
+  if (isLoading) {
+    return (
+      <div className="min-h-screen bg-black flex items-center justify-center">
+        <div className="text-green-500 text-xl animate-pulse">
+          Initializing Terminal...
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="min-h-screen min-h-[calc(var(--vh,1vh)*100)] bg-black flex items-center justify-center p-2 sm:p-4 relative overflow-hidden cursor-default">
-      <MatrixBackground />
+      <Suspense fallback={null}>
+        <MatrixBackground />
+      </Suspense>
       
       <motion.div
         initial={{ opacity: 0, y: 20 }}
@@ -479,7 +505,6 @@ export function Terminal() {
         exit={{ opacity: 0, y: 20 }}
         className="w-full max-w-4xl bg-black/80 rounded-lg border border-green-500/20 backdrop-blur-sm relative z-10 flex flex-col"
       >
-        {/* Terminal Header */}
         <div className="flex items-center justify-between p-2 bg-black/50 border-b border-green-500/20">
           <div className="flex items-center gap-2">
             <div className="w-2 h-2 sm:w-3 sm:h-3 rounded-full bg-red-500/50" />
@@ -492,7 +517,6 @@ export function Terminal() {
           </div>
         </div>
 
-        {/* Terminal Content */}
         <div
           ref={terminalContentRef}
           className="flex-1 h-[60vh] sm:h-[70vh] md:h-[calc(100vh-12rem)] md:max-h-[700px] p-3 sm:p-6 font-mono text-xs sm:text-sm overflow-y-auto custom-scrollbar"
@@ -534,7 +558,6 @@ export function Terminal() {
                 value={input}
                 onChange={(e) => {
                   setInput(e.target.value);
-                  playKeyPress();
                 }}
                 onFocus={() => setIsMobileKeyboardOpen(true)}
                 onBlur={() => setIsMobileKeyboardOpen(false)}
@@ -550,7 +573,6 @@ export function Terminal() {
           )}
         </div>
 
-        {/* Terminal Footer */}
         <div className="p-2 border-t border-green-500/20 bg-black/50">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-2 sm:gap-4">

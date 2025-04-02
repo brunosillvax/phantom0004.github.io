@@ -24,16 +24,17 @@ export function AboutSection() {
             className="space-y-6"
           >
             <p className="text-gray-400 leading-relaxed">
-              I'm a <span className="text-green-400">cybersecurity enthusiast</span> and <span className="text-green-400">ethical hacker</span> with a strong passion for 
-              secure software development and offensive research. My journey began in programming but quickly 
-              spiraled into a deep obsession with breaking, defending, and <span className="text-green-400">understanding systems from the inside out</span>.
+              I'm a <span className="text-green-400">cybersecurity builder</span> and <span className="text-green-400">offensive developer </span> 
+              with a strong passion for designing and deploying security-focused tools. What started as a love for programming 
+              quickly turned into a deep dive into exploitation, red teaming, and <span className="text-green-400">understanding systems by breaking them</span>.
+            </p>
+            
+            <p className="text-gray-400 leading-relaxed mt-4">
+              I'm currently sharpening my edge through <span className="text-green-400">offensive labs</span>, developing proof-of-concept exploits, 
+              and testing my skills in <span className="text-green-400">Capture The Flag (CTF)</span> challenges. I also contribute to 
+              open-source tooling that supports red teaming, automation, and offensive research.
             </p>
 
-            <p className="text-gray-400 leading-relaxed mt-4">
-              I'm currently leveling up through <span className="text-green-400">advanced certifications</span>, diving into real-world 
-              labs, and staying sharp by competing in <span className="text-green-400">Capture The Flag (CTF)</span> challenges. I also contribute to 
-              open-source tools focused on red teaming, automation, and threat detection.
-            </p>
           </motion.div>
           
           <motion.div
@@ -79,10 +80,11 @@ export function AboutSection() {
             </motion.div>
 
             <div className="text-gray-300 space-y-1 mt-6 relative z-10">
-              <p><span className="text-green-400">Alias:</span> Phantom</p>
-              <p><span className="text-green-400">Skills:</span> Penetration Testing, Secure Development, Network Security</p>
-              <p><span className="text-green-400">Tools:</span> Kali Linux, Burp Suite, Metasploit, Wireshark</p>
-              <p><span className="text-green-400">Languages:</span> Python, JavaScript, Bash, C++</p>
+               <p><span className="text-green-400">Alias:</span> Phantom</p>
+              <p><span className="text-green-400">Focus:</span> Offensive Tooling, Red Team Labs, Exploit Dev</p>
+              <p><span className="text-green-400">Toolset:</span> Kali Linux, Custom Payloads, Metasploit, Wireshark</p>
+              <p><span className="text-green-400">Languages:</span> Python, Bash, C</p>
+              <p><span className="text-green-400">Specialty:</span> Building offensive PoCs</p>
             </div>
           </motion.div>
         </div>

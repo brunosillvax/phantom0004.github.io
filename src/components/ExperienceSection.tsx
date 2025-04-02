@@ -1,43 +1,55 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Briefcase, Calendar, Building2, ChevronLeft, ChevronRight } from 'lucide-react';
+import { Calendar, Building2, ChevronLeft, ChevronRight, History } from 'lucide-react';
 
 const experiences = [
   {
-    title: "Senior Cybersecurity Analyst",
-    company: "SecureNet Solutions",
-    period: "2023 - Present",
-    description: "Led threat hunting operations and implemented advanced security monitoring solutions.",
+    title: "Junior Software Developer & Cybersecurity Sales Assistant",
+    company: "SG Solutions",
+    period: "Jan 2025 – Present",
+    description: "Supported cybersecurity product sales (e.g., BullWall), managed document systems (e.g., DocuWare), and contributed to client solution delivery.",
     achievements: [
-      "Reduced security incidents by 40% through proactive threat detection",
-      "Implemented zero-trust architecture across cloud infrastructure",
-      "Developed automated incident response playbooks"
+      "Assisted in implementing cybersecurity solutions for clients",
+      "Completed the DTE course and applied it in documentation processes",
+      "Improved internal documentation workflows for sales-related tools"
     ],
-    technologies: ["SIEM", "Threat Intelligence", "Incident Response"]
+    technologies: ["Cybersecurity Sales", "Document Management", "Client Solutions"]
   },
   {
-    title: "Security Engineer",
-    company: "CyberGuard Technologies",
-    period: "2021 - 2023",
-    description: "Specialized in penetration testing and vulnerability assessments for enterprise clients.",
+    title: "IT Student Worker",
+    company: "Servizz.Gov",
+    period: "Jan 2024 – Dec 2024",
+    description: "Managed and optimized services, mentored a student in Microsoft applications, and integrated Power BI and Azure solutions.",
     achievements: [
-      "Conducted 50+ successful penetration tests",
-      "Discovered critical zero-day vulnerability",
-      "Developed custom security tools for internal use"
+      "Integrated Microsoft Azure with Power BI for internal service reporting",
+      "Automated workflows using Microsoft Power Automate",
+      "Mentored a junior student in Microsoft services and app development"
     ],
-    technologies: ["Penetration Testing", "Vulnerability Assessment", "Tool Development"]
+    technologies: ["Power BI", "Power Automate", "Microsoft Azure"]
   },
   {
-    title: "Junior Security Analyst",
-    company: "DefendCorp",
-    period: "2019 - 2021",
-    description: "Monitored security incidents and performed malware analysis.",
+    title: "Cybersecurity SOC Tier 1 Analyst (Internship)",
+    company: "MITA",
+    period: "Aug 2024 – Aug 2024",
+    description: "Completed job shadowing for threat hunting and malware analysis using Microsoft cybersecurity products in a SOC environment.",
     achievements: [
-      "Handled 200+ security incidents",
-      "Implemented automated malware analysis pipeline",
-      "Created security awareness training program"
+      "Trained in malware analysis and threat intelligence",
+      "Performed simulated threat hunting tasks in a SOC setting",
+      "Used Microsoft security tools to assess real-world scenarios"
     ],
-    technologies: ["Malware Analysis", "Security Monitoring", "Incident Handling"]
+    technologies: ["Threat Intelligence", "Malware Analysis", "Microsoft Defender"]
+  },
+  {
+    title: "Summer Club Teacher and Programming Mentor",
+    company: "TCTC",
+    period: "Jun 2023 – Aug 2023",
+    description: "Taught Python and web development to children and mentored young students in IT fundamentals and programming basics.",
+    achievements: [
+      "Designed and delivered beginner-friendly Python coding lessons",
+      "Mentored students in building basic websites using HTML/CSS",
+      "Created engaging programming exercises for summer school participants"
+    ],
+    technologies: ["Python", "Web Development", "Mentorship"]
   }
 ];
 
@@ -86,13 +98,13 @@ export function ExperienceSection() {
         transition={{ duration: 0.8, ease: 'easeOut' }}
         className="container mx-auto px-4"
       >
-        <h2 className="text-4xl md:text-5xl font-light mb-12 flex items-center gap-4">
-          <Briefcase className="w-8 h-8 text-green-500" />
-          <span>cat ~/experience.log</span>
+        <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-light mb-8 sm:mb-12 flex items-center gap-2 sm:gap-4">
+          <History className="w-6 h-6 sm:w-8 sm:h-8 text-green-500 flex-shrink-0" />
+          <span className="truncate">cat ~/exp.log</span>
         </h2>
 
         <div className="w-full">
-          <div className="relative h-[500px] sm:h-[400px] overflow-hidden rounded-xl">
+          <div className="relative min-h-[400px] sm:h-[400px] overflow-hidden rounded-xl">
             <AnimatePresence initial={false} custom={direction}>
               <motion.div
                 key={currentIndex}
@@ -119,35 +131,35 @@ export function ExperienceSection() {
                 }}
                 className="absolute w-full h-full"
               >
-                <div className="h-full bg-black/40 rounded-xl p-6 sm:p-8 border border-green-500/20 backdrop-blur-sm">
-                  <div className="h-full flex flex-col">
-                    <div className="flex items-center justify-between mb-4">
-                      <div className="flex items-center gap-2 text-green-400 text-sm">
-                        <Calendar className="w-4 h-4" />
+                <div className="h-full bg-black/40 rounded-xl p-4 sm:p-6 md:p-8 border border-green-500/20 backdrop-blur-sm overflow-y-auto">
+                  <div className="flex flex-col h-full">
+                    <div className="flex flex-col sm:flex-row sm:items-center justify-between mb-4 gap-2">
+                      <div className="flex items-center gap-2 text-green-400 text-xs sm:text-sm">
+                        <Calendar className="w-3 h-3 sm:w-4 sm:h-4" />
                         <span>{experiences[currentIndex].period}</span>
                       </div>
-                      <div className="flex items-center gap-2 text-gray-400">
-                        <Building2 className="w-4 h-4" />
+                      <div className="flex items-center gap-2 text-gray-400 text-xs sm:text-sm">
+                        <Building2 className="w-3 h-3 sm:w-4 sm:h-4" />
                         <span>{experiences[currentIndex].company}</span>
                       </div>
                     </div>
 
-                    <h3 className="text-xl font-semibold mb-4 text-white">
+                    <h3 className="text-base sm:text-lg md:text-xl font-semibold mb-3 sm:mb-4 text-white leading-tight">
                       {experiences[currentIndex].title}
                     </h3>
 
-                    <p className="text-gray-400 mb-6">
+                    <p className="text-gray-400 text-sm sm:text-base mb-4 sm:mb-6 leading-relaxed">
                       {experiences[currentIndex].description}
                     </p>
 
-                    <div className="space-y-2 mb-6">
+                    <div className="space-y-2 mb-4 sm:mb-6 hidden sm:block">
                       {experiences[currentIndex].achievements.map((achievement, i) => (
                         <motion.div
                           key={i}
                           initial={{ opacity: 0, x: -10 }}
                           animate={{ opacity: 1, x: 0 }}
                           transition={{ delay: 0.1 * i }}
-                          className="flex items-center gap-2 text-sm text-gray-300"
+                          className="flex items-center gap-2 text-xs sm:text-sm text-gray-300"
                         >
                           <span className="text-green-500">→</span>
                           {achievement}
@@ -156,11 +168,11 @@ export function ExperienceSection() {
                     </div>
 
                     <div className="mt-auto">
-                      <div className="flex flex-wrap gap-2">
+                      <div className="flex flex-wrap gap-1.5 sm:gap-2">
                         {experiences[currentIndex].technologies.map((tech, i) => (
                           <span
                             key={i}
-                            className="text-xs px-2 py-1 rounded-full bg-green-500/10 text-green-400"
+                            className="text-[10px] sm:text-xs px-1.5 sm:px-2 py-0.5 sm:py-1 rounded-full bg-green-500/10 text-green-400"
                           >
                             {tech}
                           </span>
@@ -174,17 +186,17 @@ export function ExperienceSection() {
           </div>
 
           {/* Navigation Controls */}
-          <div className="flex items-center justify-between mt-6 px-4">
+          <div className="flex items-center justify-between mt-4 sm:mt-6 px-2 sm:px-4">
             <motion.button
               whileHover={{ scale: 1.1 }}
               whileTap={{ scale: 0.9 }}
               onClick={() => paginate(-1)}
-              className="p-2 rounded-full bg-green-500/10 border border-green-500/20 text-green-400 hover:bg-green-500/20 transition-colors"
+              className="p-1.5 sm:p-2 rounded-full bg-green-500/10 border border-green-500/20 text-green-400 hover:bg-green-500/20 transition-colors"
             >
-              <ChevronLeft className="w-6 h-6" />
+              <ChevronLeft className="w-4 h-4 sm:w-6 sm:h-6" />
             </motion.button>
 
-            <div className="flex items-center gap-2">
+            <div className="flex items-center gap-1.5 sm:gap-2">
               {experiences.map((_, index) => (
                 <button
                   key={index}
@@ -192,7 +204,7 @@ export function ExperienceSection() {
                     setDirection(index > currentIndex ? 1 : -1);
                     setCurrentIndex(index);
                   }}
-                  className={`w-2 h-2 rounded-full transition-colors ${
+                  className={`w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full transition-colors ${
                     index === currentIndex ? 'bg-green-500' : 'bg-green-500/20'
                   }`}
                 />
@@ -203,9 +215,9 @@ export function ExperienceSection() {
               whileHover={{ scale: 1.1 }}
               whileTap={{ scale: 0.9 }}
               onClick={() => paginate(1)}
-              className="p-2 rounded-full bg-green-500/10 border border-green-500/20 text-green-400 hover:bg-green-500/20 transition-colors"
+              className="p-1.5 sm:p-2 rounded-full bg-green-500/10 border border-green-500/20 text-green-400 hover:bg-green-500/20 transition-colors"
             >
-              <ChevronRight className="w-6 h-6" />
+              <ChevronRight className="w-4 h-4 sm:w-6 sm:h-6" />
             </motion.button>
           </div>
         </div>
