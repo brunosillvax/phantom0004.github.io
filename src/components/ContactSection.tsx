@@ -258,7 +258,7 @@ export function ContactSection() {
 
               <div className="form-group">
                 <label htmlFor="email" className="block text-sm font-medium text-gray-400 mb-2">
-                  Email
+                  Email (Will be used for contact)
                 </label>
                 <input
                   type="email"

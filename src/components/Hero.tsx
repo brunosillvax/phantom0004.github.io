@@ -1,9 +1,23 @@
 import { memo } from 'react';
 import { motion } from 'framer-motion';
-import { Terminal, ChevronDown } from 'lucide-react';
+import { Terminal, ChevronDown, FileDown } from 'lucide-react';
 import Typewriter from 'typewriter-effect';
 
 export const Hero = memo(function Hero() {
+  const handleDownloadCV = () => {
+    // Create a link element
+    const link = document.createElement('a');
+    link.href = '/assets/cv_document.pdf';
+    link.download = 'Daryl_Gatt_CV.pdf'; 
+    link.target = '_blank'; 
+    link.rel = 'noopener noreferrer';
+    
+    // Programmatically click the link
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  };
+
   return (
     <section 
       id="home" 
@@ -108,6 +122,17 @@ export const Hero = memo(function Hero() {
               >
                 <Terminal className="w-4 h-4 sm:w-5 sm:h-5" />
                 <span>View Portfolio as Terminal</span>
+              </motion.button>
+
+              <motion.button
+                onClick={handleDownloadCV}
+                className="cyber-button w-full sm:w-auto text-sm sm:text-base bg-green-500/20"
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
+                aria-label="Download my CV"
+              >
+                <FileDown className="w-4 h-4 sm:w-5 sm:h-5" />
+                <span>Download CV</span>
               </motion.button>
 
               <motion.a
