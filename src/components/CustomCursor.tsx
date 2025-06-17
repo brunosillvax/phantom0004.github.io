@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { motion, useMotionValue, useSpring } from 'framer-motion';
+import { motion, useMotionValue } from 'framer-motion';
 import { Pointer, Type, Circle } from 'lucide-react';
 
 export function CustomCursor() {
@@ -7,12 +7,12 @@ export function CustomCursor() {
   const [isTyping, setIsTyping] = useState(false);
   const cursorX = useMotionValue(-100);
   const cursorY = useMotionValue(-100);
-  
-  const springConfig = { damping: 35, stiffness: 300, mass: 0.8 };
-  const smoothX = useSpring(cursorX, springConfig);
-  const smoothY = useSpring(cursorY, springConfig);
 
   useEffect(() => {
+    if (!window.matchMedia('(hover: hover) and (pointer: fine)').matches) {
+      return;
+    }
+
     const moveCursor = (e: MouseEvent) => {
       cursorX.set(e.clientX);
       cursorY.set(e.clientY);
@@ -50,10 +50,10 @@ export function CustomCursor() {
 
   return (
     <motion.div
-      className="fixed pointer-events-none z-[9999] flex items-center justify-center"
+      className="custom-cursor fixed pointer-events-none z-[9999] flex items-center justify-center"
       style={{
-        left: smoothX,
-        top: smoothY,
+        left: cursorX,
+        top: cursorY,
         translateX: '-50%',
         translateY: '-50%',
       }}

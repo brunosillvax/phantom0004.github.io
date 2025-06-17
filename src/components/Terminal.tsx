@@ -1,10 +1,9 @@
 import React, { useState, useRef, useEffect, lazy, Suspense } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
-import { Terminal as TerminalIcon, Github, ExternalLink } from 'lucide-react';
+import { Github } from 'lucide-react';
 
 const MatrixBackground = lazy(() => import('./MatrixBackground').then(module => ({ default: module.MatrixBackground })));
-const useSound = lazy(() => import('use-sound').then(module => ({ default: module.default })));
 
 const titleBanner = `
  ____              _        _____     _   _   
