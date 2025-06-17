@@ -12,6 +12,7 @@ Key highlights include:
 - **Responsive Navigation:** A dynamic navigation system with smooth scrolling and interactive menu options.
 - **Engaging UI Elements:** Interactive animations, typewriter effects, and particle backgrounds that contribute to a modern and advanced user interface.
 - **Professional Branding:** A personal touch that reflects my dedication to ethical hacking, secure software development, and innovative tech solutions.
+- **Optimized Custom Cursor:** Cursor only appears on pointer devices, matching user speed without smoothing and hiding entirely on touch screens.
 
 ---
 
