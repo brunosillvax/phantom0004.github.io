@@ -10,10 +10,10 @@ const projects = [
     featured: true
   },
   {
-    title: 'Deimos Ransomware PoC',
-    description: 'A double-extortion ransomware proof-of-concept designed for research and education. Currently in progress.',
-    tech: ['Python', 'Offensive Security', 'Windows'],
-    github: 'https://github.com/phantom0004/deimos-double-extortion-poc',
+    title: 'Oberon Framework',
+    description: 'A proof-of-concept remote access trojan (RAT) framework built for educational research.',
+    tech: ['Python', 'Remote Access', 'Command & Control'],
+    github: 'https://github.com/phantom0004/oberon-framework',
   },
   {
     title: 'PenTest Vault',
