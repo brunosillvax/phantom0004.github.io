@@ -61,8 +61,8 @@ This command will start the development server. Open your browser and navigate t
 Create a `.env` file in the project root with the following variables:
 
 ```bash
-VITE_GA_ID=your-google-analytics-id
-VITE_FORMSPREE_URL=https://formspree.io/f/your-form-id
+VITE_GA_ID=G-80YS4JJGFM
+VITE_FORMSPREE_URL=https://formspree.io/f/mqaplvwo
 ```
 
 These values are required for analytics tracking and for submitting the contact form.
