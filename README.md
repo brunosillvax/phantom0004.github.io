@@ -57,16 +57,6 @@ npm start
 This command will start the development server. Open your browser and navigate to http://localhost:3000 to view the website.
 
 --- 
-## Build & Deployment
-
-For production deployment, run:
-```bash
-npm run build
-```
-
-This command creates an optimized production build in the build folder, which can then be deployed to GitHub Pages or any other hosting service.
-
----
 
 ## License & Usage Policy
 
