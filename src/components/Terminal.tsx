@@ -191,7 +191,7 @@ export function Terminal() {
         getSkillsData,
         getContactData,
       }),
-    []
+    [navigate]
   );
 
 
