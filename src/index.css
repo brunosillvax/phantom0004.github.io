@@ -17,10 +17,6 @@
   body {
     @apply bg-black text-white font-mono overflow-x-hidden;
     font-family: 'JetBrains Mono', monospace;
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
   }
 
   /* Hide custom cursor on touch devices */
