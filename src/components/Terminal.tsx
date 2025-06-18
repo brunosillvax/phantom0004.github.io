@@ -132,6 +132,7 @@ export function Terminal() {
   const [output, setOutput] = useState<{ type: 'input' | 'output' | 'ascii' | 'error' | 'success'; content: string | React.ReactNode }[]>([]);
   const [isTyping, setIsTyping] = useState(false);
   const [isMobileKeyboardOpen, setIsMobileKeyboardOpen] = useState(false);
+  const [isMaximized, setIsMaximized] = useState(false);
   
   const inputRef = useRef<HTMLInputElement>(null);
   const navigate = useNavigate();
@@ -290,8 +291,12 @@ export function Terminal() {
           '│  projects - List project details      ',
           '│  skills   - Display technical skills  ',
           '│  contact  - Show contact information  ',
+          '│  ls       - List available sections   ',
+          '│  whoami   - Display current user      ',
           '│  clear    - Clear terminal screen     ',
           '│  home     - Return to main portfolio  ',
+          '│  exit     - Same as home              ',
+          '│  quit     - Alias for exit            ',
           '│                                       ',
           '╰─────────────────────────────────────────╯'
         ];
@@ -362,6 +367,34 @@ export function Terminal() {
       }
     },
     {
+      name: 'ls',
+      description: 'List available sections',
+      action: () => {
+        setOutput(prev => [...prev, {
+          type: 'output',
+          content: <TypeWriter
+            text={'about\nprojects\nskills\ncontact'}
+            onComplete={() => setIsTyping(false)}
+            speed="fast"
+          />
+        }]);
+      }
+    },
+    {
+      name: 'whoami',
+      description: 'Display current user',
+      action: () => {
+        setOutput(prev => [...prev, {
+          type: 'output',
+          content: <TypeWriter
+            text="phantom0004"
+            onComplete={() => setIsTyping(false)}
+            speed="fast"
+          />
+        }]);
+      }
+    },
+    {
       name: 'clear',
       description: 'Clear terminal screen',
       action: () => {
@@ -403,6 +436,20 @@ export function Terminal() {
     {
       name: 'home',
       description: 'Return to main portfolio',
+      action: () => {
+        navigate('/');
+      }
+    },
+    {
+      name: 'exit',
+      description: 'Exit the terminal',
+      action: () => {
+        navigate('/');
+      }
+    },
+    {
+      name: 'quit',
+      description: 'Alias for exit',
       action: () => {
         navigate('/');
       }
@@ -502,13 +549,23 @@ export function Terminal() {
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         exit={{ opacity: 0, y: 20 }}
-        className="w-full max-w-4xl bg-black/80 rounded-lg border border-green-500/20 backdrop-blur-sm relative z-10 flex flex-col"
+        className={`w-full bg-black/80 border border-green-500/20 backdrop-blur-sm relative z-10 flex flex-col ${
+          isMaximized ? 'fixed inset-0 m-0 max-w-none h-full rounded-none' : 'max-w-4xl rounded-lg'
+        }`}
       >
         <div className="flex items-center justify-between p-2 bg-black/50 border-b border-green-500/20">
           <div className="flex items-center gap-2">
-            <div className="w-2 h-2 sm:w-3 sm:h-3 rounded-full bg-red-500/50" />
+            <button
+              aria-label="Close terminal"
+              onClick={() => navigate('/')}
+              className="w-2 h-2 sm:w-3 sm:h-3 rounded-full bg-red-500/50 hover:bg-red-500"
+            />
             <div className="w-2 h-2 sm:w-3 sm:h-3 rounded-full bg-yellow-500/50" />
-            <div className="w-2 h-2 sm:w-3 sm:h-3 rounded-full bg-green-500/50" />
+            <button
+              aria-label={isMaximized ? 'Restore terminal' : 'Maximize terminal'}
+              onClick={() => setIsMaximized(v => !v)}
+              className="w-2 h-2 sm:w-3 sm:h-3 rounded-full bg-green-500/50 hover:bg-green-500"
+            />
           </div>
           <div className="flex items-center gap-2 sm:gap-4">
             <span className="text-[10px] sm:text-xs text-gray-500">v1.0.0</span>
