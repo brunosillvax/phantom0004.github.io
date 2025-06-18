@@ -53,8 +53,19 @@ npm install
 ```bash
 npm start
 ```
- 
+
 This command will start the development server. Open your browser and navigate to http://localhost:3000 to view the website.
+
+### Environment Variables
+
+Create a `.env` file in the project root with the following variables:
+
+```bash
+VITE_GA_ID=your-google-analytics-id
+VITE_FORMSPREE_URL=https://formspree.io/f/your-form-id
+```
+
+These values are required for analytics tracking and for submitting the contact form.
 
 --- 
 
