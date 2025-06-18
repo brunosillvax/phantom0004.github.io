@@ -57,8 +57,9 @@ export function BackToTopButton() {
           }`}
           whileHover={{ scale: 1.1 }}
           whileTap={{ scale: 0.9 }}
+          aria-label="Back to top"
         >
-          <ArrowUp className="w-6 h-6" />
+          <ArrowUp className="w-6 h-6" aria-hidden="true" />
         </motion.button>
       )}
     </AnimatePresence>

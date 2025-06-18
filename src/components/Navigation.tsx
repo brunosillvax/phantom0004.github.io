@@ -124,7 +124,7 @@ export const Navigation = memo(function Navigation() {
                   whileTap={{ scale: 0.95 }}
                   aria-label={item.label}
                 >
-                  <Icon className="w-4 h-4 group-hover:rotate-12 transition-transform duration-300" />
+                  <Icon className="w-4 h-4 group-hover:rotate-12 transition-transform duration-300" aria-hidden="true" />
                   <span className="hidden sm:inline">{item.name}.sh</span>
                 </motion.button>
               );
@@ -148,7 +148,7 @@ export const Navigation = memo(function Navigation() {
                   exit={{ rotate: 0, opacity: 0 }}
                   transition={{ duration: 0.3 }}
                 >
-                  <X className="w-8 h-8" />
+                  <X className="w-8 h-8" aria-hidden="true" />
                 </motion.div>
               ) : (
                 <motion.div
@@ -158,7 +158,7 @@ export const Navigation = memo(function Navigation() {
                   exit={{ rotate: 180, opacity: 0 }}
                   transition={{ duration: 0.3 }}
                 >
-                  <Menu className="w-8 h-8" />
+                  <Menu className="w-8 h-8" aria-hidden="true" />
                 </motion.div>
               )}
             </AnimatePresence>
@@ -202,7 +202,7 @@ export const Navigation = memo(function Navigation() {
                 whileTap={{ scale: 0.95 }}
                 aria-label={item.label}
               >
-                <Icon className="w-5 h-5 group-hover:rotate-12 transition-transform duration-300" />
+                <Icon className="w-5 h-5 group-hover:rotate-12 transition-transform duration-300" aria-hidden="true" />
                 <span className="relative leading-none">
                   {item.name}.sh
                   <motion.span

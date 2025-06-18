@@ -115,7 +115,7 @@ function ProjectCard({ project }: { project: typeof projects[0] }) {
                 animate={{ rotate: 360 }}
                 transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
               >
-                <Star className="w-5 h-5 text-amber-500 fill-amber-500/50" />
+                <Star className="w-5 h-5 text-amber-500 fill-amber-500/50" aria-hidden="true" />
               </motion.div>
             )}
           </h3>
@@ -151,7 +151,7 @@ function ProjectCard({ project }: { project: typeof projects[0] }) {
               isFeatured ? 'hover:text-amber-500' : 'hover:text-green-500'
             } transition-colors`}
           >
-            <Github className="w-4 h-4" />
+            <Github className="w-4 h-4" aria-hidden="true" />
             <span>Source</span>
           </a>
           {project.demo && (
@@ -163,7 +163,7 @@ function ProjectCard({ project }: { project: typeof projects[0] }) {
                 isFeatured ? 'hover:text-amber-500' : 'hover:text-green-500'
               } transition-colors`}
             >
-              <ExternalLink className="w-4 h-4" />
+              <ExternalLink className="w-4 h-4" aria-hidden="true" />
               <span>Demo</span>
             </a>
           )}
@@ -184,7 +184,7 @@ export function ProjectsSection() {
         className="container mx-auto px-4"
       >
         <h2 className="text-4xl md:text-5xl font-light mb-12 flex items-center gap-4">
-          <Code2 className="w-8 h-8 text-green-500" />
+          <Code2 className="w-8 h-8 text-green-500" aria-hidden="true" />
           <span>ls ~/projects</span>
         </h2>
 

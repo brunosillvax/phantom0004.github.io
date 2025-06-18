@@ -12,7 +12,7 @@ export function AboutSection() {
         className="container mx-auto px-4"
       >
         <h2 className="text-4xl md:text-5xl font-light mb-12 flex items-center gap-4">
-          <Terminal className="w-8 h-8 text-green-500" />
+          <Terminal className="w-8 h-8 text-green-500" aria-hidden="true" />
           <span>whoami</span>
         </h2>
         
