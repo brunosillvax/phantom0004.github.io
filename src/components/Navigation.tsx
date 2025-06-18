@@ -1,6 +1,6 @@
 import { useState, useEffect, useCallback, memo } from 'react';
 import { motion, useAnimation, useScroll, AnimatePresence } from 'framer-motion';
-import { Terminal, Code2, Home, User, Briefcase, Send, Menu, X, Link } from 'lucide-react';
+import { Code2, Home, User, Briefcase, Send, Menu, X, Link } from 'lucide-react';
 
 const navItems = [
   { name: 'home', icon: Home, href: '#home', label: 'Navigate to home section' },

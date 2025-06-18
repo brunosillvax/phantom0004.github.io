@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import { Terminal, ArrowLeft } from 'lucide-react';
+import { ArrowLeft } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import Typewriter from 'typewriter-effect';
 
