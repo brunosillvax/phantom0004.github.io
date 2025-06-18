@@ -1,7 +1,10 @@
-import React, { useState, useRef, useEffect, lazy, Suspense } from 'react';
+import React, { useState, useRef, useEffect, lazy, Suspense, useMemo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
 import { Github, X, Maximize2, Minimize2 } from 'lucide-react';
+import TypeWriter from './TypeWriter';
+import LineByLine from './LineByLine';
+import { createCommands, CommandOutput } from './terminalCommands';
 
 const MatrixBackground = lazy(() => import('./MatrixBackground').then(module => ({ default: module.MatrixBackground })));
 
@@ -19,119 +22,13 @@ const socialLinks = [
   { name: 'GitHub', url: 'https://github.com/phantom0004', icon: Github },
 ];
 
-const TypeWriter = React.memo(function TypeWriter({ 
-  text, 
-  onComplete, 
-  showCursor = true, 
-  speed = 'normal' 
-}: { 
-  text: string; 
-  onComplete?: () => void;
-  showCursor?: boolean;
-  speed?: 'fast' | 'normal';
-}) {
-  const [displayText, setDisplayText] = useState('');
-  const [isComplete, setIsComplete] = useState(false);
-  const timerRef = useRef<NodeJS.Timeout>();
-
-  useEffect(() => {
-    let currentIndex = 0;
-    let mounted = true;
-
-    const type = () => {
-      if (!mounted) return;
-      
-      if (currentIndex < text.length) {
-        setDisplayText(text.slice(0, currentIndex + 1));
-        currentIndex++;
-        const delay = speed === 'fast' ? 1 : Math.random() * 5 + 5;
-        timerRef.current = setTimeout(type, delay);
-      } else {
-        setIsComplete(true);
-        onComplete?.();
-      }
-    };
-
-    type();
-
-    return () => {
-      mounted = false;
-      if (timerRef.current) {
-        clearTimeout(timerRef.current);
-      }
-    };
-  }, [text, onComplete, speed]);
-
-  return (
-    <span className="font-mono">
-      {displayText}
-      {showCursor && !isComplete && (
-        <span className="terminal-cursor-blink" />
-      )}
-    </span>
-  );
-});
-
-const LineByLine = React.memo(function LineByLine({ 
-  lines,
-  onComplete,
-  speed = 'normal'
-}: { 
-  lines: string[];
-  onComplete?: () => void;
-  speed?: 'fast' | 'normal';
-}) {
-  const [currentLineIndex, setCurrentLineIndex] = useState(0);
-  const [completedLines, setCompletedLines] = useState<string[]>([]);
-  const [isLastLineComplete, setIsLastLineComplete] = useState(false);
-  const mountedRef = useRef(true);
-
-  useEffect(() => {
-    mountedRef.current = true;
-    return () => {
-      mountedRef.current = false;
-    };
-  }, []);
-
-  const handleLineComplete = () => {
-    if (!mountedRef.current) return;
-    
-    if (currentLineIndex === lines.length - 1) {
-      setIsLastLineComplete(true);
-      onComplete?.();
-    } else {
-      setCompletedLines(prev => [...prev, lines[currentLineIndex]]);
-      setCurrentLineIndex(prev => prev + 1);
-    }
-  };
-
-  return (
-    <div className="space-y-1">
-      {completedLines.map((line, index) => (
-        <div key={index} className="font-mono text-xs sm:text-sm md:text-base break-words">{line}</div>
-      ))}
-      {currentLineIndex < lines.length && (
-        isLastLineComplete && currentLineIndex === lines.length - 1 ? (
-          <div className="font-mono text-xs sm:text-sm md:text-base break-words">{lines[currentLineIndex]}</div>
-        ) : (
-          <TypeWriter 
-            text={lines[currentLineIndex]} 
-            onComplete={handleLineComplete}
-            showCursor={!isLastLineComplete && currentLineIndex === lines.length - 1}
-            speed={speed}
-          />
-        )
-      )}
-    </div>
-  );
-});
 
 export function Terminal() {
   const [isLoading, setIsLoading] = useState(true);
   const [input, setInput] = useState('');
   const [history, setHistory] = useState<string[]>([]);
   const [historyIndex, setHistoryIndex] = useState(-1);
-  const [output, setOutput] = useState<{ type: 'input' | 'output' | 'ascii' | 'error' | 'success'; content: string | React.ReactNode }[]>([]);
+  const [output, setOutput] = useState<CommandOutput[]>([]);
   const [isTyping, setIsTyping] = useState(false);
   const [isMobileKeyboardOpen, setIsMobileKeyboardOpen] = useState(false);
   const [isMaximized, setIsMaximized] = useState(false);
@@ -280,213 +177,23 @@ export function Terminal() {
     return contactContent.join('\n');
   };
 
-  const commands = [
-    {
-      name: 'help',
-      description: 'Display available commands',
-      action: () => {
-        const helpContent = [
-          '╭─ Available Commands ───────────────────╮',
-          '│                                       ',
-          '│  help     - Display this help message ',
-          '│  about    - Display portfolio info    ',
-          '│  projects - List project details      ',
-          '│  skills   - Display technical skills  ',
-          '│  contact  - Show contact information  ',
-          '│  ls       - List available sections   ',
-          '│  whoami   - Display current user      ',
-          '│  version  - Terminal version          ',
-          '│  social   - Social links              ',
-          '│  clear    - Clear terminal screen     ',
-          '│  home     - Return to main portfolio  ',
-          '│  exit     - Same as home              ',
-          '│  quit     - Alias for exit            ',
-          '│                                       ',
-          '╰─────────────────────────────────────────╯'
-        ];
-        setOutput(prev => [...prev, {
-          type: 'success',
-          content: <TypeWriter 
-            text={`\n${helpContent.join('\n')}\n`} 
-            onComplete={() => setIsTyping(false)}
-            speed="fast"
-          />
-        }]);
-      }
-    },
-    {
-      name: 'about',
-      description: 'Display portfolio owner info',
-      action: () => {
-        setOutput(prev => [...prev, {
-          type: 'success',
-          content: <TypeWriter 
-            text={`\n${getAboutData()}\n`} 
-            onComplete={() => setIsTyping(false)}
-            speed="fast"
-          />
-        }]);
-      }
-    },
-    {
-      name: 'projects',
-      description: 'List project details',
-      action: () => {
-        setOutput(prev => [...prev, {
-          type: 'success',
-          content: <TypeWriter 
-            text={`\n${getProjectsData()}\n`} 
-            onComplete={() => setIsTyping(false)}
-            speed="fast"
-          />
-        }]);
-      }
-    },
-    {
-      name: 'skills',
-      description: 'Display technical skills',
-      action: () => {
-        setOutput(prev => [...prev, {
-          type: 'success',
-          content: <TypeWriter 
-            text={`\n${getSkillsData()}\n`} 
-            onComplete={() => setIsTyping(false)}
-            speed="fast"
-          />
-        }]);
-      }
-    },
-    {
-      name: 'contact',
-      description: 'Show contact information',
-      action: () => {
-        setOutput(prev => [...prev, {
-          type: 'success',
-          content: <TypeWriter 
-            text={`\n${getContactData()}\n`} 
-            onComplete={() => setIsTyping(false)}
-            speed="fast"
-          />
-        }]);
-      }
-    },
-    {
-      name: 'ls',
-      description: 'List available sections',
-      action: () => {
-        setOutput(prev => [...prev, {
-          type: 'output',
-          content: <TypeWriter
-            text={'about\nprojects\nskills\ncontact'}
-            onComplete={() => setIsTyping(false)}
-            speed="fast"
-          />
-        }]);
-      }
-    },
-    {
-      name: 'whoami',
-      description: 'Display current user',
-      action: () => {
-        setOutput(prev => [...prev, {
-          type: 'output',
-          content: <TypeWriter
-            text="phantom0004"
-            onComplete={() => setIsTyping(false)}
-            speed="fast"
-          />
-        }]);
-      }
-    },
-    {
-      name: 'version',
-      description: 'Show terminal version',
-      action: () => {
-        setOutput(prev => [...prev, {
-          type: 'output',
-          content: <TypeWriter
-            text={`v${TERMINAL_VERSION}`}
-            onComplete={() => setIsTyping(false)}
-            speed="fast"
-          />
-        }]);
-      }
-    },
-    {
-      name: 'social',
-      description: 'Display social links',
-      action: () => {
-        setOutput(prev => [...prev, {
-          type: 'output',
-          content: <TypeWriter
-            text={socialLinks.map(l => `${l.name}: ${l.url}`).join('\n')}
-            onComplete={() => setIsTyping(false)}
-            speed="fast"
-          />
-        }]);
-      }
-    },
-    {
-      name: 'clear',
-      description: 'Clear terminal screen',
-      action: () => {
-        setOutput([
-          { 
-            type: 'ascii', 
-            content: (
-              <div className="flex flex-col items-center space-y-6">
-                <motion.pre
-                  initial={{ opacity: 0, y: -20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.5 }}
-                  className="text-green-400 text-[8px] xs:text-xs sm:text-sm md:text-base lg:text-lg whitespace-pre font-bold hidden sm:block"
-                >
-                  {titleBanner}
-                </motion.pre>
-                <motion.h1
-                  initial={{ opacity: 0, y: -20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.5 }}
-                  className="text-green-400 text-xl sm:text-2xl md:text-3xl font-bold sm:hidden text-center"
-                >
-                  {`Terminal v${TERMINAL_VERSION}`}
-                </motion.h1>
-              </div>
-            )
-          },
-          { 
-            type: 'output', 
-            content: <TypeWriter 
-              text="Terminal cleared. Type 'help' for commands." 
-              onComplete={() => setIsTyping(false)}
-              speed="fast"
-            />
-          }
-        ]);
-      }
-    },
-    {
-      name: 'home',
-      description: 'Return to main portfolio',
-      action: () => {
-        navigate('/');
-      }
-    },
-    {
-      name: 'exit',
-      description: 'Exit the terminal',
-      action: () => {
-        navigate('/');
-      }
-    },
-    {
-      name: 'quit',
-      description: 'Alias for exit',
-      action: () => {
-        navigate('/');
-      }
-    },
-  ];
+  const commands = useMemo(
+    () =>
+      createCommands({
+        navigate,
+        setOutput,
+        setIsTyping,
+        titleBanner,
+        terminalVersion: TERMINAL_VERSION,
+        socialLinks,
+        getAboutData,
+        getProjectsData,
+        getSkillsData,
+        getContactData,
+      }),
+    []
+  );
+
 
   const processCommand = (cmd: string) => {
     const args = cmd.trim().split(' ');
