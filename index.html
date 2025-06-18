@@ -2,6 +2,8 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://www.googletagmanager.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; img-src 'self' data: https://darylgatt.dev; font-src 'self' https://fonts.gstatic.com; connect-src 'self' https://formspree.io; object-src 'none'; frame-ancestors 'none'; base-uri 'self'" />
+    <meta name="referrer" content="no-referrer" />
     
     <!-- Primary Meta Tags -->
     <title>Daryl Gatt | Cybersecurity</title>
@@ -27,13 +29,6 @@
 
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-80YS4JJGFM"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-
-      gtag('config', 'G-80YS4JJGFM');
-    </script>
 
     <!-- Structured Data -->
     <script type="application/ld+json">
@@ -56,11 +51,22 @@
     }
     </script>
     
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <meta name="theme-color" content="#000000" />
+
+    <script>
+      const savedTheme = localStorage.getItem('theme');
+      const prefersLight = window.matchMedia('(prefers-color-scheme: light)').matches;
+      const theme = savedTheme || (prefersLight ? 'light' : 'dark');
+      document.documentElement.dataset.theme = theme;
+      if (theme === 'dark') document.documentElement.classList.add('dark');
+    </script>
     
     <!-- Favicon -->
     <link rel="icon" type="image/jpeg" href="/assets/website_logo.jpg" />
+    <link rel="preload" as="image" href="/assets/portfolio_image.png" />
     
     <!-- Skip Navigation -->
     <style>
@@ -80,10 +86,10 @@
         top: 0;
       }
     </style>
-    <script type="module" crossorigin src="/assets/index-DpO9FiAn.js"></script>
+    <script type="module" crossorigin src="/assets/index-BKnasIQQ.js"></script>
     <link rel="modulepreload" crossorigin href="/assets/react-vendor-Cx6VpA1G.js">
-    <link rel="modulepreload" crossorigin href="/assets/animation-vendor-CDRRsd_o.js">
-    <link rel="stylesheet" crossorigin href="/assets/index-Cb7yxVuP.css">
+    <link rel="modulepreload" crossorigin href="/assets/animation-vendor-CyUgSKNr.js">
+    <link rel="stylesheet" crossorigin href="/assets/index-Vaz--gpw.css">
   </head>
   <body>
     <a href="#main-content" class="skip-nav">Skip to main content</a>
