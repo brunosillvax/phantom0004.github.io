@@ -401,3 +401,11 @@
     mask-image: radial-gradient(circle at 50% 50%, black 0%, transparent 70%);
   }
 }
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}

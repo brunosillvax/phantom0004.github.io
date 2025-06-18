@@ -1,20 +1,26 @@
-import { motion } from 'framer-motion';
+import { motion, useReducedMotion } from 'framer-motion';
 import { useEffect, useState } from 'react';
 
 export function HackerEffects() {
+  const reduceMotion = useReducedMotion();
   const [glitchText, setGlitchText] = useState('ACCESS_GRANTED');
-  
+
   useEffect(() => {
+    if (reduceMotion) return;
     const texts = ['SYSTEM_BREACH', 'ACCESS_GRANTED', 'INIT_SEQUENCE', 'DECRYPT_DATA'];
     let currentIndex = 0;
-    
+
     const interval = setInterval(() => {
       currentIndex = (currentIndex + 1) % texts.length;
       setGlitchText(texts[currentIndex]);
     }, 3000);
 
     return () => clearInterval(interval);
-  }, []);
+  }, [reduceMotion]);
+
+  if (reduceMotion) {
+    return null;
+  }
 
   return (
     <>
