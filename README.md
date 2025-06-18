@@ -29,7 +29,8 @@ Follow these steps to set up the project locally:
 ### Prerequisites
 
 Ensure you have the following installed:
-- **Node.js (v14 or above)**
+- **Node.js (v18 recommended)**
+- **Use `nvm use` to match the version in `.nvmrc`**
 - **npm (Node Package Manager)**
 
 ### Installation
