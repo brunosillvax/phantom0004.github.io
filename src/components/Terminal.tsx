@@ -1,9 +1,11 @@
 import React, { useState, useRef, useEffect, lazy, Suspense } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
-import { Github } from 'lucide-react';
+import { Github, X, Maximize2, Minimize2 } from 'lucide-react';
 
 const MatrixBackground = lazy(() => import('./MatrixBackground').then(module => ({ default: module.MatrixBackground })));
+
+const TERMINAL_VERSION = '1.1.0';
 
 const titleBanner = `
  ____              _        _____     _   _   
@@ -161,7 +163,7 @@ export function Terminal() {
                 transition={{ duration: 0.5 }}
                 className="text-green-400 text-xl sm:text-2xl md:text-3xl font-bold sm:hidden text-center"
               >
-                Terminal v1.0
+                {`Terminal v${TERMINAL_VERSION}`}
               </motion.h1>
             </div>
           )
@@ -293,6 +295,8 @@ export function Terminal() {
           '│  contact  - Show contact information  ',
           '│  ls       - List available sections   ',
           '│  whoami   - Display current user      ',
+          '│  version  - Terminal version          ',
+          '│  social   - Social links              ',
           '│  clear    - Clear terminal screen     ',
           '│  home     - Return to main portfolio  ',
           '│  exit     - Same as home              ',
@@ -395,6 +399,34 @@ export function Terminal() {
       }
     },
     {
+      name: 'version',
+      description: 'Show terminal version',
+      action: () => {
+        setOutput(prev => [...prev, {
+          type: 'output',
+          content: <TypeWriter
+            text={`v${TERMINAL_VERSION}`}
+            onComplete={() => setIsTyping(false)}
+            speed="fast"
+          />
+        }]);
+      }
+    },
+    {
+      name: 'social',
+      description: 'Display social links',
+      action: () => {
+        setOutput(prev => [...prev, {
+          type: 'output',
+          content: <TypeWriter
+            text={socialLinks.map(l => `${l.name}: ${l.url}`).join('\n')}
+            onComplete={() => setIsTyping(false)}
+            speed="fast"
+          />
+        }]);
+      }
+    },
+    {
       name: 'clear',
       description: 'Clear terminal screen',
       action: () => {
@@ -417,7 +449,7 @@ export function Terminal() {
                   transition={{ duration: 0.5 }}
                   className="text-green-400 text-xl sm:text-2xl md:text-3xl font-bold sm:hidden text-center"
                 >
-                  Terminal v1.0
+                  {`Terminal v${TERMINAL_VERSION}`}
                 </motion.h1>
               </div>
             )
@@ -558,17 +590,25 @@ export function Terminal() {
             <button
               aria-label="Close terminal"
               onClick={() => navigate('/')}
-              className="w-2 h-2 sm:w-3 sm:h-3 rounded-full bg-red-500/50 hover:bg-red-500"
-            />
-            <div className="w-2 h-2 sm:w-3 sm:h-3 rounded-full bg-yellow-500/50" />
+              className="group w-3 h-3 sm:w-4 sm:h-4 flex items-center justify-center rounded-full bg-red-500/50 hover:bg-red-500"
+            >
+              <X className="w-2 h-2 text-black opacity-75 group-hover:opacity-100 transition-opacity" />
+            </button>
+            <div className="w-3 h-3 sm:w-4 sm:h-4 rounded-full bg-yellow-500/50" />
             <button
               aria-label={isMaximized ? 'Restore terminal' : 'Maximize terminal'}
               onClick={() => setIsMaximized(v => !v)}
-              className="w-2 h-2 sm:w-3 sm:h-3 rounded-full bg-green-500/50 hover:bg-green-500"
-            />
+              className="group w-3 h-3 sm:w-4 sm:h-4 flex items-center justify-center rounded-full bg-green-500/50 hover:bg-green-500"
+            >
+              {isMaximized ? (
+                <Minimize2 className="w-2 h-2 text-black opacity-75 group-hover:opacity-100 transition-opacity" />
+              ) : (
+                <Maximize2 className="w-2 h-2 text-black opacity-75 group-hover:opacity-100 transition-opacity" />
+              )}
+            </button>
           </div>
           <div className="flex items-center gap-2 sm:gap-4">
-            <span className="text-[10px] sm:text-xs text-gray-500">v1.0.0</span>
+            <span className="text-[10px] sm:text-xs text-gray-500">{`v${TERMINAL_VERSION}`}</span>
             <span className="text-[10px] sm:text-xs text-gray-500">phantom@portfolio:~</span>
           </div>
         </div>
