@@ -165,7 +165,7 @@ export const Hero = memo(function Hero() {
               <img
                 src="/assets/portfolio_image.png"
                 alt="Daryl Gatt"
-                className="w-[300px] sm:w-[400px] h-[300px] sm:h-[400px] object-cover"
+                className="w-full max-w-xs sm:max-w-sm md:max-w-md aspect-square object-cover"
                 loading="lazy"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
