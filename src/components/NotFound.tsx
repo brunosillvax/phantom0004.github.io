@@ -22,7 +22,7 @@ export function NotFound() {
 
   return (
     <div 
-      className="min-h-[100svh] min-h-[100vh] w-screen bg-black overflow-hidden relative flex items-center justify-center p-clamp"
+      className="min-h-[100svh] min-h-[100vh] w-screen bg-[rgb(var(--bg-rgb))] overflow-hidden relative flex items-center justify-center p-clamp"
       style={{ '--p-clamp': 'clamp(1rem, 3vw, 2rem)' } as React.CSSProperties}
     >
       {/* Background Pattern */}
@@ -36,9 +36,9 @@ export function NotFound() {
         transition={{ duration: 0.5 }}
         className="w-full max-w-[clamp(300px,90vw,800px)] mx-auto relative z-10"
       >
-        <div className="terminal-container bg-black/80 backdrop-blur-sm border border-green-500/20 rounded-lg overflow-hidden shadow-2xl">
+        <div className="terminal-container bg-[rgba(var(--bg-rgb),0.8)] backdrop-blur-sm border border-green-500/20 rounded-lg overflow-hidden shadow-2xl">
           {/* Terminal Header */}
-          <div className="terminal-header flex items-center justify-between p-3 border-b border-green-500/20 bg-black/50">
+          <div className="terminal-header flex items-center justify-between p-3 border-b border-green-500/20 bg-[rgba(var(--bg-rgb),0.5)]">
             <div className="flex items-center gap-2">
               <div className="w-3 h-3 rounded-full bg-red-500/50" />
               <div className="w-3 h-3 rounded-full bg-yellow-500/50" />

@@ -250,7 +250,7 @@ export function ContactSection() {
                   autoComplete="name"
                   required
                   disabled={isSubmitting}
-                  className="form-input w-full bg-black/30 border border-green-500/20 rounded-lg px-4 py-2 text-white focus:outline-none focus:border-green-500/50 disabled:opacity-50"
+                  className="form-input w-full bg-[rgba(var(--bg-rgb),0.3)] border border-green-500/20 rounded-lg px-4 py-2 text-[rgb(var(--text-rgb))] focus:outline-none focus:border-green-500/50 disabled:opacity-50"
                   placeholder="John Doe"
                   maxLength={100}
                 />
@@ -267,7 +267,7 @@ export function ContactSection() {
                   autoComplete="email"
                   required
                   disabled={isSubmitting}
-                  className="form-input w-full bg-black/30 border border-green-500/20 rounded-lg px-4 py-2 text-white focus:outline-none focus:border-green-500/50 disabled:opacity-50"
+                  className="form-input w-full bg-[rgba(var(--bg-rgb),0.3)] border border-green-500/20 rounded-lg px-4 py-2 text-[rgb(var(--text-rgb))] focus:outline-none focus:border-green-500/50 disabled:opacity-50"
                   placeholder="john@example.com"
                   maxLength={254}
                 />
@@ -282,7 +282,7 @@ export function ContactSection() {
                   name="message"
                   required
                   disabled={isSubmitting}
-                  className="form-textarea w-full bg-black/30 border border-green-500/20 rounded-lg px-4 py-2 text-white focus:outline-none focus:border-green-500/50 h-32 resize-none disabled:opacity-50"
+                  className="form-textarea w-full bg-[rgba(var(--bg-rgb),0.3)] border border-green-500/20 rounded-lg px-4 py-2 text-[rgb(var(--text-rgb))] focus:outline-none focus:border-green-500/50 h-32 resize-none disabled:opacity-50"
                   placeholder="Your message here..."
                   maxLength={5000}
                 />
@@ -294,7 +294,7 @@ export function ContactSection() {
                   Verify you're human
                 </label>
                 <div className="flex items-center gap-4">
-                  <div className="bg-black/30 border border-green-500/20 rounded-lg px-4 py-2 text-green-400">
+                  <div className="bg-[rgba(var(--bg-rgb),0.3)] border border-green-500/20 rounded-lg px-4 py-2 text-green-400">
                     {captcha.question} = ?
                   </div>
                   <input
@@ -302,7 +302,7 @@ export function ContactSection() {
                     value={captchaAnswer}
                     onChange={(e) => setCaptchaAnswer(e.target.value)}
                     placeholder="Answer"
-                    className="form-input w-24 bg-black/30 border border-green-500/20 rounded-lg px-4 py-2 text-white focus:outline-none focus:border-green-500/50"
+                    className="form-input w-24 bg-[rgba(var(--bg-rgb),0.3)] border border-green-500/20 rounded-lg px-4 py-2 text-[rgb(var(--text-rgb))] focus:outline-none focus:border-green-500/50"
                     required
                     maxLength={5}
                     pattern="-?[0-9]*"
@@ -365,7 +365,7 @@ export function ContactSection() {
             
             <div 
               ref={pgpContainerRef} 
-              className="pgp-container relative rounded-lg bg-black/30 border border-green-500/20 overflow-hidden isolate"
+              className="pgp-container relative rounded-lg bg-[rgba(var(--bg-rgb),0.3)] border border-green-500/20 overflow-hidden isolate"
             >
               <div className="max-h-[300px] overflow-y-auto overflow-x-auto custom-scrollbar">
                 <pre className="p-4 text-gray-400 relative">

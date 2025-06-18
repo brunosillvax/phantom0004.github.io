@@ -270,7 +270,7 @@ export function Terminal() {
 
   if (isLoading) {
     return (
-      <div className="min-h-screen bg-black flex items-center justify-center">
+      <div className="min-h-screen bg-[rgb(var(--bg-rgb))] flex items-center justify-center">
         <div className="text-green-500 text-xl animate-pulse">
           Initializing Terminal...
         </div>
@@ -279,7 +279,7 @@ export function Terminal() {
   }
 
   return (
-    <div className="min-h-screen min-h-[calc(var(--vh,1vh)*100)] bg-black flex items-center justify-center p-2 sm:p-4 relative overflow-hidden cursor-default">
+    <div className="min-h-screen min-h-[calc(var(--vh,1vh)*100)] bg-[rgb(var(--bg-rgb))] flex items-center justify-center p-2 sm:p-4 relative overflow-hidden cursor-default">
       <Suspense fallback={null}>
         <MatrixBackground />
       </Suspense>
@@ -288,11 +288,11 @@ export function Terminal() {
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         exit={{ opacity: 0, y: 20 }}
-        className={`w-full bg-black/80 border border-green-500/20 backdrop-blur-sm relative z-10 flex flex-col ${
+        className={`w-full bg-[rgba(var(--bg-rgb),0.8)] border border-green-500/20 backdrop-blur-sm relative z-10 flex flex-col ${
           isMaximized ? 'fixed inset-0 m-0 max-w-none h-full rounded-none' : 'max-w-4xl rounded-lg'
         }`}
       >
-        <div className="flex items-center justify-between p-2 bg-black/50 border-b border-green-500/20">
+        <div className="flex items-center justify-between p-2 bg-[rgba(var(--bg-rgb),0.5)] border-b border-green-500/20">
           <div className="flex items-center gap-2">
             <button
               aria-label="Close terminal"
@@ -365,7 +365,7 @@ export function Terminal() {
                 onFocus={() => setIsMobileKeyboardOpen(true)}
                 onBlur={() => setIsMobileKeyboardOpen(false)}
                 onKeyDown={handleKeyDown}
-                className="flex-1 bg-transparent outline-none text-white caret-green-500 text-xs sm:text-sm w-full"
+                className="flex-1 bg-transparent outline-none text-[rgb(var(--text-rgb))] caret-green-500 text-xs sm:text-sm w-full"
                 autoFocus
                 autoCapitalize="none"
                 autoComplete="off"
@@ -376,7 +376,7 @@ export function Terminal() {
           )}
         </div>
 
-        <div className="p-2 border-t border-green-500/20 bg-black/50">
+        <div className="p-2 border-t border-green-500/20 bg-[rgba(var(--bg-rgb),0.5)]">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-2 sm:gap-4">
               {socialLinks.map((link, index) => {

@@ -1,6 +1,7 @@
 import { useState, useEffect, useCallback, memo } from 'react';
 import { motion, useAnimation, useScroll, AnimatePresence } from 'framer-motion';
 import { Code2, Home, User, Briefcase, Send, Menu, X, Link } from 'lucide-react';
+import { ThemeToggle } from './ThemeToggle';
 
 const navItems = [
   { name: 'home', icon: Home, href: '#home', label: 'Navigate to home section' },
@@ -90,7 +91,7 @@ export const Navigation = memo(function Navigation() {
     <motion.nav
       initial={{ opacity: 1 }}
       animate={controls}
-      className="fixed top-0 w-full z-50 backdrop-blur-sm bg-black/80 border-b border-green-500/20"
+      className="fixed top-0 w-full z-50 backdrop-blur-sm bg-[rgba(var(--bg-rgb),0.8)] border-b border-green-500/20"
       style={{ height: 'var(--header-height)' }}
     >
       <div className="container mx-auto px-4 h-full flex items-center">
@@ -129,6 +130,7 @@ export const Navigation = memo(function Navigation() {
                 </motion.button>
               );
             })}
+            <ThemeToggle />
           </div>
 
           {/* Mobile Menu Button */}
@@ -174,7 +176,7 @@ export const Navigation = memo(function Navigation() {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.3 }}
-            className="fixed inset-0 bg-black/98 backdrop-blur-lg z-50 lg:hidden"
+            className="fixed inset-0 bg-[rgba(var(--bg-rgb),0.98)] backdrop-blur-lg z-50 lg:hidden"
             onClick={() => setIsMenuOpen(false)}
           />
         )}
@@ -182,7 +184,7 @@ export const Navigation = memo(function Navigation() {
 
       {/* Mobile Navigation Menu */}
       <motion.div
-        className="fixed top-0 right-0 h-[90vh] w-[80vw] sm:w-80 bg-black/98 backdrop-blur-lg lg:hidden pt-16 px-4 z-50 overflow-y-auto"
+        className="fixed top-0 right-0 h-[90vh] w-[80vw] sm:w-80 bg-[rgba(var(--bg-rgb),0.98)] backdrop-blur-lg lg:hidden pt-16 px-4 z-50 overflow-y-auto"
         initial="closed"
         animate={isMenuOpen ? "open" : "closed"}
         variants={menuVariants}
@@ -196,7 +198,7 @@ export const Navigation = memo(function Navigation() {
               <motion.button
                 key={item.name}
                 onClick={() => scrollToSection(item.href)}
-                className="flex items-center justify-center space-x-3 text-white hover:text-green-400 transition-colors w-full text-base font-medium py-2 px-4 min-h-[44px] relative group"
+                className="flex items-center justify-center space-x-3 text-[rgb(var(--text-rgb))] hover:text-green-400 transition-colors w-full text-base font-medium py-2 px-4 min-h-[44px] relative group"
                 variants={itemVariants}
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
@@ -214,6 +216,7 @@ export const Navigation = memo(function Navigation() {
               </motion.button>
             );
           })}
+          <ThemeToggle />
         </div>
       </motion.div>
     </motion.nav>

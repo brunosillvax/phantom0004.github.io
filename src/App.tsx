@@ -27,7 +27,7 @@ const SectionLoader = () => (
 
 function AppContent() {
   return (
-    <div className="min-h-screen bg-black relative">
+    <div className="min-h-screen bg-[rgb(var(--bg-rgb))] relative">
       <ParticleBackground />
       <LoadingScreen />
       <Navigation />

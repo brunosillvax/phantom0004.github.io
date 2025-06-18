@@ -27,7 +27,7 @@ export function LoadingScreen() {
       initial={{ opacity: 1, scale: 1 }}
       animate={{ opacity: 0, scale: 0.95 }}
       transition={{ duration: 0.4, delay: 0.6, ease: 'easeInOut' }}
-      className="fixed inset-0 z-50 bg-black flex items-center justify-center p-4"
+      className="fixed inset-0 z-50 bg-[rgb(var(--bg-rgb))] flex items-center justify-center p-4"
     >
       <div className="space-y-3 font-mono text-green-500 text-sm sm:text-base">
         <motion.div
