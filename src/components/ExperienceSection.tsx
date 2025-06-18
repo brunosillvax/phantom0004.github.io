@@ -90,7 +90,7 @@ export function ExperienceSection() {
   };
 
   return (
-    <section id="experience" className="py-20 bg-black/20">
+    <section id="experience" className="py-20 bg-[rgba(var(--bg-rgb),0.2)]">
       <motion.div
         initial={{ opacity: 0, y: 40 }}
         whileInView={{ opacity: 1, y: 0 }}
@@ -131,7 +131,7 @@ export function ExperienceSection() {
                 }}
                 className="absolute w-full h-full"
               >
-                <div className="h-full bg-black/40 rounded-xl p-4 sm:p-6 md:p-8 border border-green-500/20 backdrop-blur-sm overflow-y-auto">
+                <div className="h-full bg-[rgba(var(--bg-rgb),0.4)] rounded-xl p-4 sm:p-6 md:p-8 border border-green-500/20 backdrop-blur-sm overflow-y-auto">
                   <div className="flex flex-col h-full">
                     <div className="flex flex-col sm:flex-row sm:items-center justify-between mb-4 gap-2">
                       <div className="flex items-center gap-2 text-green-400 text-xs sm:text-sm">
@@ -144,7 +144,7 @@ export function ExperienceSection() {
                       </div>
                     </div>
 
-                    <h3 className="text-base sm:text-lg md:text-xl font-semibold mb-3 sm:mb-4 text-white leading-tight">
+                    <h3 className="text-base sm:text-lg md:text-xl font-semibold mb-3 sm:mb-4 text-[rgb(var(--text-rgb))] leading-tight">
                       {experiences[currentIndex].title}
                     </h3>
 

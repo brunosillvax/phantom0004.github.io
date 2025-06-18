@@ -60,6 +60,14 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <meta name="theme-color" content="#000000" />
+
+    <script>
+      const savedTheme = localStorage.getItem('theme');
+      const prefersLight = window.matchMedia('(prefers-color-scheme: light)').matches;
+      const theme = savedTheme || (prefersLight ? 'light' : 'dark');
+      document.documentElement.dataset.theme = theme;
+      if (theme === 'dark') document.documentElement.classList.add('dark');
+    </script>
     
     <!-- Favicon -->
     <link rel="icon" type="image/jpeg" href="/assets/website_logo.jpg" />

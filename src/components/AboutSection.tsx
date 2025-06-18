@@ -41,7 +41,7 @@ export function AboutSection() {
             initial={{ opacity: 0, x: 20 }}
             whileInView={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.5, delay: 0.4 }}
-            className="font-mono text-sm bg-black/30 p-6 rounded-xl border border-green-500/20 shadow-lg relative group"
+            className="font-mono text-sm bg-[rgba(var(--bg-rgb),0.3)] p-6 rounded-xl border border-green-500/20 shadow-lg relative group"
           >
             <motion.div 
               className="ghost-ascii relative w-fit mx-auto"

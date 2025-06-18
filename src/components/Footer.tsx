@@ -32,7 +32,7 @@ export function Footer() {
       id="footer" 
       role="contentinfo"
       aria-label="Site footer"
-      className="bg-black/30 text-gray-400 py-4 sm:py-6 md:py-8 border-t border-green-500/10 relative z-20"
+      className="bg-[rgba(var(--bg-rgb),0.3)] text-gray-400 py-4 sm:py-6 md:py-8 border-t border-green-500/10 relative z-20"
     >
       <div className="container mx-auto px-4">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 md:gap-8">

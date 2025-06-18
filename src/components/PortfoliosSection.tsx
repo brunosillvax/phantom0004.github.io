@@ -26,7 +26,7 @@ const portfolios = [
 
 export function PortfoliosSection() {
   return (
-    <section id="portfolios" className="py-20 bg-black/20">
+    <section id="portfolios" className="py-20 bg-[rgba(var(--bg-rgb),0.2)]">
       <motion.div
         initial={{ opacity: 0, y: 40 }}
         whileInView={{ opacity: 1, y: 0 }}
@@ -53,7 +53,7 @@ export function PortfoliosSection() {
               transition={{ delay: index * 0.1 }}
               whileHover={{ scale: 1.02 }}
             >
-              <div className="h-full relative bg-black/50 border border-green-500/20 p-6 rounded-xl overflow-hidden flex flex-col">
+              <div className="h-full relative bg-[rgba(var(--bg-rgb),0.5)] border border-green-500/20 p-6 rounded-xl overflow-hidden flex flex-col">
                 <div className="absolute inset-0 bg-gradient-to-r from-green-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                 <h3 className="text-xl font-semibold mb-2 text-green-500 group-hover:text-green-400 transition-colors relative z-10">
                   {portfolio.title}

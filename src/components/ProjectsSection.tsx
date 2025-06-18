@@ -74,7 +74,7 @@ function ProjectCard({ project }: { project: typeof projects[0] }) {
       initial={{ opacity: 0, y: 20 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "0px" }}
-      className={`group relative rounded-xl bg-black/50 border ${borderColor} p-6 shadow-lg ${
+      className={`group relative rounded-xl bg-[rgba(var(--bg-rgb),0.5)] border ${borderColor} p-6 shadow-lg ${
         isFeatured ? 'md:col-span-2 lg:col-span-3' : ''
       } min-h-fit`}
       onMouseMove={handleInteraction}
@@ -175,7 +175,7 @@ function ProjectCard({ project }: { project: typeof projects[0] }) {
 
 export function ProjectsSection() {
   return (
-    <section id="projects" className="py-20 bg-black/30">
+    <section id="projects" className="py-20 bg-[rgba(var(--bg-rgb),0.3)]">
       <motion.div
         initial={{ opacity: 0, y: 40 }}
         whileInView={{ opacity: 1, y: 0 }}
