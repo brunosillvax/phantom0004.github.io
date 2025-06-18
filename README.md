@@ -60,11 +60,10 @@ This command will start the development server. Open your browser and navigate t
 
 ## License & Usage Policy
 
-This portfolio is a personal project showcasing my work and skills. The code within this repository is my original work and is intended solely for professional use to represent my abilities. Unauthorized use, redistribution, or modification of this code is not permitted.
-
-This repository is meant for personal demonstration purposes only. I kindly ask that no one copies, modifies, or deploys this code elsewhere without permission.
-
-By visiting or using this portfolio, you agree to respect the intellectual property rights and intended use outlined above.
+This repository is not open source. All code here is provided solely for personal demonstration of my work.
+See the [LICENSE](LICENSE) file for the full terms. In short, copying, modifying,
+distributing, or deploying this code without explicit written permission is
+prohibited.
 
 ---
 
