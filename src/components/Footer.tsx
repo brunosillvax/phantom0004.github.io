@@ -58,19 +58,19 @@ export function Footer() {
               <a href="https://github.com/phantom0004" target="_blank" rel="noopener noreferrer" 
                  className="footer-link hover:text-green-400 transition-colors flex items-center gap-2 group text-sm sm:text-base"
                  aria-label="Visit my GitHub profile">
-                <Github className="w-3 h-3 sm:w-4 sm:h-4 group-hover:rotate-12 transition-transform duration-300" />
+                <Github className="w-3 h-3 sm:w-4 sm:h-4 group-hover:rotate-12 transition-transform duration-300" aria-hidden="true" />
                 <span>GitHub</span>
               </a>
               <a href="mailto:phantom.techsec@gmail.com" 
                  className="footer-link hover:text-green-400 transition-colors flex items-center gap-2 group text-sm sm:text-base"
                  aria-label="Send me an email">
-                <ExternalLink className="w-3 h-3 sm:w-4 sm:h-4 group-hover:rotate-12 transition-transform duration-300" />
+                <ExternalLink className="w-3 h-3 sm:w-4 sm:h-4 group-hover:rotate-12 transition-transform duration-300" aria-hidden="true" />
                 <span>Email</span>
               </a>
               <a href="https://mt.linkedin.com/in/daryl-gatt-web3" target="_blank" rel="noopener noreferrer" 
                  className="footer-link hover:text-green-400 transition-colors flex items-center gap-2 group text-sm sm:text-base"
                  aria-label="Connect with me on LinkedIn">
-                <ExternalLink className="w-3 h-3 sm:w-4 sm:h-4 group-hover:rotate-12 transition-transform duration-300" />
+                <ExternalLink className="w-3 h-3 sm:w-4 sm:h-4 group-hover:rotate-12 transition-transform duration-300" aria-hidden="true" />
                 <span>LinkedIn</span>
               </a>
             </div>
@@ -78,11 +78,11 @@ export function Footer() {
 
           <div className="space-y-2 sm:space-y-3 lg:text-right">
             <div className="flex items-center gap-2 text-green-500 lg:justify-end">
-              <Terminal className="w-4 h-4 sm:w-5 sm:h-5" />
+              <Terminal className="w-4 h-4 sm:w-5 sm:h-5" aria-hidden="true" />
               <span className="font-mono text-xs sm:text-sm">v1.0</span>
             </div>
             <p className="text-xs sm:text-sm leading-relaxed flex items-center gap-2 lg:justify-end">
-              Built with <Heart className="w-3 h-3 sm:w-4 sm:h-4 text-red-500 animate-pulse" /> using React
+              Built with <Heart className="w-3 h-3 sm:w-4 sm:h-4 text-red-500 animate-pulse" aria-hidden="true" /> using React
             </p>
             <p className="text-[10px] sm:text-xs opacity-60">
               © {currentYear} Daryl Gatt

@@ -224,7 +224,7 @@ export function ContactSection() {
         className="container mx-auto px-4"
       >
         <h2 className="section-header text-4xl md:text-5xl font-light mb-12 flex items-center gap-4">
-          <Send className="w-8 h-8 text-green-500" />
+          <Send className="w-8 h-8 text-green-500" aria-hidden="true" />
           <span>contact</span>
         </h2>
 
@@ -342,7 +342,7 @@ export function ContactSection() {
           >
             <div className="flex items-center justify-between mb-6">
               <div className="flex items-center gap-2 text-green-500">
-                <Key className="w-4 h-4" />
+                <Key className="w-4 h-4" aria-hidden="true" />
                 <span>PGP Public Key</span>
               </div>
               <button 
@@ -351,12 +351,12 @@ export function ContactSection() {
               >
                 {copied ? (
                   <>
-                    <Check className="w-4 h-4" />
+                    <Check className="w-4 h-4" aria-hidden="true" />
                     <span>Copied!</span>
                   </>
                 ) : (
                   <>
-                    <Copy className="w-4 h-4" />
+                    <Copy className="w-4 h-4" aria-hidden="true" />
                     <span>Copy Key</span>
                   </>
                 )}

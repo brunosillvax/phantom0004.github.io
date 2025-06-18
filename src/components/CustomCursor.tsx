@@ -59,14 +59,14 @@ export function CustomCursor() {
       }}
     >
       {cursorType === 'default' && (
-        <Circle className="w-4 h-4 text-cyan-400" strokeWidth={1.5} />
+        <Circle className="w-4 h-4 text-cyan-400" strokeWidth={1.5} aria-hidden="true" />
       )}
       {cursorType === 'pointer' && (
-        <Pointer className="w-5 h-5 text-amber-400" strokeWidth={1.5} />
+        <Pointer className="w-5 h-5 text-amber-400" strokeWidth={1.5} aria-hidden="true" />
       )}
       {cursorType === 'text' && (
         <div className="relative">
-          <Type className="w-5 h-5 text-green-400" strokeWidth={1.5} />
+          <Type className="w-5 h-5 text-green-400" strokeWidth={1.5} aria-hidden="true" />
           {isTyping && (
             <div className="absolute -right-12 top-1/2 -translate-y-1/2">
               <div className="flex gap-2">

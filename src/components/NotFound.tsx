@@ -119,7 +119,7 @@ export function NotFound() {
               whileTap={{ scale: 0.98 }}
               aria-label="Return to home page"
             >
-              <ArrowLeft className="w-4 h-4 transition-transform group-hover:-translate-x-1" />
+              <ArrowLeft className="w-4 h-4 transition-transform group-hover:-translate-x-1" aria-hidden="true" />
               <span>Return Home</span>
             </motion.button>
           </div>

@@ -99,7 +99,7 @@ export function ExperienceSection() {
         className="container mx-auto px-4"
       >
         <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-light mb-8 sm:mb-12 flex items-center gap-2 sm:gap-4">
-          <History className="w-6 h-6 sm:w-8 sm:h-8 text-green-500 flex-shrink-0" />
+          <History className="w-6 h-6 sm:w-8 sm:h-8 text-green-500 flex-shrink-0" aria-hidden="true" />
           <span className="truncate">cat ~/exp.log</span>
         </h2>
 
@@ -135,11 +135,11 @@ export function ExperienceSection() {
                   <div className="flex flex-col h-full">
                     <div className="flex flex-col sm:flex-row sm:items-center justify-between mb-4 gap-2">
                       <div className="flex items-center gap-2 text-green-400 text-xs sm:text-sm">
-                        <Calendar className="w-3 h-3 sm:w-4 sm:h-4" />
+                        <Calendar className="w-3 h-3 sm:w-4 sm:h-4" aria-hidden="true" />
                         <span>{experiences[currentIndex].period}</span>
                       </div>
                       <div className="flex items-center gap-2 text-gray-400 text-xs sm:text-sm">
-                        <Building2 className="w-3 h-3 sm:w-4 sm:h-4" />
+                        <Building2 className="w-3 h-3 sm:w-4 sm:h-4" aria-hidden="true" />
                         <span>{experiences[currentIndex].company}</span>
                       </div>
                     </div>
@@ -192,8 +192,9 @@ export function ExperienceSection() {
               whileTap={{ scale: 0.9 }}
               onClick={() => paginate(-1)}
               className="p-1.5 sm:p-2 rounded-full bg-green-500/10 border border-green-500/20 text-green-400 hover:bg-green-500/20 transition-colors"
+              aria-label="Previous experience"
             >
-              <ChevronLeft className="w-4 h-4 sm:w-6 sm:h-6" />
+              <ChevronLeft className="w-4 h-4 sm:w-6 sm:h-6" aria-hidden="true" />
             </motion.button>
 
             <div className="flex items-center gap-1.5 sm:gap-2">
@@ -216,8 +217,9 @@ export function ExperienceSection() {
               whileTap={{ scale: 0.9 }}
               onClick={() => paginate(1)}
               className="p-1.5 sm:p-2 rounded-full bg-green-500/10 border border-green-500/20 text-green-400 hover:bg-green-500/20 transition-colors"
+              aria-label="Next experience"
             >
-              <ChevronRight className="w-4 h-4 sm:w-6 sm:h-6" />
+              <ChevronRight className="w-4 h-4 sm:w-6 sm:h-6" aria-hidden="true" />
             </motion.button>
           </div>
         </div>

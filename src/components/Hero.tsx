@@ -120,7 +120,7 @@ export const Hero = memo(function Hero() {
                 whileTap={{ scale: 0.98 }}
                 aria-label="View portfolio in terminal mode"
               >
-                <Terminal className="w-4 h-4 sm:w-5 sm:h-5" />
+                <Terminal className="w-4 h-4 sm:w-5 sm:h-5" aria-hidden="true" />
                 <span>View Portfolio as Terminal</span>
               </motion.button>
 
@@ -131,7 +131,7 @@ export const Hero = memo(function Hero() {
                 whileTap={{ scale: 0.98 }}
                 aria-label="Download my CV"
               >
-                <FileDown className="w-4 h-4 sm:w-5 sm:h-5" />
+                <FileDown className="w-4 h-4 sm:w-5 sm:h-5" aria-hidden="true" />
                 <span>Download CV</span>
               </motion.button>
 
@@ -143,7 +143,7 @@ export const Hero = memo(function Hero() {
                 aria-label="Scroll to about section"
               >
                 <span>Learn more about me</span>
-                <ChevronDown className="w-4 h-4 sm:w-5 sm:h-5 group-hover:animate-bounce" />
+                <ChevronDown className="w-4 h-4 sm:w-5 sm:h-5 group-hover:animate-bounce" aria-hidden="true" />
               </motion.a>
             </div>
           </motion.div>

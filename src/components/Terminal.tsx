@@ -299,7 +299,7 @@ export function Terminal() {
               onClick={() => navigate('/')}
               className="group w-3 h-3 sm:w-4 sm:h-4 flex items-center justify-center rounded-full bg-red-500/50 hover:bg-red-500"
             >
-              <X className="w-2 h-2 text-black opacity-75 group-hover:opacity-100 transition-opacity" />
+              <X className="w-2 h-2 text-black opacity-75 group-hover:opacity-100 transition-opacity" aria-hidden="true" />
             </button>
             <div className="w-3 h-3 sm:w-4 sm:h-4 rounded-full bg-yellow-500/50" />
             <button
@@ -308,9 +308,9 @@ export function Terminal() {
               className="group w-3 h-3 sm:w-4 sm:h-4 flex items-center justify-center rounded-full bg-green-500/50 hover:bg-green-500"
             >
               {isMaximized ? (
-                <Minimize2 className="w-2 h-2 text-black opacity-75 group-hover:opacity-100 transition-opacity" />
+                <Minimize2 className="w-2 h-2 text-black opacity-75 group-hover:opacity-100 transition-opacity" aria-hidden="true" />
               ) : (
-                <Maximize2 className="w-2 h-2 text-black opacity-75 group-hover:opacity-100 transition-opacity" />
+                <Maximize2 className="w-2 h-2 text-black opacity-75 group-hover:opacity-100 transition-opacity" aria-hidden="true" />
               )}
             </button>
           </div>
@@ -388,8 +388,9 @@ export function Terminal() {
                     target="_blank"
                     rel="noopener noreferrer"
                     className="text-gray-500 hover:text-green-400 transition-colors"
+                    aria-label={link.name}
                   >
-                    <Icon className="w-3 h-3 sm:w-4 sm:h-4" />
+                    <Icon className="w-3 h-3 sm:w-4 sm:h-4" aria-hidden="true" />
                   </a>
                 );
               })}

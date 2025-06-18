@@ -35,7 +35,7 @@ export function PortfoliosSection() {
         className="container mx-auto px-4"
       >
         <h2 className="text-4xl md:text-5xl font-light mb-12 flex items-center gap-4">
-          <Link className="w-8 h-8 text-green-500" />
+          <Link className="w-8 h-8 text-green-500" aria-hidden="true" />
           <span>cat ~/profiles</span>
         </h2>
 
@@ -62,7 +62,7 @@ export function PortfoliosSection() {
                   {portfolio.description}
                 </p>
                 <div className="absolute bottom-3 right-3 text-green-500/50 group-hover:text-green-500 transition-colors">
-                  <Link className="w-5 h-5" />
+                  <Link className="w-5 h-5" aria-hidden="true" />
                 </div>
               </div>
             </motion.a>
