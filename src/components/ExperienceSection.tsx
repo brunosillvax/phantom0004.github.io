@@ -4,10 +4,24 @@ import { Calendar, Building2, ChevronLeft, ChevronRight, History } from 'lucide-
 
 const experiences = [
   {
+    title: "Junior Internal Red Team Security Engineer",
+    company: "MeDirect",
+    period: "Jul 2025 – Present",
+    description:
+      "Conduct simulated cyber attacks to assess and strengthen the bank's security posture under senior guidance.",
+    achievements: [
+      "Executed red team exercises to uncover security gaps",
+      "Collaborated with senior engineers to harden systems",
+      "Documented findings to drive remediation efforts"
+    ],
+    technologies: ["Red Teaming", "Security Testing", "Banking"]
+  },
+  {
     title: "Junior Software Developer & Cybersecurity Sales Assistant",
     company: "SG Solutions",
-    period: "Jan 2025 – Present",
-    description: "Supported cybersecurity product sales (e.g., BullWall), managed document systems (e.g., DocuWare), and contributed to client solution delivery.",
+    period: "Jan 2025 – Jul 2025",
+    description:
+      "Supported cybersecurity product sales (e.g., BullWall), managed document systems (e.g., DocuWare), and contributed to client solution delivery.",
     achievements: [
       "Assisted in implementing cybersecurity solutions for clients",
       "Completed the DTE course and applied it in documentation processes",
@@ -131,7 +145,13 @@ export function ExperienceSection() {
                 }}
                 className="absolute w-full h-full"
               >
-                <div className="h-full bg-[rgba(var(--bg-rgb),0.4)] rounded-xl p-4 sm:p-6 md:p-8 border border-green-500/20 backdrop-blur-sm overflow-y-auto">
+                <div
+                  className={`h-full bg-[rgba(var(--bg-rgb),0.4)] rounded-xl p-4 sm:p-6 md:p-8 border ${
+                    currentIndex === 0
+                      ? 'border-yellow-500 shadow-lg shadow-yellow-500/50'
+                      : 'border-green-500/20'
+                  } backdrop-blur-sm overflow-y-auto`}
+                >
                   <div className="flex flex-col h-full">
                     <div className="flex flex-col sm:flex-row sm:items-center justify-between mb-4 gap-2">
                       <div className="flex items-center gap-2 text-green-400 text-xs sm:text-sm">
@@ -206,7 +226,11 @@ export function ExperienceSection() {
                     setCurrentIndex(index);
                   }}
                   className={`w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full transition-colors ${
-                    index === currentIndex ? 'bg-green-500' : 'bg-green-500/20'
+                    index === currentIndex
+                      ? index === 0
+                        ? 'bg-yellow-500'
+                        : 'bg-green-500'
+                      : 'bg-green-500/20'
                   }`}
                 />
               ))}
