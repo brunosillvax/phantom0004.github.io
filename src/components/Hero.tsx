@@ -45,7 +45,7 @@ export const Hero = memo(function Hero() {
       className="min-h-[100svh] flex items-center justify-center pt-[var(--header-height)]"
     >
       <div className="container mx-auto px-4">
-        <div className="flex flex-col md:flex-row items-center justify-between gap-8 md:gap-12">
+        <div className="flex flex-col-reverse md:flex-row items-center justify-between gap-8 md:gap-12">
           <motion.div
             initial={reduceMotion ? false : { opacity: 0, y: 20 }}
             animate={reduceMotion ? undefined : { opacity: 1, y: 0 }}
@@ -208,6 +208,18 @@ export const Hero = memo(function Hero() {
               <div className="bubble-drop absolute -top-4 left-1/2 -translate-x-1/2 w-6 h-6 sm:w-8 sm:h-8"></div>
               <div className="bubble-drop absolute -bottom-4 left-1/2 -translate-x-1/2 w-4 h-4 sm:w-6 sm:h-6"></div>
             </motion.div>
+            <motion.div
+              className="absolute -top-4 -right-4 w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-green-400/40 backdrop-blur-sm"
+              animate={reduceMotion ? undefined : { y: [0, -10, 0] }}
+              transition={reduceMotion ? undefined : { duration: 4, repeat: Infinity }}
+              aria-hidden="true"
+            />
+            <motion.div
+              className="absolute -bottom-6 -left-4 w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-cyan-400/40 backdrop-blur-sm"
+              animate={reduceMotion ? undefined : { y: [0, 10, 0] }}
+              transition={reduceMotion ? undefined : { duration: 5, repeat: Infinity, delay: 0.5 }}
+              aria-hidden="true"
+            />
           </motion.div>
         </div>
       </div>
