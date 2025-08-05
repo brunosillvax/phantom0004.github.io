@@ -28,7 +28,7 @@ export const Hero = memo(function Hero() {
       className="min-h-[100svh] flex items-center justify-center pt-[var(--header-height)]"
     >
       <div className="container mx-auto px-4">
-        <div className="flex flex-col md:flex-row items-center justify-between gap-8 md:gap-12">
+        <div className="flex flex-col-reverse md:flex-row items-center justify-between gap-8 md:gap-12">
           <motion.div
             initial={reduceMotion ? false : { opacity: 0, y: 20 }}
             animate={reduceMotion ? undefined : { opacity: 1, y: 0 }}
@@ -166,24 +166,33 @@ export const Hero = memo(function Hero() {
             initial={reduceMotion ? false : { opacity: 0, x: 50 }}
             animate={reduceMotion ? undefined : { opacity: 1, x: 0 }}
             transition={reduceMotion ? undefined : { delay: 0.7, duration: 0.6 }}
-            className="relative hidden md:block"
+            className="relative w-40 h-40 sm:w-56 sm:h-56 md:w-80 md:h-80 mb-8 md:mb-0 mx-auto md:mx-0"
           >
-            <div className="absolute inset-0 blur-2xl opacity-30">
-              <div className="w-full h-full bg-gradient-to-r from-green-500/20 to-cyan-500/20 rounded-full"></div>
-            </div>
+            <div className="absolute inset-0 rounded-full bg-gradient-to-br from-green-500/20 to-cyan-500/20 blur-xl" aria-hidden="true"></div>
             <motion.div
-              className="relative z-10 rounded-2xl overflow-hidden shadow-xl"
+              className="relative z-10 w-full h-full rounded-full overflow-hidden shadow-xl border-2 border-green-400/30"
               whileHover={reduceMotion ? undefined : { scale: 1.02 }}
               transition={reduceMotion ? undefined : { duration: 0.3 }}
             >
               <img
                 src="/assets/portfolio_image.png"
                 alt="Daryl Gatt"
-                className="w-full max-w-xs sm:max-w-sm md:max-w-md aspect-square object-cover"
+                className="w-full h-full object-cover"
                 loading="lazy"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
             </motion.div>
+            <motion.div
+              className="absolute -top-4 -right-4 w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-green-400/40 backdrop-blur-sm"
+              animate={reduceMotion ? undefined : { y: [0, -10, 0] }}
+              transition={reduceMotion ? undefined : { duration: 4, repeat: Infinity }}
+              aria-hidden="true"
+            />
+            <motion.div
+              className="absolute -bottom-6 -left-4 w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-cyan-400/40 backdrop-blur-sm"
+              animate={reduceMotion ? undefined : { y: [0, 10, 0] }}
+              transition={reduceMotion ? undefined : { duration: 5, repeat: Infinity, delay: 0.5 }}
+              aria-hidden="true"
+            />
           </motion.div>
         </div>
       </div>

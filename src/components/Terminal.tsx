@@ -177,6 +177,42 @@ export function Terminal() {
     return contactContent.join('\n');
   };
 
+  const getExperienceData = () => {
+    const exp = [
+      '╭─ Work Experience ───────────────────────╮',
+      '│                                         ',
+      '│  MeDirect                               ',
+      '│  Junior Internal Red Team Security Eng. ',
+      '│  Jul 2025 – Present                     ',
+      '│  → Simulated cyber attacks to harden    ',
+      '│    bank defenses                        ',
+      '│                                         ',
+      '│  SG Solutions                           ',
+      '│  Junior Software Dev & Cybersecurity    ',
+      '│  Sales Assistant                        ',
+      '│  Jan 2025 – Jul 2025                    ',
+      '│  → Supported security product sales     ',
+      '│                                         ',
+      '│  Servizz.Gov                            ',
+      '│  IT Student Worker                      ',
+      '│  Jan 2024 – Dec 2024                    ',
+      '│  → Integrated Azure with Power BI       ',
+      '│                                         ',
+      '│  MITA                                   ',
+      '│  Cybersecurity SOC Tier 1 Intern        ',
+      '│  Aug 2024 – Aug 2024                    ',
+      '│  → Practiced threat hunting             ',
+      '│                                         ',
+      '│  TCTC                                   ',
+      '│  Summer Club Teacher & Mentor           ',
+      '│  Jun 2023 – Aug 2023                    ',
+      '│  → Taught Python & web basics           ',
+      '│                                         ',
+      '╰─────────────────────────────────────────╯',
+    ];
+    return exp.join('\n');
+  };
+
   const commands = useMemo(
     () =>
       createCommands({
@@ -190,6 +226,7 @@ export function Terminal() {
         getProjectsData,
         getSkillsData,
         getContactData,
+        getExperienceData,
       }),
     [navigate]
   );
