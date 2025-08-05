@@ -34,7 +34,7 @@
   }
   
   body {
-    @apply bg-[rgb(var(--bg-rgb))] text-[rgb(var(--text-rgb))] font-mono overflow-x-hidden;
+    @apply bg-[rgb(var(--bg-rgb))] text-[rgb(var(--text-rgb))] overflow-x-hidden;
     font-family: 'JetBrains Mono', monospace;
   }
 
