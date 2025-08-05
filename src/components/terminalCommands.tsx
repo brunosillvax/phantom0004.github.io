@@ -24,6 +24,7 @@ export interface CommandContext {
   getProjectsData: () => string;
   getSkillsData: () => string;
   getContactData: () => string;
+  getExperienceData: () => string;
 }
 
 export interface TerminalCommand {
@@ -44,6 +45,7 @@ export function createCommands(ctx: CommandContext): TerminalCommand[] {
     getProjectsData,
     getSkillsData,
     getContactData,
+    getExperienceData,
   } = ctx;
 
   return [
@@ -54,12 +56,13 @@ export function createCommands(ctx: CommandContext): TerminalCommand[] {
         const helpContent = [
           '╭─ Available Commands ───────────────────╮',
           '│                                       ',
-          '│  help     - Display this help message ',
-          '│  about    - Display portfolio info    ',
-          '│  projects - List project details      ',
-          '│  skills   - Display technical skills  ',
-          '│  contact  - Show contact information  ',
-          '│  ls       - List available sections   ',
+          '│  help       - Display this help message ',
+          '│  about      - Display portfolio info    ',
+          '│  experience - List work experience      ',
+          '│  projects   - List project details      ',
+          '│  skills     - Display technical skills  ',
+          '│  contact    - Show contact information  ',
+          '│  ls         - List available sections   ',
           '│  whoami   - Display current user      ',
           '│  version  - Terminal version          ',
           '│  social   - Social links              ',
@@ -96,6 +99,25 @@ export function createCommands(ctx: CommandContext): TerminalCommand[] {
             content: (
               <TypeWriter
                 text={`\n${getAboutData()}\n`}
+                onComplete={() => setIsTyping(false)}
+                speed="fast"
+              />
+            ),
+          },
+        ]);
+      },
+    },
+    {
+      name: 'experience',
+      description: 'List work experience',
+      action: () => {
+        setOutput(prev => [
+          ...prev,
+          {
+            type: 'success',
+            content: (
+              <TypeWriter
+                text={`\n${getExperienceData()}\n`}
                 onComplete={() => setIsTyping(false)}
                 speed="fast"
               />
@@ -171,7 +193,7 @@ export function createCommands(ctx: CommandContext): TerminalCommand[] {
             type: 'output',
             content: (
               <TypeWriter
-                text={'about\nprojects\nskills\ncontact'}
+                text={'about\nexperience\nprojects\nskills\ncontact'}
                 onComplete={() => setIsTyping(false)}
                 speed="fast"
               />
