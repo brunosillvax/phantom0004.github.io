@@ -1,5 +1,5 @@
-import { memo } from 'react';
-import { motion, useReducedMotion } from 'framer-motion';
+import { memo, type MouseEvent } from 'react';
+import { motion, useMotionValue, useReducedMotion, useSpring } from 'framer-motion';
 import { Terminal, ChevronDown, FileDown } from 'lucide-react';
 import Typewriter from 'typewriter-effect';
 
@@ -19,6 +19,23 @@ export const Hero = memo(function Hero() {
   };
 
   const reduceMotion = useReducedMotion();
+  const x = useMotionValue(0);
+  const y = useMotionValue(0);
+  const rotateX = useSpring(y, { stiffness: 150, damping: 20 });
+  const rotateY = useSpring(x, { stiffness: 150, damping: 20 });
+
+  const handleMouseMove = (e: MouseEvent<HTMLDivElement>) => {
+    const rect = e.currentTarget.getBoundingClientRect();
+    const relativeX = (e.clientX - rect.left - rect.width / 2) / rect.width;
+    const relativeY = (e.clientY - rect.top - rect.height / 2) / rect.height;
+    x.set(-relativeX * 10);
+    y.set(relativeY * 10);
+  };
+
+  const handleMouseLeave = () => {
+    x.set(0);
+    y.set(0);
+  };
 
   return (
     <section 
@@ -33,7 +50,7 @@ export const Hero = memo(function Hero() {
             initial={reduceMotion ? false : { opacity: 0, y: 20 }}
             animate={reduceMotion ? undefined : { opacity: 1, y: 0 }}
             transition={reduceMotion ? undefined : { delay: 0.5, duration: 0.5 }}
-            className="max-w-2xl px-4 md:px-12 text-center md:text-left space-y-6 md:space-y-8 relative"
+            className="order-2 md:order-1 max-w-2xl px-4 md:px-12 text-center md:text-left space-y-6 md:space-y-8 relative"
           >
             <div className="absolute inset-0 blur-2xl opacity-20">
               <div className="w-60 sm:w-80 h-60 sm:h-80 bg-green-500/20 rounded-full mx-auto animate-pulse"></div>
@@ -166,23 +183,30 @@ export const Hero = memo(function Hero() {
             initial={reduceMotion ? false : { opacity: 0, x: 50 }}
             animate={reduceMotion ? undefined : { opacity: 1, x: 0 }}
             transition={reduceMotion ? undefined : { delay: 0.7, duration: 0.6 }}
-            className="relative hidden md:block"
+            className="order-1 md:order-2 w-full flex justify-center mb-8 md:mb-0"
           >
-            <div className="absolute inset-0 blur-2xl opacity-30">
-              <div className="w-full h-full bg-gradient-to-r from-green-500/20 to-cyan-500/20 rounded-full"></div>
-            </div>
             <motion.div
-              className="relative z-10 rounded-2xl overflow-hidden shadow-xl"
-              whileHover={reduceMotion ? undefined : { scale: 1.02 }}
-              transition={reduceMotion ? undefined : { duration: 0.3 }}
+              className="relative w-52 h-52 sm:w-64 sm:h-64 md:w-80 md:h-80"
+              style={{ rotateX, rotateY }}
+              animate={reduceMotion ? undefined : { y: [0, -10, 0] }}
+              transition={reduceMotion ? undefined : { duration: 6, repeat: Infinity, ease: 'easeInOut' }}
+              whileHover={reduceMotion ? undefined : { scale: 1.05 }}
+              onMouseMove={reduceMotion ? undefined : handleMouseMove}
+              onMouseLeave={reduceMotion ? undefined : handleMouseLeave}
             >
-              <img
-                src="/assets/portfolio_image.png"
-                alt="Daryl Gatt"
-                className="w-full max-w-xs sm:max-w-sm md:max-w-md aspect-square object-cover"
-                loading="lazy"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
+              <div className="absolute inset-0 blur-2xl opacity-30 pointer-events-none">
+                <div className="w-full h-full bg-gradient-to-r from-green-500/20 to-cyan-500/20 rounded-full"></div>
+              </div>
+              <div className="profile-bubble w-full h-full">
+                <img
+                  src="/assets/portfolio_image.png"
+                  alt="Daryl Gatt"
+                  className="w-full h-full object-cover"
+                  loading="lazy"
+                />
+              </div>
+              <div className="bubble-drop absolute -top-4 left-1/2 -translate-x-1/2 w-6 h-6 sm:w-8 sm:h-8"></div>
+              <div className="bubble-drop absolute -bottom-4 left-1/2 -translate-x-1/2 w-4 h-4 sm:w-6 sm:h-6"></div>
             </motion.div>
           </motion.div>
         </div>
