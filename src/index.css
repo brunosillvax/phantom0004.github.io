@@ -34,7 +34,7 @@
   }
   
   body {
-    @apply bg-[rgb(var(--bg-rgb))] text-[rgb(var(--text-rgb))] font-mono overflow-x-hidden;
+    @apply bg-[rgb(var(--bg-rgb))] text-[rgb(var(--text-rgb))] overflow-x-hidden;
     font-family: 'JetBrains Mono', monospace;
   }
 
@@ -409,8 +409,29 @@
                      -0.04em -0.025em 0 #fffc00; }
   }
 
+  .profile-bubble {
+    @apply relative rounded-full overflow-hidden shadow-xl;
+    background: radial-gradient(circle at 30% 30%, rgba(255,255,255,0.4), rgba(255,255,255,0.1));
+  }
+
+  .profile-bubble::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    background: radial-gradient(circle at 75% 25%, rgba(255,255,255,0.8), transparent 60%);
+    mix-blend-mode: screen;
+    opacity: 0.6;
+    pointer-events: none;
+  }
+
+  .bubble-drop {
+    @apply rounded-full bg-white/30 backdrop-blur-sm shadow-md;
+    background: radial-gradient(circle at 30% 30%, rgba(255,255,255,0.9), rgba(255,255,255,0.2));
+  }
+
   .circuit-lines {
-    background-image: 
+    background-image:
       linear-gradient(90deg, rgba(34, 197, 94, 0.1) 1px, transparent 1px),
       linear-gradient(rgba(34, 197, 94, 0.1) 1px, transparent 1px);
     background-size: 50px 50px;
