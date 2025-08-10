@@ -104,7 +104,7 @@ export const Navigation = memo(function Navigation() {
           >
             <span className="font-light tracking-wider text-sm sm:text-base whitespace-nowrap">
               <span className="text-green-500">$</span>
-              &nbsp;daryl@portfolio:~
+              &nbsp;Bruno@portfolio:~
               <span className="terminal-cursor"></span>
             </span>
           </motion.div>

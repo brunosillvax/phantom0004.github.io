@@ -15,7 +15,7 @@ const portfolios = [
   {
     title: 'GitHub Profile',
     description: 'Explore my open-source contributions and personal projects.',
-    link: 'https://github.com/phantom0004',
+    link: 'https://github.com/brunosillvax?tab=repositories',  // <- atualizado aqui
   },
   {
     title: 'Fiverr Profile',

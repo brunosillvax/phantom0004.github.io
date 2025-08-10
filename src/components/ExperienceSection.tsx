@@ -4,66 +4,56 @@ import { Calendar, Building2, ChevronLeft, ChevronRight, History } from 'lucide-
 
 const experiences = [
   {
-    title: "Junior Internal Red Team Security Engineer",
-    company: "MeDirect",
-    period: "Jul 2025 – Present",
+    title: "Estagiário / Aprendiz",
+    company: "À definir",
+    period: "2024 – Presente",
     description:
-      "Conduct simulated cyber attacks to assess and strengthen the bank's security posture under senior guidance.",
+      "Buscando a primeira experiência profissional em desenvolvimento de software, focado em aprendizado contínuo e contribuição em projetos reais.",
     achievements: [
-      "Executed red team exercises to uncover security gaps",
-      "Collaborated with senior engineers to harden systems",
-      "Documented findings to drive remediation efforts"
+      "Participação em projetos de desenvolvimento frontend e backend",
+      "Aprimoramento contínuo em linguagens como Java, Python e JavaScript",
+      "Conhecimentos básicos em segurança da informação e automação"
     ],
-    technologies: ["Red Teaming", "Security Testing", "Banking"]
+    technologies: ["Java", "Python", "JavaScript", "API REST", "Frontend", "Backend"]
   },
   {
-    title: "Junior Software Developer & Cybersecurity Sales Assistant",
-    company: "SG Solutions",
-    period: "Jan 2025 – Jul 2025",
+    title: "Desenvolvedor API REST",
+    company: "Projeto Digital Innovation One",
+    period: "2023",
     description:
-      "Supported cybersecurity product sales (e.g., BullWall), managed document systems (e.g., DocuWare), and contributed to client solution delivery.",
+      "Desenvolvimento de uma API RESTful em Java como parte de um desafio da Digital Innovation One, demonstrando habilidades em backend e manipulação de dados.",
     achievements: [
-      "Assisted in implementing cybersecurity solutions for clients",
-      "Completed the DTE course and applied it in documentation processes",
-      "Improved internal documentation workflows for sales-related tools"
+      "Criação e implementação de endpoints REST",
+      "Manipulação de dados com Java",
+      "Testes e documentação da API"
     ],
-    technologies: ["Cybersecurity Sales", "Document Management", "Client Solutions"]
+    technologies: ["Java", "API REST", "Backend"]
   },
   {
-    title: "IT Student Worker",
-    company: "Servizz.Gov",
-    period: "Jan 2024 – Dec 2024",
-    description: "Managed and optimized services, mentored a student in Microsoft applications, and integrated Power BI and Azure solutions.",
+    title: "Desenvolvedor Frontend - Calculadora de IMC",
+    company: "Projeto pessoal",
+    period: "2023",
+    description:
+      "Projeto interativo para calcular o Índice de Massa Corporal (IMC), com manipulação do DOM e lógica em JavaScript.",
     achievements: [
-      "Integrated Microsoft Azure with Power BI for internal service reporting",
-      "Automated workflows using Microsoft Power Automate",
-      "Mentored a junior student in Microsoft services and app development"
+      "Implementação da lógica de cálculo em JavaScript",
+      "Desenvolvimento de interface responsiva usando HTML e CSS",
+      "Melhoria da experiência do usuário"
     ],
-    technologies: ["Power BI", "Power Automate", "Microsoft Azure"]
+    technologies: ["JavaScript", "HTML", "CSS", "Frontend"]
   },
   {
-    title: "Cybersecurity SOC Tier 1 Analyst (Internship)",
-    company: "MITA",
-    period: "Aug 2024 – Aug 2024",
-    description: "Completed job shadowing for threat hunting and malware analysis using Microsoft cybersecurity products in a SOC environment.",
+    title: "Desenvolvedor Frontend - Tela de Login Responsiva",
+    company: "Projeto pessoal",
+    period: "2023",
+    description:
+      "Interface de login moderna e responsiva, focada em design e usabilidade.",
     achievements: [
-      "Trained in malware analysis and threat intelligence",
-      "Performed simulated threat hunting tasks in a SOC setting",
-      "Used Microsoft security tools to assess real-world scenarios"
+      "Desenvolvimento do layout em HTML e CSS",
+      "Foco em responsividade e acessibilidade",
+      "Design simples e eficaz"
     ],
-    technologies: ["Threat Intelligence", "Malware Analysis", "Microsoft Defender"]
-  },
-  {
-    title: "Summer Club Teacher and Programming Mentor",
-    company: "TCTC",
-    period: "Jun 2023 – Aug 2023",
-    description: "Taught Python and web development to children and mentored young students in IT fundamentals and programming basics.",
-    achievements: [
-      "Designed and delivered beginner-friendly Python coding lessons",
-      "Mentored students in building basic websites using HTML/CSS",
-      "Created engaging programming exercises for summer school participants"
-    ],
-    technologies: ["Python", "Web Development", "Mentorship"]
+    technologies: ["HTML", "CSS", "Frontend"]
   }
 ];
 
@@ -205,14 +195,14 @@ export function ExperienceSection() {
             </AnimatePresence>
           </div>
 
-          {/* Navigation Controls */}
+          {/* Controles de navegação */}
           <div className="flex items-center justify-between mt-4 sm:mt-6 px-2 sm:px-4">
             <motion.button
               whileHover={{ scale: 1.1 }}
               whileTap={{ scale: 0.9 }}
               onClick={() => paginate(-1)}
               className="p-1.5 sm:p-2 rounded-full bg-green-500/10 border border-green-500/20 text-green-400 hover:bg-green-500/20 transition-colors"
-              aria-label="Previous experience"
+              aria-label="Experiência anterior"
             >
               <ChevronLeft className="w-4 h-4 sm:w-6 sm:h-6" aria-hidden="true" />
             </motion.button>
@@ -241,7 +231,7 @@ export function ExperienceSection() {
               whileTap={{ scale: 0.9 }}
               onClick={() => paginate(1)}
               className="p-1.5 sm:p-2 rounded-full bg-green-500/10 border border-green-500/20 text-green-400 hover:bg-green-500/20 transition-colors"
-              aria-label="Next experience"
+              aria-label="Próxima experiência"
             >
               <ChevronRight className="w-4 h-4 sm:w-6 sm:h-6" aria-hidden="true" />
             </motion.button>

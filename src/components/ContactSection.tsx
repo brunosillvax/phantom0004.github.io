@@ -87,7 +87,7 @@ export function ContactSection() {
           pgpContainerRef.current.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
         }
       } catch (err) {
-        console.error("Failed to copy text: ", err);
+        console.error("Falha ao copiar texto: ", err);
       }
     }
   };
@@ -122,8 +122,8 @@ export function ContactSection() {
 
   const sanitizeInput = (input: string): string => {
     return DOMPurify.sanitize(input.trim(), {
-      ALLOWED_TAGS: [], // No HTML allowed
-      ALLOWED_ATTR: [] // No attributes allowed
+      ALLOWED_TAGS: [], // Nenhuma tag HTML permitida
+      ALLOWED_ATTR: [] // Nenhum atributo permitido
     });
   };
 
@@ -141,38 +141,38 @@ export function ContactSection() {
       return;
     }
 
-    // Validate CAPTCHA
+    // Validar CAPTCHA
     if (captchaAnswer !== captcha.answer) {
-      setSubmitError('Incorrect CAPTCHA answer. Please try again.');
+      setSubmitError('Resposta do CAPTCHA incorreta. Por favor, tente novamente.');
       setCaptchaAnswer('');
       setCaptcha(generateCaptcha());
       return;
     }
 
-    // Get and sanitize form data
+    // Pegar e sanitizar dados do formulário
     const formData = new FormData(formRef.current);
     const name = sanitizeInput(formData.get('name') as string);
     const email = sanitizeInput(formData.get('email') as string);
     const message = sanitizeInput(formData.get('message') as string);
 
-    // Enhanced validation
+    // Validação avançada
     if (!name || !email || !message) {
-      setSubmitError('Please fill in all fields before submitting.');
+      setSubmitError('Por favor, preencha todos os campos antes de enviar.');
       return;
     }
 
     if (name.length > 100) {
-      setSubmitError('Name is too long (maximum 100 characters).');
+      setSubmitError('O nome é muito longo (máximo 100 caracteres).');
       return;
     }
 
     if (!validateEmail(email)) {
-      setSubmitError('Please enter a valid email address.');
+      setSubmitError('Por favor, insira um endereço de e-mail válido.');
       return;
     }
 
     if (message.length > 5000) {
-      setSubmitError('Message is too long (maximum 5000 characters).');
+      setSubmitError('A mensagem é muito longa (máximo 5000 caracteres).');
       return;
     }
 
@@ -193,7 +193,7 @@ export function ContactSection() {
           'X-Requested-With': 'XMLHttpRequest'
         },
         body: JSON.stringify(jsonData),
-        credentials: 'omit' // Don't send cookies
+        credentials: 'omit' // Não envia cookies
       });
 
       if (response.ok) {
@@ -204,11 +204,11 @@ export function ContactSection() {
         setCaptcha(generateCaptcha());
       } else {
         const errorData = await response.json();
-        setSubmitError(errorData.error || 'Something went wrong. Please try again later.');
+        setSubmitError(errorData.error || 'Algo deu errado. Por favor, tente novamente mais tarde.');
       }
     } catch (error) {
-      console.error('Error submitting form:', error);
-      setSubmitError('Something went wrong. Please try again later.');
+      console.error('Erro ao enviar formulário:', error);
+      setSubmitError('Algo deu errado. Por favor, tente novamente mais tarde.');
     } finally {
       setIsSubmitting(false);
     }
@@ -225,7 +225,7 @@ export function ContactSection() {
       >
         <h2 className="section-header text-4xl md:text-5xl font-light mb-12 flex items-center gap-4">
           <Send className="w-8 h-8 text-green-500" aria-hidden="true" />
-          <span>contact</span>
+          <span>contato</span>
         </h2>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
@@ -241,7 +241,7 @@ export function ContactSection() {
             >
               <div className="form-group">
                 <label htmlFor="name" className="block text-sm font-medium text-gray-400 mb-2">
-                  Name
+                  Nome
                 </label>
                 <input
                   type="text"
@@ -251,14 +251,14 @@ export function ContactSection() {
                   required
                   disabled={isSubmitting}
                   className="form-input w-full bg-[rgba(var(--bg-rgb),0.3)] border border-green-500/20 rounded-lg px-4 py-2 text-[rgb(var(--text-rgb))] focus:outline-none focus:border-green-500/50 disabled:opacity-50"
-                  placeholder="John Doe"
+                  placeholder="João Silva"
                   maxLength={100}
                 />
               </div>
 
               <div className="form-group">
                 <label htmlFor="email" className="block text-sm font-medium text-gray-400 mb-2">
-                  Email (Will be used for contact)
+                  Email (Será usado para contato)
                 </label>
                 <input
                   type="email"
@@ -268,14 +268,14 @@ export function ContactSection() {
                   required
                   disabled={isSubmitting}
                   className="form-input w-full bg-[rgba(var(--bg-rgb),0.3)] border border-green-500/20 rounded-lg px-4 py-2 text-[rgb(var(--text-rgb))] focus:outline-none focus:border-green-500/50 disabled:opacity-50"
-                  placeholder="john@example.com"
+                  placeholder="joao@exemplo.com"
                   maxLength={254}
                 />
               </div>
 
               <div className="form-group">
                 <label htmlFor="message" className="block text-sm font-medium text-gray-400 mb-2">
-                  Message
+                  Mensagem
                 </label>
                 <textarea
                   id="message"
@@ -283,15 +283,15 @@ export function ContactSection() {
                   required
                   disabled={isSubmitting}
                   className="form-textarea w-full bg-[rgba(var(--bg-rgb),0.3)] border border-green-500/20 rounded-lg px-4 py-2 text-[rgb(var(--text-rgb))] focus:outline-none focus:border-green-500/50 h-32 resize-none disabled:opacity-50"
-                  placeholder="Your message here..."
+                  placeholder="Sua mensagem aqui..."
                   maxLength={5000}
                 />
               </div>
 
-              {/* CAPTCHA Section */}
+              {/* Seção CAPTCHA */}
               <div className="form-group">
                 <label className="block text-sm font-medium text-gray-400 mb-2">
-                  Verify you're human
+                  Confirme que você não é um robô
                 </label>
                 <div className="flex items-center gap-4">
                   <div className="bg-[rgba(var(--bg-rgb),0.3)] border border-green-500/20 rounded-lg px-4 py-2 text-green-400">
@@ -301,7 +301,7 @@ export function ContactSection() {
                     type="text"
                     value={captchaAnswer}
                     onChange={(e) => setCaptchaAnswer(e.target.value)}
-                    placeholder="Answer"
+                    placeholder="Resposta"
                     className="form-input w-24 bg-[rgba(var(--bg-rgb),0.3)] border border-green-500/20 rounded-lg px-4 py-2 text-[rgb(var(--text-rgb))] focus:outline-none focus:border-green-500/50"
                     required
                     maxLength={5}
@@ -312,7 +312,7 @@ export function ContactSection() {
 
               {submitSuccess && (
                 <div className="text-green-500 text-sm">
-                  Message sent successfully! Thank you for reaching out.
+                  Mensagem enviada com sucesso! Obrigado por entrar em contato.
                 </div>
               )}
 
@@ -326,9 +326,9 @@ export function ContactSection() {
                 className="cyber-button w-full justify-center disabled:opacity-50 disabled:cursor-not-allowed"
               >
                 {isSubmitting ? (
-                  '[$ sending...]'
+                  '[$ enviando...]'
                 ) : (
-                  '[$ send_message]'
+                  '[$ enviar_mensagem]'
                 )}
               </button>
             </form>
@@ -343,7 +343,7 @@ export function ContactSection() {
             <div className="flex items-center justify-between mb-6">
               <div className="flex items-center gap-2 text-green-500">
                 <Key className="w-4 h-4" aria-hidden="true" />
-                <span>PGP Public Key</span>
+                <span>Chave PGP Pública</span>
               </div>
               <button 
                 onClick={handleCopyPGP}
@@ -352,12 +352,12 @@ export function ContactSection() {
                 {copied ? (
                   <>
                     <Check className="w-4 h-4" aria-hidden="true" />
-                    <span>Copied!</span>
+                    <span>Copiado!</span>
                   </>
                 ) : (
                   <>
                     <Copy className="w-4 h-4" aria-hidden="true" />
-                    <span>Copy Key</span>
+                    <span>Copiar chave</span>
                   </>
                 )}
               </button>
@@ -400,7 +400,7 @@ a2Pp+zLkCzKQA1t1hW7lkwZPwsAnB
               </div>
             </div>
             <p className="text-gray-400 mt-4">
-              For secure communication, please encrypt your message using the above PGP key.
+              Para comunicação segura, por favor encripte sua mensagem usando a chave PGP acima.
             </p>
           </motion.div>
         </div>

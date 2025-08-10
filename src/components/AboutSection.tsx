@@ -13,7 +13,7 @@ export function AboutSection() {
       >
         <h2 className="text-4xl md:text-5xl font-light mb-12 flex items-center gap-4">
           <Terminal className="w-8 h-8 text-green-500" aria-hidden="true" />
-          <span>whoami</span>
+          <span>Sobre mim</span>
         </h2>
         
         <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
@@ -21,16 +21,17 @@ export function AboutSection() {
             initial={{ opacity: 0, x: -20 }}
             whileInView={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.5, delay: 0.2 }}
-            className="space-y-6"
+            className="space-y-6 text-gray-400"
           >
-            <p className="text-gray-400 leading-relaxed">
-              Sou um <span className="text-green-400">desenvolvedor Frontend em formação</span> com paixão por tecnologia e pelo universo dos games. 
-              Tenho focado meus estudos na criação de interfaces web interativas e responsivas, aplicando criatividade em projetos desafiadores.
+            <p className="leading-relaxed">
+              Estudante de Análise e Desenvolvimento de Sistemas, apaixonado por tecnologia e programação.  
+              Tenho experiência em desenvolvimento Frontend (HTML, CSS, JavaScript) e conhecimentos em Backend (Java, Python).  
+              Busco aprendizado contínuo e inovação, participando de projetos reais e focando em segurança da informação.
             </p>
             
-            <p className="text-gray-400 leading-relaxed mt-4">
-              Atualmente aprimoro minhas habilidades em React, JavaScript e design responsivo, desenvolvendo projetos pessoais e contribuindo para repositórios open-source.
-              Busco sempre aprender novas tecnologias e aplicar boas práticas no desenvolvimento web.
+            <p className="leading-relaxed">
+              Atualmente estou aprimorando minhas habilidades em React, APIs REST, automação e análise de dados com Python.  
+              Também possuo conhecimentos básicos em ferramentas de segurança como Kali Linux, Metasploit, Nmap e SQLMap.
             </p>
           </motion.div>
           
@@ -38,7 +39,7 @@ export function AboutSection() {
             initial={{ opacity: 0, x: 20 }}
             whileInView={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.5, delay: 0.4 }}
-            className="font-mono text-sm bg-[rgba(var(--bg-rgb),0.3)] p-6 rounded-xl border border-green-500/20 shadow-lg relative group"
+            className="font-mono text-sm bg-[rgba(var(--bg-rgb),0.3)] p-6 rounded-xl border border-green-500/20 shadow-lg relative group text-gray-300"
           >
             <motion.div 
               className="ghost-ascii relative w-fit mx-auto"
@@ -76,12 +77,14 @@ export function AboutSection() {
               <div className="absolute inset-0 -z-10 opacity-20 blur-xl bg-green-500/20 rounded-full filter" />
             </motion.div>
 
-            <div className="text-gray-300 space-y-1 mt-6 relative z-10">
-              <p><span className="text-green-400">Nome:</span> Bruno Silva</p>
-              <p><span className="text-green-400">Foco:</span> Desenvolvimento Frontend, React, UI/UX</p>
-              <p><span className="text-green-400">Ferramentas:</span> React, JavaScript, Tailwind CSS, Git, GitHub</p>
-              <p><span className="text-green-400">Idiomas:</span> Português, Inglês básico</p>
-              <p><span className="text-green-400">Especialidade:</span> Criar interfaces responsivas e modernas</p>
+            <div className="space-y-1 mt-6 relative z-10">
+              <p><span className="text-green-400">Nome:</span> Bruno Sillva</p>
+              <p><span className="text-green-400">Contato:</span> brunomatias674@gmail.com | +55 32 99856-7357</p>
+              <p><span className="text-green-400">Localização:</span> Muriaé, Minas Gerais, Brasil</p>
+              <p><span className="text-green-400">Foco:</span> Desenvolvimento Frontend, Backend, Segurança da Informação</p>
+              <p><span className="text-green-400">Ferramentas:</span> React, JavaScript, Java, Python, Tailwind CSS, Git, Docker</p>
+              <p><span className="text-green-400">Idiomas:</span> Português (nativo), Inglês básico</p>
+              <p><span className="text-green-400">Projetos:</span> APIs REST, Calculadora IMC, Tela de Login Responsiva</p>
             </div>
           </motion.div>
         </div>

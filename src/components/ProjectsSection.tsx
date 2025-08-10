@@ -3,41 +3,35 @@ import { Code2, Github, ExternalLink, Star } from 'lucide-react';
 
 const projects = [
   {
-    title: 'Morpheus IOC Scanner',
-    description: 'My largest offensive security application, developed as part of my cybersecurity thesis. It uses YARA rules and VirusTotal integration to identify IOCs across the cyber kill chain.',
-    tech: ['Python', 'YARA', 'Threat Detection'],
-    github: 'https://github.com/phantom0004/morpheus_IOC_scanner',
+    title: 'Calculadora IMC Interativa',
+    description: 'Uma aplicação web para calcular o Índice de Massa Corporal com interface amigável e responsiva, usando manipulação dinâmica do DOM.',
+    tech: ['HTML', 'CSS', 'JavaScript'],
+    github: 'https://github.com/brunosillvax/Calculadora-IMC',
     featured: true
   },
   {
-    title: 'Oberon Framework',
-    description: 'A proof-of-concept remote access trojan (RAT) framework built for educational research.',
-    tech: ['Python', 'Remote Access', 'Command & Control'],
-    github: 'https://github.com/phantom0004/oberon-framework',
+    title: 'API REST para Desafios DIO',
+    description: 'API RESTful construída em Java para gerenciar dados e operações em projetos de backend, focada em boas práticas e estrutura organizada.',
+    tech: ['Java', 'API REST', 'Backend'],
+    github: 'https://github.com/brunosillvax/api-rest-dio',
   },
   {
-    title: 'PenTest Vault',
-    description: 'A collection of offensive snippets and payloads crafted for ethical hacking, CTFs, and red team simulation tasks.',
-    tech: ['Python', 'C', 'Offensive Security'],
-    github: 'https://github.com/phantom0004/PenTest_Vault',
+    title: 'Tela de Login Responsiva',
+    description: 'Interface moderna e responsiva para autenticação, com foco em usabilidade e design clean.',
+    tech: ['HTML', 'CSS'],
+    github: 'https://github.com/brunosillvax/login-page',
   },
   {
-    title: 'KRYPT0S Ransomware PoC',
-    description: 'An educational ransomware and wiper PoC demonstrating file encryption, stealth, and evasion tactics using Python.',
-    tech: ['Python', 'Cryptography', 'Persistence'],
-    github: 'https://github.com/phantom0004/KRYPT0S-Ransomware_POC',
+    title: 'Projeto Portfólio Pessoal',
+    description: 'Site de portfólio pessoal desenvolvido para apresentar habilidades e projetos, com design responsivo e interativo.',
+    tech: ['React', 'Tailwind CSS', 'JavaScript'],
+    github: 'https://github.com/brunosillvax/brunosillvax.github.io',
   },
   {
-    title: 'FuzzFindr Web Fuzzing Tool',
-    description: 'A lightweight web fuzzing tool inspired by "ffuf." Built to automate and customize web path discovery for offensive ops.',
-    tech: ['Python', 'Web Security', 'Fuzzing'],
-    github: 'https://github.com/phantom0004/FuzzFindr-Web-Fuzzing-Tool',
-  },
-  {
-    title: 'Holocron Archives',
-    description: 'A curated archive of abandoned or experimental cybersecurity tools and ideas — lessons learned, tactics preserved.',
-    tech: ['Python', 'Red Teaming', 'Archives'],
-    github: 'https://github.com/phantom0004/Cybersecurity-Holocron-Archives',
+    title: 'Estudos e Testes em Kali Linux',
+    description: 'Scripts e anotações para aprendizado prático em ferramentas de segurança ofensiva no Kali Linux.',
+    tech: ['Bash', 'Kali Linux', 'Segurança'],
+    github: 'https://github.com/brunosillvax/kali-tests',
   }
 ];
 
@@ -50,12 +44,10 @@ function ProjectCard({ project }: { project: typeof projects[0] }) {
     let x, y;
 
     if ('touches' in e) {
-      // Touch event
       const touch = e.touches[0];
       x = touch.clientX - rect.left;
       y = touch.clientY - rect.top;
     } else {
-      // Mouse event
       x = (e as React.MouseEvent).clientX - rect.left;
       y = (e as React.MouseEvent).clientY - rect.top;
     }

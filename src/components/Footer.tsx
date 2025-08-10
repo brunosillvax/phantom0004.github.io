@@ -85,7 +85,7 @@ export function Footer() {
               Built with <Heart className="w-3 h-3 sm:w-4 sm:h-4 text-red-500 animate-pulse" aria-hidden="true" /> using React
             </p>
             <p className="text-[10px] sm:text-xs opacity-60">
-              © {currentYear} Daryl Gatt
+              © {currentYear} Bruno Sillva
             </p>
           </div>
         </div>

@@ -5,14 +5,13 @@ import Typewriter from 'typewriter-effect';
 
 export const Hero = memo(function Hero() {
   const handleDownloadCV = () => {
-    // Create a link element
+    // Link direto para seu currículo
     const link = document.createElement('a');
-    link.href = '/assets/cv_document.pdf';
-    link.download = 'Daryl_Gatt_CV.pdf'; 
-    link.target = '_blank'; 
+    link.href = 'https://drive.google.com/uc?export=view&id=1-50Ik8U5UBC75nkHIXNFIxXfLqpYmD2-';
+    link.download = 'Curriculo_Bruno_Matias.pdf';
+    link.target = '_blank';
     link.rel = 'noopener noreferrer';
-    
-    // Programmatically click the link
+
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
@@ -38,10 +37,10 @@ export const Hero = memo(function Hero() {
   };
 
   return (
-    <section 
-      id="home" 
+    <section
+      id="home"
       role="banner"
-      aria-label="Welcome section"
+      aria-label="Seção de boas-vindas"
       className="min-h-[100svh] flex items-center justify-center pt-[var(--header-height)]"
     >
       <div className="container mx-auto px-4">
@@ -57,21 +56,21 @@ export const Hero = memo(function Hero() {
             </div>
 
             <h1 className="flex flex-col items-center md:items-start gap-2 md:gap-4 z-10 relative">
-              <span className="block">Hello,</span>
+              <span className="block">Olá,</span>
               <div className="flex items-center gap-2 whitespace-nowrap">
-                <span>I'm&nbsp;</span>
+                <span>Eu sou&nbsp;</span>
                 <motion.span
                   className="font-bold text-transparent bg-clip-text bg-gradient-to-r from-green-400 to-emerald-600 transition-all duration-300"
                   whileHover={
                     reduceMotion
                       ? undefined
                       : {
-                          filter: "brightness(1.5)",
+                          filter: 'brightness(1.5)',
                           textShadow: [
-                            "0 0 20px rgba(34, 197, 94, 0.7)",
-                            "0 0 35px rgba(34, 197, 94, 0.5)",
-                            "0 0 50px rgba(34, 197, 94, 0.3)"
-                          ].join(", ")
+                            '0 0 20px rgba(34, 197, 94, 0.7)',
+                            '0 0 35px rgba(34, 197, 94, 0.5)',
+                            '0 0 50px rgba(34, 197, 94, 0.3)',
+                          ].join(', '),
                         }
                   }
                   animate={
@@ -86,7 +85,7 @@ export const Hero = memo(function Hero() {
                   }
                   style={{ backgroundSize: '200% 200%' }}
                 >
-                  Daryl
+                  Bruno sillva
                 </motion.span>
                 <motion.span
                   animate={
@@ -94,7 +93,7 @@ export const Hero = memo(function Hero() {
                       ? undefined
                       : {
                           rotate: [0, 20, 0],
-                          y: [0, -10, 0]
+                          y: [0, -10, 0],
                         }
                   }
                   transition={
@@ -104,7 +103,7 @@ export const Hero = memo(function Hero() {
                   }
                   className="text-4xl inline-flex"
                   role="img"
-                  aria-label="Waving hand"
+                  aria-label="Mão acenando"
                 >
                   👋
                 </motion.span>
@@ -114,33 +113,30 @@ export const Hero = memo(function Hero() {
             <div className="text-xl md:text-2xl text-gray-400 h-12 z-10 relative font-mono flex items-center justify-center md:justify-start">
               <span className="text-green-500 mr-2 hidden md:inline">&gt;</span>
               {reduceMotion ? (
-                <span>Cybersecurity Student</span>
+                <span>Estudante de Análise e Desenvolvimento de Sistemas</span>
               ) : (
                 <Typewriter
                   options={{
                     strings: [
-                      'Cybersecurity Student',
-                      'Offensive Security Enthusiast',
-                      'Red Team Explorer',
-                      'CTF Competitor',
-                      'Python & C Developer',
-                      'Security Researcher',
+                      'Estudante de Análise e Desenvolvimento de Sistemas',
+                      'Desenvolvedor Frontend',
+                      'Entusiasta em Segurança da Informação',
+                      'Desenvolvedor Backend em Java e Python',
+                      'Criador de APIs REST',
+                      'Apaixonado por tecnologia e inovação',
                     ],
                     autoStart: true,
                     loop: true,
                     deleteSpeed: 50,
                     delay: 80,
-                    cursor: '█'
+                    cursor: '█',
                   }}
                 />
               )}
             </div>
 
             <p className="text-gray-400 max-w-3xl mx-auto md:mx-0 leading-relaxed font-light z-10 relative">
-              Welcome to my digital workspace — built with purpose and precision. I specialize in{' '}
-              <span className="text-green-400 font-medium">ethical hacking</span>,{' '}
-              <span className="text-green-400 font-medium">developing exploit-driven applications</span>, and
-              turning vulnerabilities into valuable insights.
+              Estudante dedicado com paixão por tecnologia e programação. Possuo habilidades em desenvolvimento frontend, backend e segurança da informação, buscando sempre aprendizado contínuo e inovação em projetos reais.
             </p>
 
             <div className="flex flex-col sm:flex-row items-center gap-4 z-10 relative">
@@ -149,10 +145,10 @@ export const Hero = memo(function Hero() {
                 className="cyber-button w-full sm:w-auto text-sm sm:text-base"
                 whileHover={reduceMotion ? undefined : { scale: 1.02 }}
                 whileTap={reduceMotion ? undefined : { scale: 0.98 }}
-                aria-label="View portfolio in terminal mode"
+                aria-label="Ver portfólio em modo terminal"
               >
                 <Terminal className="w-4 h-4 sm:w-5 sm:h-5" aria-hidden="true" />
-                <span>View Portfolio as Terminal</span>
+                <span>Ver portfólio no Terminal</span>
               </motion.button>
 
               <motion.button
@@ -160,10 +156,10 @@ export const Hero = memo(function Hero() {
                 className="cyber-button w-full sm:w-auto text-sm sm:text-base bg-green-500/20"
                 whileHover={reduceMotion ? undefined : { scale: 1.02 }}
                 whileTap={reduceMotion ? undefined : { scale: 0.98 }}
-                aria-label="Download my CV"
+                aria-label="Baixar meu currículo"
               >
                 <FileDown className="w-4 h-4 sm:w-5 sm:h-5" aria-hidden="true" />
-                <span>Download CV</span>
+                <span>Baixar Currículo</span>
               </motion.button>
 
               <motion.a
@@ -171,9 +167,9 @@ export const Hero = memo(function Hero() {
                 className="inline-flex items-center gap-2 text-green-500 hover:text-green-400 transition-colors group text-sm sm:text-base"
                 whileHover={reduceMotion ? undefined : { y: 5 }}
                 transition={reduceMotion ? undefined : { duration: 0.3 }}
-                aria-label="Scroll to about section"
+                aria-label="Rolar para a seção sobre"
               >
-                <span>Learn more about me</span>
+                <span>Saiba mais sobre mim</span>
                 <ChevronDown className="w-4 h-4 sm:w-5 sm:h-5 group-hover:animate-bounce" aria-hidden="true" />
               </motion.a>
             </div>
@@ -195,12 +191,12 @@ export const Hero = memo(function Hero() {
               onMouseLeave={reduceMotion ? undefined : handleMouseLeave}
             >
               <div className="absolute inset-0 blur-2xl opacity-30 pointer-events-none">
-                <div className="w-full h-full bg-gradient-to-r from-green-500/20 to-cyan-500/20 rounded-full"></div>
+                <div className="profile-bubble w-full h-full flex items-center justify-center"></div>
               </div>
               <div className="profile-bubble w-full h-full">
                 <img
                   src="/assets/portfolio_image.png"
-                  alt="Daryl Gatt"
+                  alt="Foto de Bruno Matias"
                   className="w-full h-full object-cover"
                   loading="lazy"
                 />
