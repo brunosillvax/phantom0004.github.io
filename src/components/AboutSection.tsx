@@ -24,17 +24,14 @@ export function AboutSection() {
             className="space-y-6"
           >
             <p className="text-gray-400 leading-relaxed">
-              I'm a <span className="text-green-400">cybersecurity builder</span> and <span className="text-green-400">offensive developer </span> 
-              with a strong passion for designing and deploying security-focused tools. What started as a love for programming 
-              quickly turned into a deep dive into exploitation, red teaming, and <span className="text-green-400">understanding systems by breaking them</span>.
+              Sou um <span className="text-green-400">desenvolvedor Frontend em formação</span> com paixão por tecnologia e pelo universo dos games. 
+              Tenho focado meus estudos na criação de interfaces web interativas e responsivas, aplicando criatividade em projetos desafiadores.
             </p>
             
             <p className="text-gray-400 leading-relaxed mt-4">
-              I'm currently sharpening my edge through <span className="text-green-400">offensive labs</span>, developing proof-of-concept exploits, 
-              and testing my skills in <span className="text-green-400">Capture The Flag (CTF)</span> challenges. I also contribute to 
-              open-source tooling that supports red teaming, automation, and offensive research.
+              Atualmente aprimoro minhas habilidades em React, JavaScript e design responsivo, desenvolvendo projetos pessoais e contribuindo para repositórios open-source.
+              Busco sempre aprender novas tecnologias e aplicar boas práticas no desenvolvimento web.
             </p>
-
           </motion.div>
           
           <motion.div
@@ -61,7 +58,7 @@ export function AboutSection() {
                 animate={{ y: [10, 0, 10] }}
                 transition={{ duration: 2, repeat: Infinity }}
               >
-                Boo!
+                Olá!
               </motion.div>
               <motion.pre 
                 className="text-green-500 text-center transition-colors duration-300 relative ghost-glow"
@@ -80,11 +77,11 @@ export function AboutSection() {
             </motion.div>
 
             <div className="text-gray-300 space-y-1 mt-6 relative z-10">
-               <p><span className="text-green-400">Alias:</span> Phantom</p>
-              <p><span className="text-green-400">Focus:</span> Offensive Tooling, Red Team Labs, Exploit Dev</p>
-              <p><span className="text-green-400">Toolset:</span> Kali Linux, Custom Payloads, Metasploit, Wireshark</p>
-              <p><span className="text-green-400">Languages:</span> Python, Bash, C</p>
-              <p><span className="text-green-400">Specialty:</span> Building offensive PoCs</p>
+              <p><span className="text-green-400">Nome:</span> Bruno Silva</p>
+              <p><span className="text-green-400">Foco:</span> Desenvolvimento Frontend, React, UI/UX</p>
+              <p><span className="text-green-400">Ferramentas:</span> React, JavaScript, Tailwind CSS, Git, GitHub</p>
+              <p><span className="text-green-400">Idiomas:</span> Português, Inglês básico</p>
+              <p><span className="text-green-400">Especialidade:</span> Criar interfaces responsivas e modernas</p>
             </div>
           </motion.div>
         </div>
